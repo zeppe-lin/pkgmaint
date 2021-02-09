@@ -1,0 +1,18 @@
+.TH FINDDEPS 1 "PKGMAINT-#VERSION# Manual"
+
+.SH NAME
+finddeps - find linked dependencies for a package
+
+.SH SYNOPSIS
+\fBfinddeps\fR \fIPKG\fR
+
+.SH DESCRIPTION
+\fBfinddeps\fR lists dependencies of dynamic executables and libraries
+of the installed package. It parsing the output of the \fBldd\fR(1)
+command.
+
+\fBfinddeps\fP operates on installed packages and requires
+\fBpkginfo\fR(8).
+
+.SH SEE ALSO
+\fBfindredundantdeps\fR(8), \fBpkginfo\fP(8)

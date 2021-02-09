@@ -1,0 +1,17 @@
+.TH FINDREDUNDANTDEPS 1 "PKGMAINT-#VERSION# Manual"
+
+.SH NAME
+findredundantdeps - find unnecessary dependencies of a source package
+
+.SH SYNOPSIS
+findredundantdeps \fIPKG\fR
+
+.SH DESCRIPTION
+findredundantdeps prints the full recursive dependencies of a given
+\fIPKG\fR displaying the dependencies that are already contained in
+the depending package.
+.PP
+This script requires \fBpkgman\fR(8).
+
+.SH SEE ALSO
+\fBfinddeps\fR(1), \fBpkgman\fR(1).

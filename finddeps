@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# Find dependencies of package files by looking at the output of ldd.
+# License GPLv2.
+
+export LD_LIBRARY_PATH=/lib:/usr/lib:/lib32:/usr/lib32:$LD_LIBRARY_PATH
+
+dep() {
+	while read f; do
+		[ -f /$f ] || continue
+		DEPS+=("`ldd -- "/$f" 2>/dev/null | awk '{print $3}'`")
+	done < <(pkginfo -l "$1" | awk '/(bin|sbin|lib|lib32)/{print $1}')
+
+	DEPS=(`for t in ${DEPS[*]}; do realpath $t; done | sort | uniq`)
+
+	for f in ${DEPS[*]}; do
+		pkginfo -o "$f" | awk '!/^(Package|pkginfo: no owner)/{print $1}'
+	done | sort | uniq
+}
+
+if [ -z "$1" ] || [ $# -gt 1 ]; then 
+	echo "usage: ${0##*/} PKG"
+	exit 0
+fi
+
+pkginfo -i | egrep -q "^${1} " || {
+	echo "$1 is not installed"
+	exit 1
+}
+
+dep $1
+
+# End of file.

@@ -1,0 +1,14 @@
+.TH PKGORPHAN 1 "PKGMAINT-#VERSION# Manual"
+
+.SH NAME
+pkgorhpan \- list orphaned packages on your system
+
+.SH SYNOPSIS
+.PP
+.B pkgorphan
+
+.SH DESCRIPTION
+\fIpkgorphan\fR script lists installed packages which are not present in
+the \fIpkgsrcdir\fR directories, configured in \fB/etc/pkgman.conf\fR.
+.PP
+This script requires \fBpkgman\fR(8).

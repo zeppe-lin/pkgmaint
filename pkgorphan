@@ -1,0 +1,2 @@
+#!/bin/sh
+pkgman list | awk '/not found/{print $1}'

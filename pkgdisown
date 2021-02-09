@@ -1,0 +1,54 @@
+#!/bin/sh
+# Which files are disowned by package manager?
+
+if [ "$1" = '-h' ] || [ "$1" = '--help' ]; then
+  cat <<EOH
+List files disowned by package manager.
+
+usage: `basename $0` [update]
+
+The script does the following:
+
+1. Get the packages files into /tmp/db.
+2. Get all filesystem files into /tmp/fs.
+   You can write directories that should not be involved in the process
+   in the file '/etc/pkgdisown.conf'.
+
+3. Compare the /tmp/db with /tmp/fs and show disowned files.
+
+The optional argument 'update' performs steps 1 and 2.
+Since these two steps take a long time, relative to the third step.
+EOH
+  exit
+fi
+
+if [ "$1" = 'update' ]; then
+  if [ "`id -u`" -ne 0 ]; then
+    echo "Root privileges required."
+    exit 1
+  fi
+
+  echo 'The operation take a while...'
+
+  echo '1. Get the all known files...'
+  sort -u /var/lib/pkg/db > /tmp/db
+
+  echo '2. Get the all filesystem files with some exceptions declared in /etc/pkgdisown.conf.'
+  (cd /
+  find * \( -type d -printf '%p/\n' -o -print \) \
+    | grep -vEf /etc/pkgdisown.conf | sort > /tmp/fs)
+fi
+
+if [ ! -f /tmp/fs ]; then
+  echo "File /tmp/fs missing! Try `basename $0` update"
+  exit 1
+elif [ ! -f /tmp/db ]; then
+  echo "File /tmp/db missing! Try `basename $0` update"
+  exit
+else
+  comm -23 /tmp/fs /tmp/db | less
+  rm -i /tmp/fs /tmp/db
+fi
+
+# vim:sw=2:ts=2:sts=2:et:cc=72
+# End of file

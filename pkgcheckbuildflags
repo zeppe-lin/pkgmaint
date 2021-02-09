@@ -1,0 +1,51 @@
+#!/bin/bash
+
+[ -z $1 ] && {
+  argv0=`basename $0`
+  cat <<EOF
+$argv0 -- check optimization flags in package build log.
+Usage: $argv0 PORT
+
+See /etc/pkgcheckbuildflags.conf to set detectable optimization flags.
+EOF
+  exit 1
+}
+
+name=$1
+logdir=$(dirname $(awk '/logfile /{print $2}' /etc/pkgman.conf))
+
+echo "$logdir/$name.log"
+
+perl -MTerm::ANSIColor -lne '
+BEGIN {
+  # get regex conf
+  open my $fh, "/etc/pkgcheckbuildflags.conf";
+  while (<$fh>) {
+    chomp;
+    push @regex, $_;
+  }
+  close $fh;
+}
+$legal=0;
+$catch=0;
+for $regex (@regex) {
+  if (/$regex / ) {
+    if (/^\+ sed.*$regex/) {
+      $legal++;
+      s/$regex/\e[0;93m$&\e[0m/g;
+    } else {
+      $catch++;
+      s/$&/\e[0;91m$&\e[0m/g;
+      $found{$&}=1;
+    }
+  }
+}
+print if ($legal || $catch);
+END {
+  print "\nSummary\n-------";
+  print for keys %found;
+}
+' $logdir/$name.log
+
+# vim:sw=2:ts=2:sts=2:et:cc=72
+# End of file

@@ -1,0 +1,21 @@
+#!/bin/bash -e
+. /etc/pkgmk.conf
+
+show() {
+	compiler=${CC:-gcc}
+	case "$compiler" in
+		gcc)
+			$compiler -### -E - $@ 2>&1 | sed -r '/cc1/!d;s/(")|(^.* - )//g'
+			;;
+		*)
+			echo "$compiler is not supported yet."
+			;;
+	esac
+}
+
+case "$(basename $0)" in
+	pkgmk-cflags)	show $CFLAGS	;;
+	pkgmk-cxxflags)	show $CXXFLAGS	;;
+esac
+
+# End of file

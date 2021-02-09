@@ -1,0 +1,14 @@
+.TH PKGCHECKMISSING 1 "PKGMAIN-#VERSION# Manual"
+
+.SH NAME
+pkgcheckmissing - check for missing files
+
+.SH SYNOPSIS
+pkgcheckmissing
+
+.SH DESCRIPTION
+pkgcheckmissing checks for missing files comparing the
+installed files on the system with the ones listed in
+the pkgutils database.
+.PP
+This script requires \fBpkginfo\fR(8).

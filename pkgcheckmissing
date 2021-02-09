@@ -1,0 +1,14 @@
+#!/bin/sh
+# Check for missing files.
+
+chkpkg() {
+	while read pkg _; do
+		while read file; do
+			[ -e "/$file" ] || echo "$pkg: $file"
+		done < <(pkginfo -l $pkg)
+	done
+}
+
+pkginfo -i | chkpkg
+
+# End of file.

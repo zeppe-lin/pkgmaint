@@ -1,0 +1,11 @@
+#!/bin/sh
+[ -z "$1" ] && {
+	echo "usage: ${0##*/} PKG"
+	exit 1
+}
+
+DEPS=$(pkgman dep --all $1)
+pkgman dep --all --recursive --full $1 |
+	egrep "$(echo $DEPS | tr ' ' '|')"
+
+# End of file.
