@@ -4,7 +4,7 @@
 findredundantdeps - find unnecessary dependencies of a source package
 
 .SH SYNOPSIS
-findredundantdeps \fIPKG\fR
+findredundantdeps [\fB-u\fR] \fIPKG\fR
 
 .SH DESCRIPTION
 findredundantdeps prints the full recursive dependencies of a given
@@ -12,6 +12,11 @@ findredundantdeps prints the full recursive dependencies of a given
 the depending package.
 .PP
 This script requires \fBpkgman\fR(8).
+
+.SH OPTIONS
+.TP
+.B \-u
+Sort and display only unique packages.
 
 .SH SEE ALSO
 \fBfinddeps\fR(1), \fBpkgman\fR(1).
