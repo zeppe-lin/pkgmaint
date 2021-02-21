@@ -12,24 +12,24 @@ all: finddeps.1 findredundantdeps.1 pkgcheckmissing.1 pkgorphan.1
 	sed -e "s/#VERSION#/$(VERSION)/" $< > $@
 
 install: all
-	install -Dm0755 finddeps            -t $(DESTDIR)$(BINDIR)
-	install -Dm0644 finddeps.1          -t $(DESTDIR)$(MANDIR)/man1
-	install -Dm0755 findredundantdeps   -t $(DESTDIR)$(BINDIR)
-	install -Dm0644 findredundantdeps.1 -t $(DESTDIR)$(MANDIR)/man1
-	install -Dm0755 pkgcheckmissing     -t $(DESTDIR)$(BINDIR)
-	install -Dm0644 pkgcheckmissing.1   -t $(DESTDIR)$(MANDIR)/man1
-	install -Dm0755 pkgcheckbuildflags  -t $(DESTDIR)$(BINDIR)
-	install -Dm0644 pkgcheckbuildflags.conf -t $(DESTDIR)$(ETCDIR)
-	#install -Dm0644 pkgcheckbuildflags.1   -t $(DESTDIR)$(MANDIR)/man1
-	install -Dm0755 pkgdisown           -t $(DESTDIR)$(BINDIR)
-	install -Dm0644 pkgdisown.conf      -t $(DESTDIR)$(ETCDIR)
-	#install -Dm0644 pkgdisown.1        -t $(DESTDIR)$(MANDIR)/man1
-	install -Dm0755 pkgmk-cflags        -t $(DESTDIR)$(BINDIR)
+	install -m 0755 -D -t $(DESTDIR)$(BINDIR)      finddeps
+	install -m 0644 -D -t $(DESTDIR)$(MANDIR)/man1 finddeps.1
+	install -m 0755 -D -t $(DESTDIR)$(BINDIR)      findredundantdeps
+	install -m 0644 -D -t $(DESTDIR)$(MANDIR)/man1 findredundantdeps.1
+	install -m 0755 -D -t $(DESTDIR)$(BINDIR)      pkgcheckmissing
+	install -m 0644 -D -t $(DESTDIR)$(MANDIR)/man1 pkgcheckmissing.1
+	install -m 0755 -D -t $(DESTDIR)$(BINDIR)      pkgcheckbuildflags
+	install -m 0644 -D -t $(DESTDIR)$(ETCDIR)      pkgcheckbuildflags.conf
+	#install -m 0644 -D -t $(DESTDIR)$(MANDIR)/man1 pkgcheckbuildflags.1
+	install -m 0755 -D -t $(DESTDIR)$(BINDIR)      pkgdisown
+	install -m 0644 -D -t $(DESTDIR)$(ETCDIR)      pkgdisown.conf
+	#install -m 0644 -D -t $(DESTDIR)$(MANDIR)/man1 pkgdisown.1
+	install -m 0755 -D -t $(DESTDIR)$(BINDIR)      pkgmk-cflags
 	ln -sf /usr/bin/pkgmk-cflags $(DESTDIR)$(BINDIR)/pkgmk-cxxflags
 	#install -Dm0644 pkgmk-cflagz       -t $(DESTDIR)$(MANDIR)/man1
 	#install -Dm0644 pkgmk-cxxflags     -t $(DESTDIR)$(MANDIR)/man1
-	install -Dm0755 pkgorphan           -t $(DESTDIR)$(BINDIR)
-	install -Dm0644 pkgorphan.1         -t $(DESTDIR)$(MANDIR)/man1
+	install -m 0755 -D -t $(DESTDIR)$(BINDIR)      pkgorphan
+	install -m 0644 -D -t $(DESTDIR)$(MANDIR)/man1 pkgorphan.1
 
 uninstall:
 	rm -f $(DESTDIR)$(BINDIR)/finddeps
