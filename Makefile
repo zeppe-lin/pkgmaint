@@ -14,7 +14,7 @@ MANS   = $(patsubst %.pod,%,$(wildcard *.pod))
 all: ${PROGS} ${MANS}
 
 %: %.in
-	sed -i "s/@VERSION@/${VERSION}/" $< > $@
+	sed "s/@VERSION@/${VERSION}/" $< > $@
 
 %: %.pod
 	pod2man --nourls -r ${VERSION} -c ' ' -n $(basename $@) \

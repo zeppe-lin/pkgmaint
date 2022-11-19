@@ -37,7 +37,7 @@ main() {
       SHOW_UNIQ_CMD=show_uniq
       ;;
     -v|--version)
-      echo "findredundantdeps (pkgmaint) 0.1"
+      echo "findredundantdeps (pkgmaint) @VERSION@"
       exit 0
       ;;
     -h|--help)

@@ -35,7 +35,7 @@ EOF
 }
 
 sub print_version {
-  print 'finddisappeared (pkgmaint) 0.1'."\n";
+  print "finddisappeared (pkgmaint) \@VERSION@\n";
   exit 0;
 }
 

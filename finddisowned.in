@@ -58,7 +58,7 @@ main() {
       shift
       ;;
     -v|--version)
-      echo "finddisowned (pkgmaint) 0.1"
+      echo "finddisowned (pkgmaint) @VERSION@"
       exit 0
       ;;
     -h|--help)

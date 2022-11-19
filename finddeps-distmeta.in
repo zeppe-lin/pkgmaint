@@ -86,7 +86,7 @@ EOF
 }
 
 sub print_version {
-  print 'finddeps-distmeta (pkgmaint) 0.1'."\n";
+  print "finddeps-distmeta (pkgmaint) \@VERSION@\n";
   exit 0;
 }
 

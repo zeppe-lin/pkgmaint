@@ -43,7 +43,7 @@ main() {
   while [ "$1" ]; do
     case $1 in
     -v|--version)
-      echo "finddeps-linked (pkgmaint) 0.1"
+      echo "finddeps-linked (pkgmaint) @VERSION@"
       exit 0
       ;;
     -h|--help)
