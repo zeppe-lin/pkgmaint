@@ -14,16 +14,20 @@ MANS   = $(patsubst %.pod,%,$(wildcard *.pod))
 all: ${PROGS} ${MANS}
 
 %: %.in
-	sed "s/@VERSION@/${VERSION}/" $< > $@
+	sed "s/@VERSION@/${VERSION}/" $<  >  $@
 
 %: %.pod
 	pod2man --nourls -r ${VERSION} -c ' ' -n $(basename $@) \
-		-s $(subst .,,$(suffix $@)) $< > $@
+		-s $(subst .,,$(suffix $@)) $<  >  $@
 
 install: all
-	install -m 0755 -Dt ${DESTDIR}${BINDIR}/ ${PROGS}
-	install -m 0644 -Dt ${DESTDIR}${MANDIR}/man1/ ${MANS}
-	install -m 0644 -Dt ${DESTDIR}${ETCDIR}/ finddisowned.conf
+	mkdir -p ${DESTDIR}${BINDIR}
+	mkdir -p ${DESTDIR}${ETCDIR}
+	mkdir -p ${DESTDIR}${MANDIR}/man1
+	cp -f ${PROGS} ${DESTDIR}${BINDIR}/
+	cd ${DESTDIR}${BINDIR} && chmod 0755 ${PROGS}
+	cp -f ${MANS} ${DESTDIR}${MANDIR}/man1
+	cp -f finddisowned.conf ${DESTDIR}${ETCDIR}/
 
 uninstall:
 	cd ${DESTDIR}${BINDIR}/       && rm -f ${PROGS}
