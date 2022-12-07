@@ -44,7 +44,7 @@ Martil Opel L<mo@obbl.net>
 
 =head1 SEE ALSO
 
-L<finddeps-distmeta(1)>, L<finddeps-distmeta(1)>,
+L<finddeps-distmeta(1)>, L<finddeps-linked(1)>,
 L<findredundantdeps(1)>, L<finddisowned(1)>
 
 =cut
