@@ -20,6 +20,10 @@ all: ${PROGS} ${MANS}
 	pod2man --nourls -r ${VERSION} -c ' ' -n $(basename $@) \
 		-s $(subst .,,$(suffix $@)) $<  >  $@
 
+check:
+	@podchecker *.pod
+	@grep -Eiho "https?://[^\"\\'> ]+" *.* | httpx -silent -fc 200 -sc
+
 install: all
 	mkdir -p ${DESTDIR}${BINDIR}
 	mkdir -p ${DESTDIR}${ETCDIR}
