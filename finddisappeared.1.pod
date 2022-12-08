@@ -44,8 +44,10 @@ Martil Opel L<mo@obbl.net>
 
 =head1 SEE ALSO
 
-L<finddeps-distmeta(1)>, L<finddeps-linked(1)>,
-L<findredundantdeps(1)>, L<finddisowned(1)>
+L<finddeps-distmeta(1)|https://zeppe-lin.github.io/finddeps-distmeta.1.html>,
+L<finddeps-linked(1)|https://zeppe-lin.github.io/finddeps-linked.1.html>,
+L<findredundantdeps(1)|https://zeppe-lin.github.io/findredundantdeps.1.html>,
+L<finddisowned(1)|https://zeppe-lin.github.io/finddisowned.1.html>
 
 =cut
 

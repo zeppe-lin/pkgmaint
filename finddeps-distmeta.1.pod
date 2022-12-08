@@ -71,7 +71,7 @@ unnecessary line.
 
 =head1 COPYRIGHT
 
-Copyright (c) 2022 Alexandr Savca <https://github.com/zeppe-lin>.
+Copyright (C) 2022 Alexandr Savca <alexandr.savca89@gmail.com>
 
 License GPLv3+: GNU GPL version 3 or later
 L<https://gnu.org/licenses/gpl.html>.
