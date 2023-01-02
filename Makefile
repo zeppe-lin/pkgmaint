@@ -1,44 +1,35 @@
 # pkgmaint version
-VERSION = 0.1
+VERSION  = 0.1
 
-# paths
-PREFIX = /usr/local
-BINDIR = ${PREFIX}/bin
-MANDIR = ${PREFIX}/share/man
-ETCDIR = ${PREFIX}/etc
+PROGRAMS = $(patsubst %.in,%,$(wildcard *.in))
+MANPAGES = $(patsubst %.pod,%,$(wildcard *.pod))
 
-###
-PROGS  = $(patsubst %.in,%,$(wildcard *.in))
-MANS   = $(patsubst %.pod,%,$(wildcard *.pod))
-
-all: ${PROGS} ${MANS}
+all: ${PROGRAMS} ${MANPAGES}
 
 %: %.in
-	sed "s/@VERSION@/${VERSION}/" $<  >  $@
+	sed "s/@VERSION@/${VERSION}/" $< > $@
 
 %: %.pod
 	pod2man --nourls -r ${VERSION} -c ' ' -n $(basename $@) \
-		-s $(subst .,,$(suffix $@)) $<  >  $@
+		-s $(subst .,,$(suffix $@)) $< > $@
 
 check:
+	@echo "=======> Check PODs for errors"
 	@podchecker *.pod
+	@echo "=======> Check URLs for non-200 response code"
 	@grep -Eiho "https?://[^\"\\'> ]+" *.* | httpx -silent -fc 200 -sc
 
 install: all
-	mkdir -p ${DESTDIR}${BINDIR}
-	mkdir -p ${DESTDIR}${ETCDIR}
-	mkdir -p ${DESTDIR}${MANDIR}/man1
-	cp -f ${PROGS} ${DESTDIR}${BINDIR}/
-	cd ${DESTDIR}${BINDIR} && chmod 0755 ${PROGS}
-	cp -f ${MANS} ${DESTDIR}${MANDIR}/man1
-	cp -f finddisowned.conf ${DESTDIR}${ETCDIR}/
+	mkdir -p ${DESTDIR}/usr/bin ${DESTDIR}/usr/share/man/man1
+	cp -f ${PROGRAMS} ${DESTDIR}/usr/bin
+	cd ${DESTDIR}/usr/bin && chmod 0755 ${PROGRAMS}
+	cp -f ${MANPAGES} ${DESTDIR}/usr/share/man/man1
 
 uninstall:
-	cd ${DESTDIR}${BINDIR}/       && rm -f ${PROGS}
-	cd ${DESTDIR}${MANDIR}/man1/  && rm -f ${MANS}
-	rm -f ${DESTDIR}${ETCDIR}/finddisowned.conf
+	cd ${DESTDIR}/usr/bin/             && rm -f ${PROGRAMS}
+	cd ${DESTDIR}/usr/share/man/man1/  && rm -f ${MANPAGES}
 
 clean:
-	rm -f ${PROGS} ${MANS}
+	rm -f ${PROGRAMS} ${MANPAGES}
 
 .PHONY: all install uninstall clean
