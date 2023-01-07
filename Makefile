@@ -21,10 +21,12 @@ check:
 		curl -o /dev/null -sw "%{url} [%{http_code}]\n" '{}'
 
 install: all
-	mkdir -p ${DESTDIR}/usr/bin ${DESTDIR}/usr/share/man/man1
+	mkdir -p ${DESTDIR}/usr/bin
+	mkdir -p ${DESTDIR}/usr/share/man/man1
 	cp -f ${PROGRAMS} ${DESTDIR}/usr/bin
-	cd ${DESTDIR}/usr/bin && chmod 0755 ${PROGRAMS}
 	cp -f ${MANPAGES} ${DESTDIR}/usr/share/man/man1
+	cd ${DESTDIR}/usr/bin            && chmod 0755 ${PROGRAMS}
+	cd ${DESTDIR}/usr/share/man/man1 && chmod 0644 ${MANPAGES}
 
 uninstall:
 	cd ${DESTDIR}/usr/bin            && rm -f ${PROGRAMS}
