@@ -16,8 +16,7 @@ show_uniq() {
 }
 
 error() {
-	# FIXME: >&2
-	echo "findredundantdeps: $1" >/dev/stderr
+	echo "findredundantdeps: $1" 1>&2
 }
 
 print_help() {
