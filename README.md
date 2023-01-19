@@ -1,7 +1,7 @@
 ABOUT
 -----
-This directory contains *pkgmaint*, a collection of scripts for
-*Zeppe-Lin*, mainly oriented towards package management and
+This directory contains _pkgmaint_, a collection of scripts for
+_Zeppe-Lin_, mainly oriented towards package management and
 maintaining.
 
 REQUIREMENTS
@@ -29,20 +29,18 @@ The shell command `make check` should build and start some tests.
 
 LICENSE
 -------
-*pkgmaint* is licensed through the GNU General Public License v3 or
+_pkgmaint_ is licensed through the GNU General Public License v3 or
 later <https://gnu.org/licenses/gpl.html>.
-Read the *COPYING* file for copying conditions.
-Read the *COPYRIGHT* file for copyright notices.
+Read the _COPYING_ file for copying conditions.
+Read the _COPYRIGHT_ file for copyright notices.
 
 **!!! EXCEPTIONS !!!**
-* finddisappeared.in was initially developed by Martin Opel by unknown
-  license.
+  * `finddisappeared.in` was initially developed by Martin Opel by
+    unknown license.
 
-<!------------------------------------------------------------------->
 [1]: https://github.com/zeppe-lin/pkgmk
 [2]: https://github.com/zeppe-lin/pkgutils
 [3]: https://github.com/zeppe-lin/pkgman
-<!------------------------------------------------------------------->
 
 <!-- vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 End of file. -->
