@@ -1,7 +1,6 @@
 .POSIX:
 
-# pkgmaint version
-VERSION  = 0.1
+include config.mk
 
 PROGRAMS = $(patsubst %.in,%,$(wildcard *.in))
 MANPAGES = $(patsubst %.pod,%,$(wildcard *.pod))
