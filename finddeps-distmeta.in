@@ -50,8 +50,8 @@ sub finddeps_distmeta {
             if (Module::CoreList::is_core($dep, $ver)) {
                 print BRIGHT_GREEN, "$dep: $ver (core)\n", RESET;
             } else {
-                # the dependency is perl itself and requires
-                # minimum version
+                # the dependency is perl itself and requires minimum
+                # version
                 if ($dep eq 'perl') {
                     if (version->parse($ver) <= version->parse($])) {
                         print "$dep: $ver (ok)\n";
