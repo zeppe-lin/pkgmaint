@@ -59,6 +59,7 @@ main() {
         error "option -r/--root requires an argument"
         exit 1
       fi
+      ;;
 
     -c|--config)
       if [ ! "$2" ]; then
@@ -74,6 +75,7 @@ main() {
         error "option -c/--config requires an argument"
         exit 1
       fi
+      ;;
 
     -v|--version)
       echo "finddisowned (pkgmaint) @VERSION@"
