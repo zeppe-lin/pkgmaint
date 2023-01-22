@@ -7,6 +7,8 @@ finddisowned() {
 
 	sort -u "$ROOT/var/lib/pkg/db" > "$TMPFILE1"
 
+	echo "Get paths from config..." 1>&2
+
 	#PATHS=$(xargs < "$(readlink -f "$CONF")")
 	while read -r _path; do
 		# skip comments and empty lines
@@ -14,8 +16,6 @@ finddisowned() {
 
 		PATHS="$PATHS $_path"
 	done < "$(readlink -f "$CONF")"
-
-	echo "Get paths from config..." 1>&2
 
 	(
 	cd "${ROOT:-/}" || exit 1
