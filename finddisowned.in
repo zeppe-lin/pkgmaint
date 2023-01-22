@@ -44,6 +44,7 @@ EOF
 main() {
   while [ "$1" ]; do
     case $1 in
+
     -r|--root)
       if [ ! "$2" ]; then
         error "option $1 requires an argument"
@@ -52,6 +53,13 @@ main() {
       ROOT=$2
       shift
       ;;
+    -r*|--root=*)
+      ROOT="$(echo "$1" | sed 's/^-\(-root\|r\)//')"
+      if [ ! "$ROOT" ]; then
+        error "option -r/--root requires an argument"
+        exit 1
+      fi
+
     -c|--config)
       if [ ! "$2" ]; then
         error "option $1 requires an argument"
@@ -60,6 +68,13 @@ main() {
       CONFIG=$2
       shift
       ;;
+    -c*|--config=*)
+      CONFIG="$(echo "$1" | sed 's/^-\(-config\|c\)//')"
+      if [ ! "$CONFIG" ]; then
+        error "option -c/--config requires an argument"
+        exit 1
+      fi
+
     -v|--version)
       echo "finddisowned (pkgmaint) @VERSION@"
       exit 0
@@ -68,10 +83,12 @@ main() {
       print_help
       exit 0
       ;;
+
     *)
       error "invalid option $1"
       exit 1
       ;;
+
     esac
     shift
   done
