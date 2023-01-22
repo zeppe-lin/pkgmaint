@@ -31,12 +31,10 @@ Find files that are owned by package manager but somehow disappeared.
   -v, --version     print version and exit
   -h, --help        print help and exit
 EOF
-    exit 0;
 }
 
 sub print_version {
     print "finddisappeared (pkgmaint) \@VERSION@\n";
-    exit 0;
 }
 
 sub main {
@@ -46,8 +44,8 @@ sub main {
         "h|help"    => \my $opt_help,
     ) or die "Error in command-line arguments\n";
 
-    &print_help    if $opt_help;
-    &print_version if $opt_version;
+    &print_help    and exit if $opt_help;
+    &print_version and exit if $opt_version;
 
     die "finddisappeared: invalid option @ARGV\n" if @ARGV;
 
