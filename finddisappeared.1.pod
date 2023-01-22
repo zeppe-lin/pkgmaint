@@ -24,7 +24,7 @@ too.
 
 =over 8
 
-=item B<-r>, B<--root> I<PATH>
+=item B<-r>, B<--root>=I<PATH>
 
 Specify alternate root location (default is C</>).
 
