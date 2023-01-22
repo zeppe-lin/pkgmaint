@@ -7,13 +7,13 @@ finddisowned() {
 
 	sort -u "$ROOT/var/lib/pkg/db" > "$TMPFILE1"
 
-	#PATHS=$(xargs < "$(readlink -f "$CONFIG")")
+	#PATHS=$(xargs < "$(readlink -f "$CONF")")
 	while read -r _path; do
 		# skip comments and empty lines
 		case $_path in \#* | "" ) continue ;; esac
 
 		PATHS="$PATHS $_path"
-	done < "$(readlink -f "$CONFIG")"
+	done < "$(readlink -f "$CONF")"
 
 	echo "Get paths from config..." 1>&2
 
@@ -46,35 +46,23 @@ main() {
 		case $1 in
 
 		-r|--root)
-			if [ ! "$2" ]; then
-				error "option $1 requires an argument"
-				exit 1
-			fi
 			ROOT=$2
+			[ "$ROOT" ] || die_option_error "-r/--root"
 			shift
 			;;
 		-r*|--root=*)
 			ROOT="$(echo "$1" | sed 's/^-\(-root\|r\)//')"
-			if [ ! "$ROOT" ]; then
-				error "option -r/--root requires an argument"
-				exit 1
-			fi
+			[ "$ROOT" ] || die_option_error "-r/--root"
 			;;
 
 		-c|--config)
-			if [ ! "$2" ]; then
-				error "option $1 requires an argument"
-				exit 1
-			fi
-			CONFIG=$2
+			CONF=$2
+			[ "$CONF" ] || die_option_error "-c/--config"
 			shift
 			;;
 		-c*|--config=*)
-			CONFIG="$(echo "$1" | sed 's/^-\(-config\|c\)//')"
-			if [ ! "$CONFIG" ]; then
-				error "option -c/--config requires an argument"
-				exit 1
-			fi
+			CONF="$(echo "$1" | sed 's/^-\(-config\|c\)//')"
+			[ "$CONF" ] || die_option_error "-c/--config"
 			;;
 
 		-v|--version)
@@ -95,13 +83,18 @@ main() {
 		shift
 	done
 
-	CONFIG=${CONFIG:-"$ROOT/etc/finddisowned.conf"}
-	if [ ! -e "$CONFIG" ]; then
-		error "can't find $CONFIG file"
+	CONF=${CONF:-"$ROOT/etc/finddisowned.conf"}
+	if [ ! -e "$CONF" ]; then
+		error "can't find $CONF file"
 		exit 2
 	fi
 
 	finddisowned
+}
+
+die_option_error() {
+	error "option $1 requires an argument"
+	exit 1
 }
 
 error() {
