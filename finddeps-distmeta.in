@@ -82,12 +82,10 @@ Parse perl-module's distmeta file and show dependencies.
   -v, --version   print version and exit
   -h, --help      print help and exit
 EOF
-    exit 0;
 }
 
 sub print_version {
     print "finddeps-distmeta (pkgmaint) \@VERSION@\n";
-    exit 0;
 }
 
 sub main {
@@ -96,8 +94,8 @@ sub main {
         "h|help"    => \my $opt_help,
     ) or die "Error in command-line arguments\n";
 
-    print_version() if $opt_version;
-    print_help()    if $opt_help;
+    print_version() and exit if $opt_version;
+    print_help()    and exit if $opt_help;
 
     die "Too many arguments\n" if scalar(@ARGV) > 1;
 
