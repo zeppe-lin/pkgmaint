@@ -31,8 +31,8 @@ print_help() {
 Usage: finddisowned [OPTION]
 Find files that are disowned by package manager.
 
-  -r, --root PATH     specify alternative root directory
-  -c, --config FILE   use an alternate config file
+  -c, --config=FILE   use an alternate config file
+  -r, --root=PATH     specify alternative root directory
   -v, --version       print version and exit
   -h, --help          print help and exit
 EOF
