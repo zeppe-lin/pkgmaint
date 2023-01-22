@@ -3,34 +3,34 @@
 # See COPYING and COPYRIGHT files for corresponding information.
 
 finddisowned() {
-  echo "Get all known files..." 1>&2
+	echo "Get all known files..." 1>&2
 
-  sort -u "$ROOT/var/lib/pkg/db" > "$TMPFILE1"
+	sort -u "$ROOT/var/lib/pkg/db" > "$TMPFILE1"
 
-  #PATHS=$(xargs < "$(readlink -f "$CONFIG")")
-  while read -r _path; do
-    # skip comments and empty lines
-    case $_path in \#* | "" ) continue ;; esac
+	#PATHS=$(xargs < "$(readlink -f "$CONFIG")")
+	while read -r _path; do
+		# skip comments and empty lines
+		case $_path in \#* | "" ) continue ;; esac
 
-    PATHS="$PATHS $_path"
-  done < "$(readlink -f "$CONFIG")"
+		PATHS="$PATHS $_path"
+	done < "$(readlink -f "$CONFIG")"
 
-  echo "Get paths from config..." 1>&2
+	echo "Get paths from config..." 1>&2
 
-  (
-  cd "${ROOT:-/}" || exit 1
+	(
+	cd "${ROOT:-/}" || exit 1
 
-  # Intentional.
-  # shellcheck disable=2086
-  find $PATHS \( -type d -printf '%p/\n' -o -print \) |
-    sort > "$TMPFILE2"
-  )
+	# Intentional.
+	# shellcheck disable=2086
+	find $PATHS \( -type d -printf '%p/\n' -o -print \) |
+		sort > "$TMPFILE2"
+	)
 
-  comm -23 "$TMPFILE2" "$TMPFILE1"
+	comm -23 "$TMPFILE2" "$TMPFILE1"
 }
 
 print_help() {
-  cat <<EOF
+	cat <<EOF
 Usage: finddisowned [OPTION]
 Find files that are disowned by package manager.
 
@@ -42,84 +42,84 @@ EOF
 }
 
 main() {
-  while [ "$1" ]; do
-    case $1 in
+	while [ "$1" ]; do
+		case $1 in
 
-    -r|--root)
-      if [ ! "$2" ]; then
-        error "option $1 requires an argument"
-        exit 1
-      fi
-      ROOT=$2
-      shift
-      ;;
-    -r*|--root=*)
-      ROOT="$(echo "$1" | sed 's/^-\(-root\|r\)//')"
-      if [ ! "$ROOT" ]; then
-        error "option -r/--root requires an argument"
-        exit 1
-      fi
-      ;;
+		-r|--root)
+			if [ ! "$2" ]; then
+				error "option $1 requires an argument"
+				exit 1
+			fi
+			ROOT=$2
+			shift
+			;;
+		-r*|--root=*)
+			ROOT="$(echo "$1" | sed 's/^-\(-root\|r\)//')"
+			if [ ! "$ROOT" ]; then
+				error "option -r/--root requires an argument"
+				exit 1
+			fi
+			;;
 
-    -c|--config)
-      if [ ! "$2" ]; then
-        error "option $1 requires an argument"
-        exit 1
-      fi
-      CONFIG=$2
-      shift
-      ;;
-    -c*|--config=*)
-      CONFIG="$(echo "$1" | sed 's/^-\(-config\|c\)//')"
-      if [ ! "$CONFIG" ]; then
-        error "option -c/--config requires an argument"
-        exit 1
-      fi
-      ;;
+		-c|--config)
+			if [ ! "$2" ]; then
+				error "option $1 requires an argument"
+				exit 1
+			fi
+			CONFIG=$2
+			shift
+			;;
+		-c*|--config=*)
+			CONFIG="$(echo "$1" | sed 's/^-\(-config\|c\)//')"
+			if [ ! "$CONFIG" ]; then
+				error "option -c/--config requires an argument"
+				exit 1
+			fi
+			;;
 
-    -v|--version)
-      echo "finddisowned (pkgmaint) @VERSION@"
-      exit 0
-      ;;
-    -h|--help)
-      print_help
-      exit 0
-      ;;
+		-v|--version)
+			echo "finddisowned (pkgmaint) @VERSION@"
+			exit 0
+			;;
+		-h|--help)
+			print_help
+			exit 0
+			;;
 
-    *)
-      error "invalid option $1"
-      exit 1
-      ;;
+		*)
+			error "invalid option $1"
+			exit 1
+			;;
 
-    esac
-    shift
-  done
+		esac
+		shift
+	done
 
-  CONFIG=${CONFIG:-"$ROOT/etc/finddisowned.conf"}
-  if [ ! -e "$CONFIG" ]; then
-    error "can't find $CONFIG file"
-    exit 2
-  fi
+	CONFIG=${CONFIG:-"$ROOT/etc/finddisowned.conf"}
+	if [ ! -e "$CONFIG" ]; then
+		error "can't find $CONFIG file"
+		exit 2
+	fi
 
-  finddisowned
+	finddisowned
 }
 
 error() {
-  echo "finddisowned: $1" >/dev/stderr
+	echo "finddisowned: $1" >/dev/stderr
 }
 
 interrupted() {
-  echo "=======> Aborted."
-  exit 1
+	echo "=======> Aborted."
+	exit 1
 }
 
 atexit() {
-  [ -f "$TMPFILE1" ] && rm "$TMPFILE1"
-  [ -f "$TMPFILE2" ] && rm "$TMPFILE2"
+	[ -f "$TMPFILE1" ] && rm "$TMPFILE1"
+	[ -f "$TMPFILE2" ] && rm "$TMPFILE2"
 }
 
-trap "interrupted" HUP INT QUIT TERM
-trap "atexit" EXIT
+trap "interrupted" HUP  INT  QUIT  TERM
+trap "atexit"      EXIT
 
 export LC_ALL=POSIX
 
@@ -128,5 +128,5 @@ TMPFILE2=$(mktemp)
 
 main "$@"
 
-# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# vim:cc=72:tw=70
 # End of file.
