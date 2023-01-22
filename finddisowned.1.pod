@@ -36,11 +36,11 @@ too.
 
 =over 8
 
-=item B<-c>, B<--config> I<FILE>
+=item B<-c>, B<--config>=I<FILE>
 
 Specify alternate configuration file.
 
-=item B<-r>, B<--root> I<PATH>
+=item B<-r>, B<--root>=I<PATH>
 
 Specify alternate root directory.
 
