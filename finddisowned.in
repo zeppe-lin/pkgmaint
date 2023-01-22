@@ -17,11 +17,14 @@ finddisowned() {
 
   echo "Get paths from config..." 1>&2
 
-  (cd "${ROOT:-/}" || exit 1
+  (
+  cd "${ROOT:-/}" || exit 1
+
   # Intentional.
   # shellcheck disable=2086
-  find $PATHS \( -type d -printf '%p/\n' -o -print \) \
-    | sort > "$TMPFILE2")
+  find $PATHS \( -type d -printf '%p/\n' -o -print \) |
+    sort > "$TMPFILE2"
+  )
 
   comm -23 "$TMPFILE2" "$TMPFILE1"
 }
