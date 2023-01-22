@@ -40,7 +40,7 @@ Print help and exit.
 
 =head1 AUTHORS
 
-Martil Opel L<mo@obbl.net>
+Martil Opel <L<mo@obbl.net>>
 
 =head1 SEE ALSO
 
