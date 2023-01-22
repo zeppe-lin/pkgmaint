@@ -27,7 +27,7 @@ sub print_help {
 Usage: finddisappeared [OPTION]
 Find files that are owned by package manager but somehow disappeared.
 
-  -r, --root PATH   specify alternative root location
+  -r, --root=PATH   specify alternative root location
   -v, --version     print version and exit
   -h, --help        print help and exit
 EOF
