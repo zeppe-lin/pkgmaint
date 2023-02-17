@@ -19,7 +19,7 @@ dynamic executables and libraries.
 
 B<finddeps-linked> operates on installed packages and requires
 L<ldd(1)|https://www.mankier.com/1/ldd>,
-L<pkginfo(8)|https://zeppe-lin.github.io/pkginfo.8.html> and
+L<pkginfo(1)|https://zeppe-lin.github.io/pkginfo.1.html> and
 L<pkgman(1)|https://zeppe-lin.github.io/pkgman.1.html>.
 
 =head1 OPTIONS
