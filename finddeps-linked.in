@@ -20,7 +20,7 @@ finddeps() {
     | awk '!/^(Package|pkginfo: no owner)/{print $1}'           \
     | sort | uniq
 
-  # Additional deps that can't be found be ldd(8).
+  # Additional deps that can't be found by ldd(8).
   pkginfo -l "$1" | while read -r line; do
     case $line in
     usr/share/gir-1.0/*.gir)    echo "gobject-introspection" ;;
