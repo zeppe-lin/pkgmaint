@@ -23,16 +23,16 @@ check:
 	 | sort -u
 
 install: all
-	mkdir -p ${DESTDIR}/usr/bin
-	mkdir -p ${DESTDIR}/usr/share/man/man1
-	cp -f ${PROGRAMS} ${DESTDIR}/usr/bin
-	cp -f ${MANPAGES} ${DESTDIR}/usr/share/man/man1
-	cd ${DESTDIR}/usr/bin            && chmod 0755 ${PROGRAMS}
-	cd ${DESTDIR}/usr/share/man/man1 && chmod 0644 ${MANPAGES}
+	mkdir -p ${DESTDIR}${PREFIX}/bin
+	mkdir -p ${DESTDIR}${MANPREFIX}/man1
+	cp -f ${PROGRAMS} ${DESTDIR}${PREFIX}/bin
+	cp -f ${MANPAGES} ${DESTDIR}${MANPREFIX}/man1
+	cd ${DESTDIR}${PREFIX}/bin     && chmod 0755 ${PROGRAMS}
+	cd ${DESTDIR}${MANPREFIX}/man1 && chmod 0644 ${MANPAGES}
 
 uninstall:
-	cd ${DESTDIR}/usr/bin            && rm -f ${PROGRAMS}
-	cd ${DESTDIR}/usr/share/man/man1 && rm -f ${MANPAGES}
+	cd ${DESTDIR}${PREFIX}/bin     && rm -f ${PROGRAMS}
+	cd ${DESTDIR}${MANPREFIX}/man1 && rm -f ${MANPAGES}
 
 clean:
 	rm -f ${PROGRAMS} ${MANPAGES}
