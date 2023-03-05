@@ -2,10 +2,10 @@
 
 include config.mk
 
-PROGRAMS = $(patsubst %.in,%,$(wildcard *.in))
-MANPAGES = $(patsubst %.pod,%,$(wildcard *.pod))
+PROGS = $(patsubst %.in,%,$(wildcard *.in))
+MANS = $(patsubst %.pod,%,$(wildcard *.pod))
 
-all: ${PROGRAMS} ${MANPAGES}
+all: ${PROGS} ${MANS}
 
 %: %.in
 	sed "s/@VERSION@/${VERSION}/" $< > $@
@@ -25,16 +25,16 @@ check:
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
-	cp -f ${PROGRAMS} ${DESTDIR}${PREFIX}/bin
-	cp -f ${MANPAGES} ${DESTDIR}${MANPREFIX}/man1
-	cd ${DESTDIR}${PREFIX}/bin     && chmod 0755 ${PROGRAMS}
-	cd ${DESTDIR}${MANPREFIX}/man1 && chmod 0644 ${MANPAGES}
+	cp -f ${PROGS} ${DESTDIR}${PREFIX}/bin
+	cp -f ${MANS}  ${DESTDIR}${MANPREFIX}/man1
+	cd ${DESTDIR}${PREFIX}/bin     && chmod 0755 ${PROGS}
+	cd ${DESTDIR}${MANPREFIX}/man1 && chmod 0644 ${MANS}
 
 uninstall:
-	cd ${DESTDIR}${PREFIX}/bin     && rm -f ${PROGRAMS}
-	cd ${DESTDIR}${MANPREFIX}/man1 && rm -f ${MANPAGES}
+	cd ${DESTDIR}${PREFIX}/bin     && rm -f ${PROGS}
+	cd ${DESTDIR}${MANPREFIX}/man1 && rm -f ${MANS}
 
 clean:
-	rm -f ${PROGRAMS} ${MANPAGES}
+	rm -f ${PROGS} ${MANS}
 
 .PHONY: all check install uninstall clean
