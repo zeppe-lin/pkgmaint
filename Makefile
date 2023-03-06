@@ -11,7 +11,8 @@ all: ${PROGS} ${MANS}
 	sed "s/@VERSION@/${VERSION}/" $< > $@
 
 %: %.pod
-	pod2man --nourls -r ${VERSION} -c ' ' -n $(basename $@) \
+	pod2man --nourls -r "pkgmaint ${VERSION}" -c ' ' \
+		-n $(basename $@) \
 		-s $(subst .,,$(suffix $@)) $< > $@
 
 check:
