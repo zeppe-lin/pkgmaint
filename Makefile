@@ -11,8 +11,8 @@ all: ${BIN1} ${MAN1}
 	sed "s/@VERSION@/${VERSION}/" $< > $@
 
 %: %.pod
-	pod2man --nourls -r "${NAME} ${VERSION}" -c ' ' \
-		-n $(basename $@) -s $(subst .,,$(suffix $@)) $< > $@
+	pod2man -r "${NAME} ${VERSION}" -c ' ' -n $(basename $@) \
+		-s $(subst .,,$(suffix $@)) $< > $@
 
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
