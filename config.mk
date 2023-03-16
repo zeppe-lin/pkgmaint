@@ -1,4 +1,5 @@
-# pkgmaint version
+# project metadata
+NAME = pkgmaint
 VERSION = 0.1
 
 # paths
