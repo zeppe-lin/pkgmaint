@@ -18,9 +18,7 @@ B<finddeps-linked> lists the dependencies of the installed package's
 dynamic executables and libraries.
 
 B<finddeps-linked> operates on installed packages and requires
-L<ldd(1)|https://www.mankier.com/1/ldd>,
-L<pkginfo(1)|https://zeppe-lin.github.io/pkginfo.1.html> and
-L<pkgman(1)|https://zeppe-lin.github.io/pkgman.1.html>.
+L<ldd(1)>, L<pkginfo(1)> and L<pkgman(1)>.
 
 =head1 OPTIONS
 
@@ -45,10 +43,8 @@ L<https://gnu.org/licenses/gpl.html>.
 
 =head1 SEE ALSO
 
-L<finddeps-distmeta(1)|https://zeppe-lin.github.io/finddeps-distmeta.1.html>,
-L<findredundantdeps(1)|https://zeppe-lin.github.io/findredundantdeps.1.html>,
-L<finddisappeared(1)|https://zeppe-lin.github.io/finddisappeared.1.html>,
-L<finddisowned(1)|https://zeppe-lin.github.io/finddisowned.1.html>
+L<finddeps-distmeta(1)>, L<findredundantdeps(1)>,
+L<finddisappeared(1)>, L<finddisowned(1)>
 
 =cut
 

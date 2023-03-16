@@ -78,10 +78,8 @@ L<https://gnu.org/licenses/gpl.html>.
 
 =head1 SEE ALSO
 
-L<finddeps-distmeta(1)|https://zeppe-lin.github.io/finddeps-distmeta.1.html>,
-L<finddeps-linked(1)|https://zeppe-lin.github.io/finddeps-linked.1.html>,
-L<findredundantdeps(1)|https://zeppe-lin.github.io/findredundantdeps.1.html>,
-L<finddisappeared(1)|https://zeppe-lin.github.io/finddisappeared.1.html>
+L<finddeps-distmeta(1)>, L<finddeps-linked(1)>,
+L<findredundantdeps(1)>, L<finddisappeared(1)>
 
 =cut
 

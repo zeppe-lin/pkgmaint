@@ -14,18 +14,11 @@ all: ${PROGS} ${MANS}
 	pod2man --nourls -r "pkgmaint ${VERSION}" -c ' ' \
 		-n $(basename $@) -s $(subst .,,$(suffix $@)) $< > $@
 
-check:
-	@echo "=======> Check PODs for errors"
-	@podchecker *.pod
-	@echo "=======> Check URLs for response code"
-	@grep -Eiho "https?://[^\"\\'> ]+" *.*       \
-		| xargs -P10 -I{} curl -o /dev/null  \
-		  -sw "[%{http_code}] %{url}\n" '{}' \
-		| sort -u
-
-install: all
+install-dirs:
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
+
+install: all install-dirs
 	cp -f ${PROGS} ${DESTDIR}${PREFIX}/bin
 	cp -f ${MANS}  ${DESTDIR}${MANPREFIX}/man1
 	cd ${DESTDIR}${PREFIX}/bin     && chmod 0755 ${PROGS}
@@ -38,4 +31,4 @@ uninstall:
 clean:
 	rm -f ${PROGS} ${MANS}
 
-.PHONY: all check install uninstall clean
+.PHONY: all install-dirs install uninstall clean

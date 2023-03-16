@@ -19,7 +19,7 @@ package displaying the dependencies that are already contained in the
 depending package.
 
 B<findredundantdeps> operates on packages sources in the pkgsrc tree
-and requires L<pkgman(1)|https://zeppe-lin.github.io/pkgman.1.html>.
+and requires L<pkgman(1)>.
 
 =head1 OPTIONS
 
@@ -48,10 +48,8 @@ L<https://gnu.org/licenses/gpl.html>.
 
 =head1 SEE ALSO
 
-L<finddeps-distmeta(1)|https://zeppe-lin.github.io/finddeps-distmeta.1.html>,
-L<finddeps-linked(1)|https://zeppe-lin.github.io/finddeps-linked.1.html>,
-L<finddisappeared(1)|https://zeppe-lin.github.io/finddisappeared.1.html>,
-L<finddisowned(1)|https://zeppe-lin.github.io/finddisowned.1.html>
+L<finddeps-distmeta(1)>, L<finddeps-linked(1)>, L<finddisappeared(1)>,
+L<finddisowned(1)>
 
 =cut
 
