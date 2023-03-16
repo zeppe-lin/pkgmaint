@@ -2,33 +2,31 @@
 
 include config.mk
 
-PROGS = $(patsubst %.in,%,$(wildcard *.in))
-MANS = $(patsubst %.pod,%,$(wildcard *.pod))
+BIN1 = $(subst .in,,$(wildcard *.in))
+MAN1 = $(subst .1.pod,.1,$(wildcard *.pod))
 
-all: ${PROGS} ${MANS}
+all: ${BIN1} ${MAN1}
 
 %: %.in
 	sed "s/@VERSION@/${VERSION}/" $< > $@
 
 %: %.pod
-	pod2man --nourls -r "pkgmaint ${VERSION}" -c ' ' \
+	pod2man --nourls -r "${NAME} ${VERSION}" -c ' ' \
 		-n $(basename $@) -s $(subst .,,$(suffix $@)) $< > $@
 
-install-dirs:
+install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
-
-install: all install-dirs
-	cp -f ${PROGS} ${DESTDIR}${PREFIX}/bin
-	cp -f ${MANS}  ${DESTDIR}${MANPREFIX}/man1
-	cd ${DESTDIR}${PREFIX}/bin     && chmod 0755 ${PROGS}
-	cd ${DESTDIR}${MANPREFIX}/man1 && chmod 0644 ${MANS}
+	cp -f ${BIN1} ${DESTDIR}${PREFIX}/bin
+	cp -f ${MAN1} ${DESTDIR}${MANPREFIX}/man1
+	cd ${DESTDIR}${PREFIX}/bin     && chmod 0755 ${BIN1}
+	cd ${DESTDIR}${MANPREFIX}/man1 && chmod 0644 ${MAN1}
 
 uninstall:
-	cd ${DESTDIR}${PREFIX}/bin     && rm -f ${PROGS}
-	cd ${DESTDIR}${MANPREFIX}/man1 && rm -f ${MANS}
+	cd ${DESTDIR}${PREFIX}/bin     && rm -f ${BIN1}
+	cd ${DESTDIR}${MANPREFIX}/man1 && rm -f ${MAN1}
 
 clean:
-	rm -f ${PROGS} ${MANS}
+	rm -f ${BIN1} ${MAN1}
 
-.PHONY: all install-dirs install uninstall clean
+.PHONY: all install uninstall clean
