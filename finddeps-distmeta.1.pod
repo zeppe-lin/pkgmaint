@@ -69,13 +69,6 @@ F<Pkgfile> when you're building the package:
 So, you can check the output, fix "Depends on:" field and remove
 unnecessary line.
 
-=head1 COPYRIGHT
-
-Copyright (C) 2022-2023 Alexandr Savca <alexandr.savca89@gmail.com>
-
-License GPLv3+: GNU GPL version 3 or later
-L<https://gnu.org/licenses/gpl.html>.
-
 =head1 SEE ALSO
 
 L<finddeps-linked(1)>, L<findredundantdeps(1)>
