@@ -1,5 +1,3 @@
-# See COPYING and COPYRIGHT files for corresponding information.
-
 =pod
 
 =encoding UTF-8
@@ -39,13 +37,6 @@ Print help and exit.
 
 =back
 
-=head1 COPYRIGHT
-
-Copyright (C) 2021-2023 Alexandr Savca <alexandr.savca89@gmail.com>
-
-License GPLv3+: GNU GPL version 3 or later
-L<https://gnu.org/licenses/gpl.html>.
-
 =head1 SEE ALSO
 
 L<finddeps-distmeta(1)>, L<finddeps-linked(1)>, L<finddisappeared(1)>,
@@ -53,5 +44,5 @@ L<finddisowned(1)>
 
 =cut
 
-# vim:cc=72:tw=70
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 # End of file.
