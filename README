@@ -15,7 +15,9 @@ REQUIREMENTS
 		* POSIX sh(1p) and "mandatory utilities"
 		* YAML::XS perl module and perl itself
 		* GNU findutils
-		* pkgmk, pkgutils and pkgman
+		* pkgmk
+		* pkgutils
+		* pkgman
 
 INSTALL
 
