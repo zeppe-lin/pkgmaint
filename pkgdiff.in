@@ -1,0 +1,97 @@
+#!/bin/sh -e
+# See COPYING and COPYRIGHT files for corresponding information.
+
+pkgdiff() {
+	[ -f "$1" ] || dfatal "file '$1' not found"
+	[ -f "$2" ] || dfatal "file '$2' not found"
+
+	TMPFILE1=$(mktemp) || exit 99
+	TMPFILE2=$(mktemp) || exit 99
+
+	pkginfo --footprint="$1" > "$TMPFILE1"
+	pkginfo --footprint="$2" > "$TMPFILE2"
+
+	diff $COLOR -d -u "$TMPFILE1" "$TMPFILE2" |
+		sed -e "1s,$TMPFILE1,$1,;2s,$TMPFILE2,$2,"
+}
+
+dfatal() {
+	echo "pkgdiff: $1" >&2
+	exit 1
+}
+
+print_help() {
+	cat <<EOF
+Usage: pkgdiff [OPTION] FILE1 FILE2
+Compare software packages' footprints.
+
+  -c, --color     color output
+  -v, --version   print version and exit
+  -h, --help      print help and exit
+EOF
+}
+
+parse_options() {
+	while [ "$1" ]; do
+		case $1 in
+		-c|--color)
+			COLOR='--color=always'
+			;;
+		-v|--version)
+			echo "pkgdiff (pkgutils) @VERSION@"
+			exit 0
+			;;
+		-h|--help)
+			print_help
+			exit 0
+			;;
+		*-)
+			dfatal "invalid option $1"
+			;;
+		*)
+			PKGLIST="$PKGLIST $1"
+			;;
+		esac
+		shift
+	done
+
+	# Only two files arguments are required.
+	if [ "$(echo "$PKGLIST" | wc -w)" != 2 ]; then
+		echo "pkgdiff: too many arguments"
+		exit 1
+	fi
+}
+
+main() {
+	parse_options "$@"
+	pkgdiff $PKGLIST
+
+	exit 0
+}
+
+atexit() {
+	[ -f "$TMPFILE1" ] && rm "$TMPFILE1"
+	[ -f "$TMPFILE2" ] && rm "$TMPFILE2"
+}
+
+interrupted() {
+	echo
+	echo "=======> Aborted."
+	exit 1
+}
+
+# Set exit hooks.
+trap "interrupted" HUP  INT  QUIT  TERM
+trap "atexit"      EXIT
+
+export LC_ALL=POSIX
+
+# Global variables.
+PKGLIST=
+COLOR=
+TMPFILE1=
+TMPFILE2=
+
+main $@
+
+# End of file.

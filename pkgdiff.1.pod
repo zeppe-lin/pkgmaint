@@ -1,0 +1,45 @@
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+pkgdiff - compare software packages' footprints
+
+=head1 SYNOPSIS
+
+B<pkgdiff> [I<OPTION>] I<FILE1> I<FILE2>
+
+=head1 DESCRIPTION
+
+B<pkgdiff> searchs which files are new and which are removed between
+two software packages.
+
+B<pkgdiff> operates on binary packages and requires L<pkginfo(1)>.
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<-c>, B<--color>
+
+Color output.
+
+=item B<-v>, B<--version>
+
+Print version and exit.
+
+=item B<-h>, B<--help>
+
+Print help and exit.
+
+=back
+
+=head1 SEE ALSO
+
+L<pkginfo(1)>
+
+=cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.
