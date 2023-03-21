@@ -38,7 +38,7 @@ parse_options() {
 			COLOR='--color=always'
 			;;
 		-v|--version)
-			echo "pkgdiff (pkgutils) @VERSION@"
+			echo "pkgdiff (pkgmaint) @VERSION@"
 			exit 0
 			;;
 		-h|--help)
