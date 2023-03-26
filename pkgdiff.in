@@ -72,11 +72,14 @@ main() {
 	exit 0
 }
 
+# Don't warn about unreachable commands in these functions,
+# see trap(1p).
+# shellcheck disable=2317
 atexit() {
 	[ -f "$TMPFILE1" ] && rm "$TMPFILE1"
 	[ -f "$TMPFILE2" ] && rm "$TMPFILE2"
 }
-
+# shellcheck disable=2317
 interrupted() {
 	echo
 	echo "=======> Aborted."
