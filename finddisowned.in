@@ -3,6 +3,11 @@
 # See COPYING and COPYRIGHT files for corresponding information.
 
 finddisowned() {
+	# https://tldp.org/LDP/abs/html/exitcodes.html
+	# 126 - Command invoked cannot execute.
+	TMPFILE1=$(mktemp) || exit 126
+	TMPFILE2=$(mktemp) || exit 126
+
 	echo "Get all known files..." 1>&2
 
 	sort -u "$ROOT/var/lib/pkg/db" > "$TMPFILE1"
@@ -116,8 +121,8 @@ trap "atexit"      EXIT
 
 export LC_ALL=POSIX
 
-TMPFILE1=$(mktemp)
-TMPFILE2=$(mktemp)
+TMPFILE1=
+TMPFILE2=
 
 main "$@"
 
