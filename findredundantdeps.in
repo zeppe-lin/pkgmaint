@@ -15,10 +15,6 @@ show_uniq() {
 	tr ' ' '\n' | sort | uniq -u
 }
 
-error() {
-	echo "findredundantdeps: $1" 1>&2
-}
-
 print_help() {
 	cat <<EOF
 Usage: findredundantdeps [OPTION] PKGNAME
@@ -45,7 +41,7 @@ main() {
 			exit 0
 			;;
 		-*)
-			error "invalid option $1"
+			echo >&2 "findredundantdeps: invalid option $1"
 			exit 1
 			;;
 		*)
@@ -56,7 +52,7 @@ main() {
 	done
 
 	if [ -z "$PKGNAME" ]; then
-		error "option missing"
+		echo >&2 "findredundantdeps: option missing"
 		exit 2
 	fi
 
