@@ -95,6 +95,6 @@ COLOR=
 TMPFILE1=
 TMPFILE2=
 
-main $@
+main "$@"
 
 # End of file.
