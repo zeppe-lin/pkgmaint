@@ -64,6 +64,9 @@ parse_options() {
 
 main() {
 	parse_options "$@"
+
+	# Intentional.
+	# shellcheck disable=2086
 	pkgdiff $PKGLIST
 
 	exit 0
