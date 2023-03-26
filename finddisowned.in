@@ -46,32 +46,39 @@ Find files that are disowned by package manager.
 EOF
 }
 
+assert_option_has_arg() {
+	if [ ! "$1" ]; then
+		echo >&2 "$PROGRAM: option $2 requires an argument"
+		exit 1
+	fi
+}
+
 main() {
 	while [ "$1" ]; do
 		case $1 in
 
 		-r|--root)
 			ROOT=$2
-			[ "$ROOT" ] || die_option_error "-r/--root"
+			assert_option_has_arg "$ROOT" "-r/--root"
 			shift
 			;;
 		-r*|--root=*)
 			ROOT="$(echo "$1" | sed 's/^-\(-root\|r\)//')"
-			[ "$ROOT" ] || die_option_error "-r/--root"
+			assert_option_has_arg "$ROOT" "-r/--root"
 			;;
 
 		-c|--config)
 			CONF=$2
-			[ "$CONF" ] || die_option_error "-c/--config"
+			assert_option_has_arg "$CONF" "-c/--config"
 			shift
 			;;
 		-c*|--config=*)
 			CONF="$(echo "$1" | sed 's/^-\(-config\|c\)//')"
-			[ "$CONF" ] || die_option_error "-c/--config"
+			assert_option_has_arg "$CONF" "-c/--config"
 			;;
 
 		-v|--version)
-			echo "finddisowned (pkgmaint) @VERSION@"
+			echo "$PROGRAM (pkgmaint) @VERSION@"
 			exit 0
 			;;
 		-h|--help)
@@ -80,7 +87,7 @@ main() {
 			;;
 
 		*)
-			error "invalid option $1"
+			echo >&2 "$PROGRAM: invalid option $1"
 			exit 1
 			;;
 
@@ -90,20 +97,11 @@ main() {
 
 	CONF=${CONF:-"$ROOT/etc/finddisowned.conf"}
 	if [ ! -e "$CONF" ]; then
-		error "can't find $CONF file"
+		echo >&2 "$PROGRAM: can't find $CONF file"
 		exit 2
 	fi
 
 	finddisowned
-}
-
-die_option_error() {
-	error "option $1 requires an argument"
-	exit 1
-}
-
-error() {
-	echo "finddisowned: $1" >/dev/stderr
 }
 
 interrupted() {
@@ -121,6 +119,8 @@ trap "atexit"      EXIT
 
 export LC_ALL=POSIX
 
+# Globals.
+readonly PROGRAM="${0##*/}"
 TMPFILE1=
 TMPFILE2=
 
