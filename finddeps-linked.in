@@ -2,8 +2,6 @@
 # This file is part of pkgmaint.
 # See COPYING and COPYRIGHT files for corresponding information.
 
-export LD_LIBRARY_PATH="/lib:/usr/lib:/lib32:/usr/lib32:$LD_LIBRARY_PATH"
-
 finddeps() {
 	# https://tldp.org/LDP/abs/html/exitcodes.html
 	# 126 - Command invoked cannot execute.
@@ -88,19 +86,27 @@ atexit() {
 }
 
 trap "interrupted" HUP INT QUIT TERM
-trap "atexit" EXIT
+trap "atexit"      EXIT
+
+######################################################################
+# Global variables.                                                  #
+######################################################################
 
 export LC_ALL=POSIX
+export LD_LIBRARY_PATH="/lib:/usr/lib:/lib32:/usr/lib32:$LD_LIBRARY_PATH"
 
 readonly PROGRAM=finddeps-linked
 
 # Adjust to suckless core.
 if command -v nproc >/dev/null 2>&1; then
-	JOBS=$(nproc)                           # gnu coreutils
+	# GNU coreutils
+	JOBS=$(nproc)
 elif getconf _NPROCESSORS_ONLN >/dev/null 2>&1; then
-	JOBS=$(getconf _NPROCESSORS_ONLN)       # suckless sbase
+	# suckless sbase
+	JOBS=$(getconf _NPROCESSORS_ONLN)
 else
-	JOBS=$(grep -c processor /proc/cpuinfo) # linuxism
+	# linuxism
+	JOBS=$(grep -c processor /proc/cpuinfo)
 fi
 
 TMPFILE1=
