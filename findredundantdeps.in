@@ -17,7 +17,7 @@ show_uniq() {
 
 print_help() {
 	cat <<EOF
-Usage: findredundantdeps [OPTION] PKGNAME
+Usage: $PROGRAM [OPTION] PKGNAME
 Find (un)necessary dependencies of the package.
 
   -u, --unique    print only unique (required) dependencies
@@ -33,7 +33,7 @@ main() {
 			SHOW_UNIQ_CMD=show_uniq
 			;;
 		-v|--version)
-			echo "findredundantdeps (pkgmaint) @VERSION@"
+			echo "$PROGRAM (pkgmaint) @VERSION@"
 			exit 0
 			;;
 		-h|--help)
@@ -41,7 +41,7 @@ main() {
 			exit 0
 			;;
 		-*)
-			echo >&2 "findredundantdeps: invalid option $1"
+			echo >&2 "$PROGRAM: invalid option $1"
 			exit 1
 			;;
 		*)
@@ -52,12 +52,15 @@ main() {
 	done
 
 	if [ -z "$PKGNAME" ]; then
-		echo >&2 "findredundantdeps: option missing"
-		exit 2
+		echo >&2 "$PROGRAM: option missing"
+		exit 1
 	fi
 
 	findredundantdeps "$PKGNAME" | ${SHOW_UNIQ_CMD:-cat}
 }
+
+export LC_ALL=POSIX
+readonly PROGRAM="${0##*/}"
 
 main "$@"
 
