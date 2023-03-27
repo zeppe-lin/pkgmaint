@@ -1,5 +1,5 @@
 #!/bin/sh
-# This file is a part of pkgmaint.
+# This file is part of pkgmaint.
 # See COPYING and COPYRIGHT files for corresponding information.
 
 export LD_LIBRARY_PATH="/lib:/usr/lib:/lib32:/usr/lib32:$LD_LIBRARY_PATH"
