@@ -105,7 +105,8 @@ main() {
 }
 
 interrupted() {
-	echo "=======> Aborted."
+	echo >&2 ""
+	echo >&2 "=======> Aborted."
 	exit 1
 }
 
