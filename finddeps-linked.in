@@ -35,7 +35,7 @@ finddeps() {
 
 print_help() {
 	cat <<EOF
-Usage: finddeps-linked [OPTION] PKGNAME
+Usage: $PROGRAM [OPTION] PKGNAME
 Find linked dependencies for a package.
 
   -v, --version   print version and exit
@@ -47,7 +47,7 @@ main() {
 	while [ "$1" ]; do
 		case $1 in
 		-v|--version)
-			echo "finddeps-linked (pkgmaint) @VERSION@"
+			echo "$PROGRAM (pkgmaint) @VERSION@"
 			exit 0
 			;;
 		-h|--help)
@@ -55,7 +55,7 @@ main() {
 			exit 0
 			;;
 		-*)
-			echo "finddeps-linked: invalid option $1"
+			echo >&2 "$PROGRAM: invalid option $1"
 			exit 1
 			;;
 		*)
@@ -66,19 +66,19 @@ main() {
 	done
 
 	if [ -z "$PKGNAME" ]; then
-		echo "finddeps-linked: option missing"
-		exit 2
+		echo >&2 "$PROGRAM: option missing"
+		exit 1
 	elif ! pkgman isinst "$PKGNAME" >/dev/null 2>&1; then
-		echo "finddeps-linked: $PKGNAME is not installed"
-		exit 3
+		echo >&2 "$PROGRAM: $PKGNAME is not installed"
+		exit 1
 	fi
 
 	finddeps "$PKGNAME"
 }
 
 interrupted() {
-	echo
-	echo "=======> Aborted."
+	echo >&2 ""
+	echo >&2 "=======> Aborted."
 	exit 1
 }
 
@@ -91,6 +91,8 @@ trap "interrupted" HUP INT QUIT TERM
 trap "atexit" EXIT
 
 export LC_ALL=POSIX
+
+readonly PROGRAM=finddeps-linked
 
 # Adjust to suckless core.
 if command -v nproc >/dev/null 2>&1; then
