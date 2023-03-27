@@ -1,5 +1,5 @@
 #!/bin/sh
-# This file is a part of pkgmaint.
+# This file is part of pkgmaint.
 # See COPYING and COPYRIGHT files for corresponding information.
 
 finddisowned() {
@@ -25,7 +25,7 @@ finddisowned() {
 	(
 	cd "${ROOT:-/}" || exit 1
 
-	# Intentional.
+	# Intentional word splitting for PATHS.
 	# shellcheck disable=2086
 	find $PATHS \( -type d -printf '%p/\n' -o -print \) |
 		sort > "$TMPFILE2"
