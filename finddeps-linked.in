@@ -5,6 +5,11 @@
 export LD_LIBRARY_PATH="/lib:/usr/lib:/lib32:/usr/lib32:$LD_LIBRARY_PATH"
 
 finddeps() {
+	# https://tldp.org/LDP/abs/html/exitcodes.html
+	# 126 - Command invoked cannot execute.
+	TMPFILE1=$(mktemp) || exit 126
+	TMPFILE2=$(mktemp) || exit 126
+
 	# XXX FIXME awk not working?!
 	pkginfo -l "$1" | awk '/(bin|sbin|lib|lib32)/{print $1}'      |
 		xargs -I {} -P "${JOBS:-1}" ldd -- "/{}" 2>/dev/null  |
@@ -96,8 +101,8 @@ else
 	JOBS=$(grep -c processor /proc/cpuinfo) # linuxism
 fi
 
-TMPFILE1=$(mktemp) || exit 1
-TMPFILE2=$(mktemp) || exit 1
+TMPFILE1=
+TMPFILE2=
 
 main "$@"
 
