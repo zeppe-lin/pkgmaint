@@ -11,6 +11,8 @@ pkgdiff() {
 	pkginfo --footprint="$1" > "$TMPFILE1"
 	pkginfo --footprint="$2" > "$TMPFILE2"
 
+	# Intentional word splitting for $COLOR.
+	# shellcheck disable=2086
 	diff $COLOR -d -u "$TMPFILE1" "$TMPFILE2" |
 		sed -e "1s,$TMPFILE1,$1,;2s,$TMPFILE2,$2,"
 }
