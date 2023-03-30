@@ -4,7 +4,7 @@
 
 =head1 NAME
 
-finddeps-distmeta - parse perl-module's distmeta file and find
+finddeps-distmeta - parse Perl-module's distmeta file and find
 dependencies
 
 =head1 SYNOPSIS
@@ -14,8 +14,8 @@ B<finddeps-distmeta> [I<OPTION>] [FILE]
 =head1 DESCRIPTION
 
 B<finddeps-distmeta> parses so-called "distmeta" (CPAN distribution
-metadata) of perl-module and find dependencies.  It shows dependencies
-that are in the core perl distribution and searchs missing modules
+metadata) of Perl-module and find dependencies.  It shows dependencies
+that are in the core Perl distribution and searches missing modules
 in the existing installed p5-* packages.
 
 Currently, B<finddeps-distmeta> parses only F<META.yml> file, which
@@ -46,12 +46,12 @@ Print help and exit.
 =head1 EXAMPLES
 
 The typical usage of B<finddeps-distmeta> is to call it from the
-perl's module directory:
+Perl's module directory:
 
   cd /var/cache/pkgmk/sources/URI-5.17
   finddeps-distmeta
 
-Or to specify the location of META.yml file manually:
+Or to specify the location of F<META.yml> file manually:
 
   finddeps-distmeta /var/cache/pkgmk/source/URI-5.17/META.yml
 
