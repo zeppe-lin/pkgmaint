@@ -1,7 +1,0 @@
-TODO pkgmaint
-
-	[ ] Add footprintchk.in and corresponding man page, an utility to
-	check pkgsrc's footprints for typical errors.  Use pkgsrc's Makefile as
-	a template.
-
-End of file.
