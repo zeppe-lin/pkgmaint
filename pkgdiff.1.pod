@@ -19,7 +19,7 @@ B<pkgdiff> operates on binary packages and requires L<pkginfo(1)>.
 
 =head1 OPTIONS
 
-=over 8
+=over 15
 
 =item B<-c>, B<--color>
 
