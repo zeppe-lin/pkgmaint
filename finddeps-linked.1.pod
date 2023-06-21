@@ -20,7 +20,7 @@ L<ldd(1)>, L<pkginfo(1)> and L<pkgman(1)>.
 
 =head1 OPTIONS
 
-=over 8
+=over 15
 
 =item B<-v>, B<--version>
 
