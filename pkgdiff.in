@@ -5,8 +5,10 @@ pkgdiff() {
 	[ -f "$1" ] || dfatal "file '$1' not found"
 	[ -f "$2" ] || dfatal "file '$2' not found"
 
-	TMPFILE1=$(mktemp) || exit 99
-	TMPFILE2=$(mktemp) || exit 99
+	# https://tldp.org/LDP/abs/html/exitcodes.html
+	# 126 - Command invoked cannot execute.
+	TMPFILE1=$(mktemp) || exit 126
+	TMPFILE2=$(mktemp) || exit 126
 
 	pkginfo --footprint="$1" > "$TMPFILE1"
 	pkginfo --footprint="$2" > "$TMPFILE2"
