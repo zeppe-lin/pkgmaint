@@ -1,4 +1,5 @@
 #!/bin/sh -e
+# This file is part of pkgmaint.
 # See COPYING and COPYRIGHT files for corresponding information.
 
 pkgdiff() {
