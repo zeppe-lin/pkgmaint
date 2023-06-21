@@ -35,6 +35,10 @@ Print help and exit.
 
 =back
 
+=head1 EXIT STATUS
+
+0 if success, >0 otherwise.
+
 =head1 SEE ALSO
 
 L<pkginfo(1)>
