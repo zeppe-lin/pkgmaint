@@ -31,7 +31,7 @@ requires L<pkgman(1)>.
 Mandatory arguments to long options are mandatory for short options
 too.
 
-=over 8
+=over 15
 
 =item B<-v>, B<--version>
 
