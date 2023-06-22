@@ -62,8 +62,7 @@ parse_options() {
 
 	# Only two files arguments are required.
 	if [ "$(echo "$PKGLIST" | wc -w)" != 2 ]; then
-		echo "pkgdiff: too many arguments"
-		exit 1
+		dfatal "too many arguments"
 	fi
 }
 
