@@ -81,8 +81,8 @@ main() {
 # see trap(1p).
 # shellcheck disable=2317
 atexit() {
-	[ -f "$TMPFILE1" ] && rm "$TMPFILE1"
-	[ -f "$TMPFILE2" ] && rm "$TMPFILE2"
+	[ -f "$TMPFILE1" ] && rm -f "$TMPFILE1"
+	[ -f "$TMPFILE2" ] && rm -f "$TMPFILE2"
 }
 # shellcheck disable=2317
 interrupted() {
