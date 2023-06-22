@@ -60,7 +60,6 @@ parse_options() {
 		shift
 	done
 
-	# Only two files arguments are required.
 	set -- $PKGLIST
 	[ $# = 0 ] && dfatal "missing arguments"
 	[ $# = 1 ] && dfatal "required two arguments"
