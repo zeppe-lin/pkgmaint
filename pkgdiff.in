@@ -60,7 +60,7 @@ parse_options() {
 		shift
 	done
 
-	set -- $PKGLIST
+	set -- "$PKGLIST"
 	[ $# = 0 ] && dfatal "missing arguments"
 	[ $# = 1 ] && dfatal "required two arguments"
 	[ $# = 2 ] || dfatal "too many arguments"
