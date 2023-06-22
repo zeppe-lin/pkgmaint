@@ -61,9 +61,10 @@ parse_options() {
 	done
 
 	# Only two files arguments are required.
-	if [ "$(echo "$PKGLIST" | wc -w)" != 2 ]; then
-		dfatal "too many arguments"
-	fi
+	set -- $PKGLIST
+	[ $# = 0 ] && dfatal "missing arguments"
+	[ $# = 1 ] && dfatal "required two arguments"
+	[ $# = 2 ] || dfatal "too many arguments"
 }
 
 main() {
