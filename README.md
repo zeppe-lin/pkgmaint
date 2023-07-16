@@ -18,6 +18,7 @@ REQUIREMENTS
 - pkgmk
 - pkgutils
 - pkgman
+- curl
 
 
 INSTALL
