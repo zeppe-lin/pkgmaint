@@ -258,7 +258,7 @@ main() {
 
 # Globals.
 export LC_ALL=POSIX
-LONGOPTS="dead-links,follow-redirects,invalid,junk,suid-sgid,world-writeable,version,help"
+LONGOPTS="dead-links,invalid,junk,suid-sgid,world-writeable,version,help"
 SHORTOPTS="dfijswvh"
 CURL_CMD="-L -I -f --retry 3 --retry-delay 3 -o /dev/null -sw %{http_code}"
 CURL_OPTS=
