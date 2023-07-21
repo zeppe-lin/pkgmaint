@@ -83,12 +83,16 @@ BEGIN {
         } else if ($3 ~ /^usr\/man\//                   \
                 || $3 ~ /^usr\/local\//                 \
                 || $3 ~ /^usr\/share\/locale\//         \
+		|| $3 ~ /^usr\/locale\//                \
                 || $3 ~ /^usr\/share\/doc\//            \
+		|| $3 ~ /^usr\/share\/gtk-doc\//        \
+		|| $3 ~ /^usr\/doc\//                   \
                 || $3 ~ /^usr\/info\//                  \
                 || $3 ~ /^usr\/share\/info\//           \
                 || $3 ~ /^usr\/libexec\//               \
                 || $3 ~ /^usr\/man\/\.\.\//             \
                 || $3 ~ /^usr\/share\/man\/\.\.\//      \
+		|| $3 ~ /^usr\/share\/licenses\//       \
                 ) {
                 print "invalid directory found: "FILENAME": "$3;
                 rc=1;
