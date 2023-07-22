@@ -5,7 +5,7 @@ MAXLINE = 80
 deadlinks:
 	@echo "=======> Check for deadlinks"
 	@grep -Eiho "https?://[^\"\\'> ]+" ${GREPOPT} \
-		| grep -v 'http://\*|https://\*)'     \
+		| grep -Ev 'https?://\*'              \
 		| xargs -P10 -I{}                     \
 		  curl -o /dev/null -L -I             \
 		  -sw "[%{http_code}] %{url}\n" '{}'  \
