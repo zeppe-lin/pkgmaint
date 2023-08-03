@@ -1,0 +1,18 @@
+# build files and artefacts
+*.1
+finddeps-distmeta
+finddeps-linked
+finddisappeared
+finddisowned
+findredundantdeps
+pkgdiff
+pkglint
+
+# vim undo files
+.*.un~
+
+# backup files
+*.bak
+
+# dist tarballs
+*.tar.gz
