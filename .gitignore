@@ -8,8 +8,9 @@ findredundantdeps
 pkgdiff
 pkglint
 
-# vim undo files
+# vim undo and swap files
 .*.un~
+*.swp
 
 # backup files
 *.bak
