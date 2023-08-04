@@ -32,15 +32,15 @@ conform your needs.
 Mandatory arguments to long options are mandatory for short options
 too.
 
-=over 8
-
-=item B<-c>, B<--config>=I<FILE>
-
-Specify alternate configuration file.
+=over 18
 
 =item B<-r>, B<--root>=I<PATH>
 
-Specify alternate root directory.
+Specify an alternative root directory.
+
+=item B<-c>, B<--config>=I<FILE>
+
+Specify an alternative configuration file.
 
 =item B<-v>, B<--version>
 
