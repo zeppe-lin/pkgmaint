@@ -36,11 +36,11 @@ finddisowned() {
 
 print_help() {
 	cat <<EOF
-Usage: finddisowned [OPTION]
+Usage: finddisowned [OPTION]...
 Find files that are disowned by package manager.
 
-  -c, --config=FILE   use an alternate config file
-  -r, --root=PATH     specify alternative root directory
+  -r, --root=PATH     specify an alternative root directory
+  -c, --config=FILE   specify an alternative configuuration file
   -v, --version       print version and exit
   -h, --help          print help and exit
 EOF
