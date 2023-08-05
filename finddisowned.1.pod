@@ -32,7 +32,7 @@ conform your needs.
 Mandatory arguments to long options are mandatory for short options
 too.
 
-=over 18
+=over 20
 
 =item B<-r>, B<--root>=I<PATH>
 
