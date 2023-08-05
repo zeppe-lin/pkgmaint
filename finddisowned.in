@@ -40,7 +40,7 @@ Usage: finddisowned [OPTION]...
 Find files that are disowned by package manager.
 
   -r, --root=PATH     specify an alternative root directory
-  -c, --config=FILE   specify an alternative configuuration file
+  -c, --config=FILE   specify an alternative configuration file
   -v, --version       print version and exit
   -h, --help          print help and exit
 EOF
