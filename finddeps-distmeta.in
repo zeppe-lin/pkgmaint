@@ -13,9 +13,10 @@ use Data::Dumper;
 use File::Basename;
 use Module::CoreList;
 use Getopt::Long qw(:config gnu_compat);
-use Term::ANSIColor ':constants';
+use Term::ANSIColor qw(:constants);
 
-#use JSON;
+#TODO: parse JSON files.
+#use JSON; 
 use YAML::XS 'LoadFile';
 
 my $PROGRAM = basename $0;
