@@ -2,6 +2,19 @@
 # This file is part of pkgmaint.
 # See COPYING and COPYRIGHT files for corresponding information.
 
+######################################################################
+# Informational helpers.                                             #
+######################################################################
+
+fatal() {
+  echo >&2 "@ARGV0@: $1"
+  exit 1
+}
+
+######################################################################
+# Findredundantdeps.                                                 #
+######################################################################
+
 findredundantdeps() {
   _DEPS=$(pkgman dep --all "$1") || exit 3
 
@@ -14,6 +27,10 @@ findredundantdeps() {
 show_uniq() {
   tr ' ' '\n' | sort | uniq -u
 }
+
+######################################################################
+# Command-line helpers.                                              #
+######################################################################
 
 print_help() {
   cat <<EOF
@@ -32,27 +49,36 @@ print_version() {
 
 parse_options() {
   eval set -- "$(
-    getopt -n "@ARGV0@" -a -l "unique,version,help" -o "uvh" -- "$@"
+    getopt -n "@ARGV0@" -a -l "unique,version,help" -o ":uvh" -- "$@"
   )"
   while true; do
     case $1 in
-    -u| --unique) SHOW_UNIQ_CMD=show_uniq                ;;
-    -v|--version) print_version                 ; exit 0 ;;
-    -h|   --help) print_help                    ; exit 0 ;;
-              --) shift                         ; break  ;;
-               *) echo >&2 "unknown option: $1" ; exit 1 ;;
+    -u| --unique) SHOW_UNIQ_CMD=show_uniq     ;;
+    -v|--version) print_version      ; exit 0 ;;
+    -h|   --help) print_help         ; exit 0 ;;
+              --) shift              ; break  ;;
+               *) fatal "unknown option: $1"  ;;
     esac
     shift
   done
 
   SHOW_UNIQ_CMD=${SHOW_UNIQ_CMD:-cat}
-  PKGNAME=${*?"option missing"}
+  PKGNAME=$*
+
+  set -- $PKGNAME
+  case $# in
+  0) fatal "missing argument"   ;;
+  1)                            ;;
+  *) fatal "too many arguments" ;;
+  esac
 }
 
 main() {
   parse_options "$@"
   findredundantdeps "$PKGNAME" | $SHOW_UNIQ_CMD
 }
+
+######################################################################
 
 export LC_ALL=POSIX
 main "$@"
