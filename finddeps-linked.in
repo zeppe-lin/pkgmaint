@@ -41,6 +41,7 @@ finddeps() {
 	TMPFILE1=$(mktemp) || exit 126
 	TMPFILE2=$(mktemp) || exit 126
 
+	# linked dependencies
 	# XXX FIXME awk not working?!
 	pkginfo -l "$1" | awk '/(bin|sbin|lib|lib32)/{print $1}'      |
 		xargs -I {} -P "${JOBS:-1}" ldd -- "/{}" 2>/dev/null  |
@@ -63,6 +64,10 @@ finddeps() {
 		esac
 	done | sort -u
 }
+
+######################################################################
+# Command-line helpers.                                              #
+######################################################################
 
 print_help() {
 	cat <<EOF
@@ -134,6 +139,8 @@ fi
 
 TMPFILE1=
 TMPFILE2=
+
+######################################################################
 
 main "$@"
 
