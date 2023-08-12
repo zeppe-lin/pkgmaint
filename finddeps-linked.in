@@ -2,38 +2,43 @@
 # This file is part of pkgmaint.
 # See COPYING and COPYRIGHT files for corresponding information.
 
+fatal() {
+  echo >&2 "@ARGV0@: $1"
+  exit 1
+}
+
 finddeps() {
-	# https://tldp.org/LDP/abs/html/exitcodes.html
-	# 126 - Command invoked cannot execute.
-	TMPFILE1=$(mktemp) || exit 126
-	TMPFILE2=$(mktemp) || exit 126
+  # https://tldp.org/LDP/abs/html/exitcodes.html
+  # 126 - Command invoked cannot execute.
+  TMPFILE1=$(mktemp) || exit 126
+  TMPFILE2=$(mktemp) || exit 126
 
-	# XXX FIXME awk not working?!
-	pkginfo -l "$1" | awk '/(bin|sbin|lib|lib32)/{print $1}'      |
-		xargs -I {} -P "${JOBS:-1}" ldd -- "/{}" 2>/dev/null  |
-		awk '!/(linux-gate)|( dynamic)|(not found)/{
-			printf "%s\n", $3
-		}' >> "$TMPFILE1"
+  # XXX FIXME awk not working?!
+  pkginfo -l "$1" | awk '/(bin|sbin|lib|lib32)/{print $1}'      |
+    xargs -I {} -P "${JOBS:-1}" ldd -- "/{}" 2>/dev/null        |
+    awk '!/(linux-gate)|( dynamic)|(not found)/{
+      printf "%s\n", $3
+    }' >> "$TMPFILE1"
 
-	xargs -a "$TMPFILE1" -I{} -r -P "${JOBS:-1}" readlink -f "{}" |
-		sort | uniq > "$TMPFILE2"
+  xargs -a "$TMPFILE1" -I{} -r -P "${JOBS:-1}" readlink -f "{}" |
+    sort | uniq > "$TMPFILE2"
 
-	xargs -a "$TMPFILE2" -I{} -r -P "${JOBS:-1}" pkginfo -o "{}"  |
-		awk '!/^(Package|pkginfo: no owner)/{print $1}'       |
-		sort | uniq
+  xargs -a "$TMPFILE2" -I{} -r -P "${JOBS:-1}" pkginfo -o "{}"  |
+    awk '!/^(Package|pkginfo: no owner)/{print $1}'             |
+    sort | uniq
 
-	# Additional deps that can't be found by ldd(8).
-	pkginfo -l "$1" | while read -r line; do
-		case $line in
-		usr/share/gir-1.0/*.gir)    echo "gobject-introspection" ;;
-		usr/share/vala/vapi/*.vapi) echo "vala" ;;
-		esac
-	done | sort -u
+  # Additional deps that can't be found by ldd(8).
+  pkginfo -l "$1" | while read -r line; do
+    case $line in
+    usr/share/gir-1.0/*.gir)    echo "gobject-introspection" ;;
+    usr/share/vala/vapi/*.vapi) echo "vala" ;;
+    esac
+  done | sort -u
 }
 
 print_help() {
-	cat <<EOF
-Usage: $PROGRAM [OPTION] PKGNAME
+  cat <<EOF
+Usage: @ARGV0@ [OPTION] PKGNAME
 Find linked dependencies for a package.
 
   -v, --version   print version and exit
@@ -41,48 +46,45 @@ Find linked dependencies for a package.
 EOF
 }
 
+print_version() {
+  echo "@ARGV0@ (pkgmaint) @VERSION@"
+}
+
+parse_options() {
+  eval set -- "$(getopt -n "@ARGV0@" -a -l "version,help" \
+    -o ":vh" -- "$@"
+  )"
+  while true; do
+    case $1 in
+    -v|--version) print_version     ; exit 0 ;;
+    -h|   --help) print_help        ; exit 0 ;;
+              --) shift             ; break  ;;
+               *) fatal "unknown option: $1" ;;
+    esac
+    shift
+  done
+
+  PKGNAME="${1?"missing argument"}"
+}
+
 main() {
-	while [ "$1" ]; do
-		case $1 in
-		-v|--version)
-			echo "$PROGRAM (pkgmaint) @VERSION@"
-			exit 0
-			;;
-		-h|--help)
-			print_help
-			exit 0
-			;;
-		-*)
-			echo >&2 "$PROGRAM: invalid option $1"
-			exit 1
-			;;
-		*)
-			PKGNAME=$1
-			;;
-		esac
-		shift
-	done
+  parse_options "$@"
 
-	if [ -z "$PKGNAME" ]; then
-		echo >&2 "$PROGRAM: option missing"
-		exit 1
-	elif ! pkgman isinst "$PKGNAME" >/dev/null 2>&1; then
-		echo >&2 "$PROGRAM: $PKGNAME is not installed"
-		exit 1
-	fi
+  pkgman isinst "$PKGNAME" >/dev/null 2>&1 ||
+    fatal "@ARGV@: $PKGNAME is not installed"
 
-	finddeps "$PKGNAME"
+  finddeps "$PKGNAME"
 }
 
 interrupted() {
-	echo >&2 ""
-	echo >&2 "=======> Aborted."
-	exit 1
+  echo >&2 ""
+  echo >&2 "=======> Aborted."
+  exit 1
 }
 
 atexit() {
-	[ -f "$TMPFILE1" ] && rm -f "$TMPFILE1"
-	[ -f "$TMPFILE2" ] && rm -f "$TMPFILE2"
+  [ -f "$TMPFILE1" ] && rm -f "$TMPFILE1"
+  [ -f "$TMPFILE2" ] && rm -f "$TMPFILE2"
 }
 
 trap "interrupted" HUP INT QUIT TERM
@@ -95,18 +97,16 @@ trap "atexit"      EXIT
 export LC_ALL=POSIX
 export LD_LIBRARY_PATH="/lib:/usr/lib:/lib32:/usr/lib32:$LD_LIBRARY_PATH"
 
-readonly PROGRAM=finddeps-linked
-
 # Adjust to suckless core.
 if command -v nproc >/dev/null 2>&1; then
-	# GNU coreutils
-	JOBS=$(nproc)
+  # GNU coreutils
+  JOBS=$(nproc)
 elif getconf _NPROCESSORS_ONLN >/dev/null 2>&1; then
-	# suckless sbase
-	JOBS=$(getconf _NPROCESSORS_ONLN)
+  # suckless sbase
+  JOBS=$(getconf _NPROCESSORS_ONLN)
 else
-	# linuxism
-	JOBS=$(grep -c processor /proc/cpuinfo)
+  # linuxism
+  JOBS=$(grep -c processor /proc/cpuinfo)
 fi
 
 TMPFILE1=
@@ -114,4 +114,5 @@ TMPFILE2=
 
 main "$@"
 
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 # End of file.
