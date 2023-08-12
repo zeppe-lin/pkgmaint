@@ -217,14 +217,14 @@ parse_options() {
 	eval set -- "$(getopt -a -l "$LONGOPTS" -o "$SHORTOPTS" -- "$@")"
 	while true; do
 		case $1 in
-		-d|--dead-links)       CHECK="$CHECK dead_links"        ;;
-		-i|--invalid)          CHECK="$CHECK footprint_invalid" ;;
-		-j|--junk)             CHECK="$CHECK footprint_junk"    ;;
-		-s|--suid-sgid)        CHECK="$CHECK footprint_sugid"   ;;
-		-w|--world-writeable)  CHECK="$CHECK footprint_wowrite" ;;
-		-v|--version)          print_version ; exit 0           ;;
-		-h|--help)             print_help    ; exit 0           ;;
-		--)                    shift         ; break            ;;
+		-d|     --dead-links) CHECK="$CHECK dead_links"        ;;
+		-i|        --invalid) CHECK="$CHECK footprint_invalid" ;;
+		-j|           --junk) CHECK="$CHECK footprint_junk"    ;;
+		-s|      --suid-sgid) CHECK="$CHECK footprint_sugid"   ;;
+		-w|--world-writeable) CHECK="$CHECK footprint_wowrite" ;;
+		-v|        --version) print_version ; exit 0           ;;
+		-h|           --help) print_help    ; exit 0           ;;
+		                  --) shift         ; break            ;;
 		esac
 		shift
 	done
