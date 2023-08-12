@@ -81,11 +81,11 @@ parse_options() {
 	)"
 	while true; do
 		case $1 in
-		-c|  --color) COLOR="--color=always"   ;;
-		-v|--version) print_version ; exit 0   ;;
-		-h|   --help) print_help    ; exit 0   ;;
-		          --) shift         ; break    ;;
-		           *) fatal "option error: $1" ;;
+		-c|  --color) COLOR="--color=always"     ;;
+		-v|--version) print_version  ; exit 0    ;;
+		-h|   --help) print_help     ; exit 0    ;;
+		          --) shift          ; break     ;;
+		           *) fatal "unknown option: $1" ;;
 		esac
 		shift
 	done
@@ -131,6 +131,9 @@ COLOR=
 TMPFILE1=
 TMPFILE2=
 
+######################################################################
+
 main "$@"
 
+# vim: cc=72:tw=70
 # End of file.

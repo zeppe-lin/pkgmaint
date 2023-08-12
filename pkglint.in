@@ -213,7 +213,7 @@ EOF
 }
 
 print_version() {
-	echo "${0##*/} (pkgmaint) @VERSION@"
+	echo "@ARGV0@ (pkgmaint) @VERSION@"
 }
 
 parse_options() {
