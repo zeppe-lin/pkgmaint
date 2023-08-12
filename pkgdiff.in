@@ -1,10 +1,23 @@
-#!/bin/sh -e
+#!/bin/sh
 # This file is part of pkgmaint.
 # See COPYING and COPYRIGHT files for corresponding information.
 
+######################################################################
+# Informational helpers.                                             #
+######################################################################
+
+fatal() {
+	echo >&2 "pkgdiff: $1"
+	exit 1
+}
+
+######################################################################
+# Pkgdiff.                                                           #
+######################################################################
+
 pkgdiff() {
-	[ -f "$1" ] || dfatal "file '$1' not found"
-	[ -f "$2" ] || dfatal "file '$2' not found"
+	[ -f "$1" ] || fatal "file '$1' not found"
+	[ -f "$2" ] || fatal "file '$2' not found"
 
 	# https://tldp.org/LDP/abs/html/exitcodes.html
 	# 126 - Command invoked cannot execute.
@@ -20,10 +33,29 @@ pkgdiff() {
 		sed -e "1s,$TMPFILE1,$1,;2s,$TMPFILE2,$2,"
 }
 
-dfatal() {
-	echo >&2 "pkgdiff: $1"
+######################################################################
+# Exit hooks.                                                        #
+######################################################################
+
+# Don't warn about unreachable commands in these functions,
+# see trap(1p).
+
+# shellcheck disable=2317
+atexit() {
+	[ -f "$TMPFILE1" ] && rm -f "$TMPFILE1"
+	[ -f "$TMPFILE2" ] && rm -f "$TMPFILE2"
+}
+
+# shellcheck disable=2317
+interrupted() {
+	echo >&2 ""
+	echo >&2 "=======> Aborted."
 	exit 1
 }
+
+######################################################################
+# Command-line helpers.                                              #
+######################################################################
 
 print_help() {
 	cat <<EOF
@@ -36,34 +68,40 @@ Compare software packages' footprints.
 EOF
 }
 
+print_version() {
+	echo "pkgdiff @VERSION@"
+}
+
 parse_options() {
-	while [ "$1" ]; do
+	eval set -- "$(
+		getopt  -a -n "pkgdiff"          \
+			-l "color,version,help"  \
+			-o "cvh"                 \
+			-- "$@"
+	)"
+	while true; do
 		case $1 in
-		-c|--color)
-			COLOR='--color=always'
-			;;
-		-v|--version)
-			echo "pkgdiff (pkgmaint) @VERSION@"
-			exit 0
-			;;
-		-h|--help)
-			print_help
-			exit 0
-			;;
-		*-)
-			dfatal "invalid option $1"
-			;;
-		*)
-			PKGLIST="$PKGLIST $1"
-			;;
+		-c|  --color) COLOR="--color=always"   ;;
+		-v|--version) print_version ; exit 0   ;;
+		-h|   --help) print_help    ; exit 0   ;;
+		          --) shift         ; break    ;;
+		           *) fatal "option error: $1" ;;
 		esac
 		shift
 	done
 
-	set -- "$PKGLIST"
-	[ $# = 0 ] && dfatal "missing arguments"
-	[ $# = 1 ] && dfatal "required two arguments"
-	[ $# = 2 ] || dfatal "too many arguments"
+	PKGLIST=$*
+
+	# Intentional.
+	# shellcheck disable=SC2086
+	set -- $PKGLIST
+
+	case $# in
+	0) fatal "missing arguments"      ;;
+	1) fatal "required two arguments" ;;
+	2)                                ;;
+	*) fatal "too many arguments"     ;;
+	esac
 }
 
 main() {
@@ -76,27 +114,18 @@ main() {
 	exit 0
 }
 
-# Don't warn about unreachable commands in these functions,
-# see trap(1p).
-# shellcheck disable=2317
-atexit() {
-	[ -f "$TMPFILE1" ] && rm -f "$TMPFILE1"
-	[ -f "$TMPFILE2" ] && rm -f "$TMPFILE2"
-}
-# shellcheck disable=2317
-interrupted() {
-	echo >&2 ""
-	echo >&2 "=======> Aborted."
-	exit 1
-}
+######################################################################
+
+# -e: Exit if command return status greater than 0
+# -f: Disable globbing *?[]
+set -ef
 
 # Set exit hooks.
 trap "interrupted" HUP  INT  QUIT  TERM
 trap "atexit"      EXIT
 
+# Globals.
 export LC_ALL=POSIX
-
-# Global variables.
 PKGLIST=
 COLOR=
 TMPFILE1=
