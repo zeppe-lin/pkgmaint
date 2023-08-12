@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+# This file is part of pkgmaint.
 use strict;
 use warnings;
 use Getopt::Long qw(:config gnu_compat);
@@ -20,7 +21,6 @@ sub finddisappeared {
 
         print map "$name: /$_\n", @missing;
     }
-
     close($fh);
 }
 
@@ -29,7 +29,7 @@ sub print_help {
 Usage: $PROGRAM [OPTION]
 Find files that are owned by package manager but somehow disappeared.
 
-  -r, --root=PATH   specify alternative root location
+  -r, --root=PATH   specify an alternative root location
   -v, --version     print version and exit
   -h, --help        print help and exit
 EOF
