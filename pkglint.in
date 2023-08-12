@@ -194,6 +194,8 @@ dead_links() {
 }
 
 ######################################################################
+# Command-line helpers.                                              #
+######################################################################
 
 print_help() {
 	cat <<EOF
@@ -266,6 +268,10 @@ main() {
 
 ######################################################################
 
+# -e: Exit if command return status greater than 0
+# -f: Disable globbing *?[]
+set -ef
+
 # Globals.
 export LC_ALL=POSIX
 LONGOPTS="dead-links,invalid,junk,suid-sgid,world-writeable,version,help"
@@ -274,6 +280,8 @@ CURL_CMD="-L -I -f --retry 3 --retry-delay 3 -o /dev/null -sw %{http_code}"
 CURL_OPTS=
 CHECK=
 PKGSRCDIRS=
+
+######################################################################
 
 main "$@"
 
