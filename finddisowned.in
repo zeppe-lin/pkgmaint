@@ -2,40 +2,80 @@
 # This file is part of pkgmaint.
 # See COPYING and COPYRIGHT files for corresponding information.
 
-finddisowned() {
-  # https://tldp.org/LDP/abs/html/exitcodes.html
-  # 126 - Command invoked cannot execute.
-  TMPFILE1=$(mktemp) || exit 126
-  TMPFILE2=$(mktemp) || exit 126
+######################################################################
+# Informational helpers.                                             #
+######################################################################
 
-  echo "Get all known files..." 1>&2
-
-  sort -u "$ROOT/var/lib/pkg/db" > "$TMPFILE1"
-
-  echo "Get paths from config..." 1>&2
-
-  #PATHS=$(xargs < "$(readlink -f "$CONF")")
-  while read -r _path; do
-    # skip comments and empty lines
-    case $_path in \#* | "" ) continue ;; esac
-
-    PATHS="$PATHS $_path"
-  done < "$(readlink -f "$CONF")"
-
-  (
-  cd "${ROOT:-/}" || exit 1
-
-  # Intentional word splitting for PATHS.
-  # shellcheck disable=2086
-  find $PATHS \( -type d -printf '%p/\n' -o -print \) |
-    sort > "$TMPFILE2"
-  )
-
-  comm -23 "$TMPFILE2" "$TMPFILE1"
+info() {
+	echo "=======> $1"
 }
 
+fatal() {
+	echo >&2 "@ARGV0@: $1"
+	exit 1
+}
+
+######################################################################
+# Exit hooks.                                                        #
+######################################################################
+
+# Don't warn about unreachable commands in these functions, see
+# trap(1p).
+
+# shellcheck disable=2317
+interrupted() {
+	echo >&2 ""
+	echo >&2 "=======> Aborted."
+	exit 1
+}
+
+# shellcheck disable=2317
+atexit() {
+	[ -f "$TMPFILE1" ] && rm -f "$TMPFILE1"
+	[ -f "$TMPFILE2" ] && rm -f "$TMPFILE2"
+}
+
+######################################################################
+# Finddisowned.                                                      #
+######################################################################
+
+finddisowned() {
+	# https://tldp.org/LDP/abs/html/exitcodes.html
+	# 126 - Command invoked cannot execute.
+	TMPFILE1=$(mktemp) || exit 126
+	TMPFILE2=$(mktemp) || exit 126
+
+	info "Get all known files from package database"
+	sort -u "$ROOT/var/lib/pkg/db" > "$TMPFILE1"
+
+	info "Get paths from configuration file"
+	#PATHS=$(xargs < "$(readlink -f "$CONF")")
+	while read -r _PATH; do
+		# skip comments and empty lines
+		case $_PATH in \#* | "" ) continue ;; esac
+
+		PATHS="$PATHS $_PATH"
+	done < "$(readlink -f "$CONF")"
+
+	(
+	cd "${ROOT:-/}" || exit 1
+
+	# Intentional word splitting for PATHS.
+	# shellcheck disable=2086
+	find $PATHS \( -type d -printf '%p/\n' -o -print \) |
+		sort > "$TMPFILE2"
+	)
+
+	info "Files that are disowned by package manager"
+	comm -23 "$TMPFILE2" "$TMPFILE1"
+}
+
+######################################################################
+# Command-line helpers.                                              #
+######################################################################
+
 print_help() {
-  cat <<EOF
+	cat <<EOF
 Usage: @ARGV0@ [OPTION]...
 Find files that are disowned by package manager.
 
@@ -47,60 +87,55 @@ EOF
 }
 
 print_version() {
-  echo "@ARGV0@ (pkgmaint) @VERSION@"
+	echo "@ARGV0@ (pkgmaint) @VERSION@"
 }
 
 parse_options() {
-  eval set -- "$(
-    getopt -n "@ARGV0@" -a -l "root:,config:,version,help" \
-      -o "r:c:vh" -- "$@"
-  )"
-  while true; do
-    case $1 in
-    -r|   --root) ROOT=$2                   ; shift  ;;
-    -c| --config) CONF=$2                   ; shift  ;;
-    -v|--version) print_version             ; exit 0 ;;
-    -h|   --help) print_help                ; exit 0 ;;
-              --) shift                     ; break  ;;
-               *) echo >&2 "internal error" ; exit 1 ;;
-    esac
-    shift
-  done
+	eval set -- "$(
+		getopt  -n "@ARGV0@" -a                  \
+			-l "root:,config:,version,help"  \
+			-o "r:c:vh" -- "$@"
+	)"
+	while true; do
+		case $1 in
+		-r|   --root) ROOT=$2        ; shift  ;;
+		-c| --config) CONF=$2        ; shift  ;;
+		-v|--version) print_version  ; exit 0 ;;
+		-h|   --help) print_help     ; exit 0 ;;
+		          --) shift          ; break  ;;
+		           *) fatal "internal error"  ;;
+		esac
+		shift
+	done
+	CONF=${CONF:-"$ROOT/etc/finddisowned.conf"}
 }
 
 main() {
-  parse_options "$@"
+	parse_options "$@"
 
-  CONF=${CONF:-"$ROOT/etc/finddisowned.conf"}
-  if [ ! -e "$CONF" ]; then
-    echo >&2 "@ARGV0@: configuration file not found: $CONF"
-    exit 2
-  fi
+	[ -f "$CONF" ] || fatal "configuration file not found: $CONF"
 
-  finddisowned
+	finddisowned
 }
 
-interrupted() {
-  echo >&2 ""
-  echo >&2 "=======> Aborted."
-  exit 1
-}
+######################################################################
 
-atexit() {
-  [ -f "$TMPFILE1" ] && rm -f "$TMPFILE1"
-  [ -f "$TMPFILE2" ] && rm -f "$TMPFILE2"
-}
+# -e: Exit if command return status greater than 0
+# -f: Disable globbing *?[]
+set -ef
 
+# Set exit hooks.
 trap "interrupted" HUP  INT  QUIT  TERM
 trap "atexit"      EXIT
 
-export LC_ALL=POSIX
-
 # Globals.
+export LC_ALL=POSIX
 TMPFILE1=
 TMPFILE2=
 
+######################################################################
+
 main "$@"
 
-# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# vim: cc=72:tw=70
 # End of file.
