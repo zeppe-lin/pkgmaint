@@ -67,7 +67,10 @@ parse_options() {
 	SHOW_UNIQ_CMD=${SHOW_UNIQ_CMD:-cat}
 	PKGNAME=$*
 
+	# Intentional word splitting.
+	# shellcheck disable=SC2086
 	set -- $PKGNAME
+
 	case $# in
 	0) fatal "missing argument"   ;;
 	1)                            ;;
