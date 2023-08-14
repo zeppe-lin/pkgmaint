@@ -7,7 +7,7 @@
 ######################################################################
 
 fatal() {
-	echo >&2 "pkgdiff: $1"
+	echo "pkgdiff: $1" 1>&2
 	exit 1
 }
 
@@ -26,8 +26,8 @@ atexit() {
 
 # shellcheck disable=2317
 interrupted() {
-	echo >&2 ""
-	echo >&2 "=======> Interrupted."
+	echo "" 1>&2
+	echo "=======> Interrupted." 1>&2
 	exit 1
 }
 
