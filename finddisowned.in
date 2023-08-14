@@ -11,7 +11,7 @@ info() {
 }
 
 fatal() {
-	echo >&2 "@ARGV0@: $1"
+	echo "@ARGV0@: $1" 1>&2
 	exit 1
 }
 
@@ -24,8 +24,8 @@ fatal() {
 
 # shellcheck disable=2317
 interrupted() {
-	echo >&2 ""
-	echo >&2 "=======> Interrupted."
+	echo "" 1>&2
+	echo "=======> Interrupted." 1>&2
 	exit 1
 }
 
