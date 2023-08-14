@@ -12,6 +12,26 @@ fatal() {
 }
 
 ######################################################################
+# Exit hooks.                                                        #
+######################################################################
+
+# Don't warn about unreachable commands in these functions,
+# see trap(1p).
+
+# shellcheck disable=2317
+atexit() {
+	[ -f "$TMPFILE1" ] && rm -f "$TMPFILE1"
+	[ -f "$TMPFILE2" ] && rm -f "$TMPFILE2"
+}
+
+# shellcheck disable=2317
+interrupted() {
+	echo >&2 ""
+	echo >&2 "=======> Interrupted."
+	exit 1
+}
+
+######################################################################
 # Pkgdiff.                                                           #
 ######################################################################
 
@@ -31,26 +51,6 @@ pkgdiff() {
 	# shellcheck disable=2086
 	diff $COLOR -d -u "$TMPFILE1" "$TMPFILE2" |
 		sed -e "1s,$TMPFILE1,$1,;2s,$TMPFILE2,$2,"
-}
-
-######################################################################
-# Exit hooks.                                                        #
-######################################################################
-
-# Don't warn about unreachable commands in these functions,
-# see trap(1p).
-
-# shellcheck disable=2317
-atexit() {
-	[ -f "$TMPFILE1" ] && rm -f "$TMPFILE1"
-	[ -f "$TMPFILE2" ] && rm -f "$TMPFILE2"
-}
-
-# shellcheck disable=2317
-interrupted() {
-	echo >&2 ""
-	echo >&2 "=======> Interrupted."
-	exit 1
 }
 
 ######################################################################
