@@ -3,7 +3,7 @@
 # See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
-# Informational helpers.                                             #
+# Notification helpers.                                              #
 ######################################################################
 
 info() {
