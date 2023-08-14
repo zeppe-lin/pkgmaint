@@ -186,7 +186,7 @@ dead_links() {
 		# shellcheck disable=2086
 		__HTTPCODE=$(curl $CURL_CMD $CURL_OPTS "$__URL")
 		if [ "$__HTTPCODE" -ne 200 ]; then
-			echo "dead link found: [$__HTTPCODE] $__LINE"
+			echo "dead link found: [$__HTTPCODE] $__LINE" 1>&2
 			__RC1=1
 		fi
 	done
