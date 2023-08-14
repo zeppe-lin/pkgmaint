@@ -106,12 +106,14 @@ parse_options() {
 		esac
 		shift
 	done
+	ROOT=${ROOT:-""}
 	CONF=${CONF:-"$ROOT/etc/finddisowned.conf"}
 }
 
 main() {
 	parse_options "$@"
 
+	[ -d "$ROOT" ] || fatal "specified root directory not found: $ROOT"
 	[ -f "$CONF" ] || fatal "configuration file not found: $CONF"
 
 	finddisowned
