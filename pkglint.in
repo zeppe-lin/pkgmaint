@@ -9,11 +9,11 @@ info() {
 }
 
 warning() {
-	info "WARNING: $1" >&2
+	info "WARNING: $1" 1>&2
 }
 
 error() {
-	info "ERROR: $1" >&2
+	info "ERROR: $1" 1>&2
 }
 
 ######################################################################
@@ -23,7 +23,7 @@ error() {
 # Check for SUID/SGID files and directories.
 # shellcheck disable=2317
 footprint_sugid() {
-	awk >&2 '
+	awk '
 BEGIN {
 	rc=0
 }
@@ -44,13 +44,13 @@ BEGIN {
 }
 END {
 	exit(rc)
-}'	"$1/.footprint"
+}'	"$1/.footprint" 1>&2
 }
 
 # Check for world-writeable files and directories.
 # shellcheck disable=2317
 footprint_wowrite() {
-	awk >&2 '
+	awk '
 BEGIN {
 	rc=0
 }
@@ -65,13 +65,13 @@ BEGIN {
 }
 END {
 	exit(rc)
-}'	"$1/.footprint"
+}'	"$1/.footprint" 1>&2
 }
 
 # Check for invalid directories.
 # shellcheck disable=2317
 footprint_invalid() {
-	awk >&2 '
+	awk '
 BEGIN {
 	rc=0
 }
@@ -102,13 +102,13 @@ BEGIN {
 }
 END {
 	exit(rc)
-}'	"$1/.footprint"
+}'	"$1/.footprint" 1>&2
 }
 
 # Check for junk files.
 # shellcheck disable=2317
 footprint_junk() {
-	awk >&2 '
+	awk '
 BEGIN {
 	rc=0
 }
@@ -146,7 +146,7 @@ BEGIN {
 }
 END {
 	exit(rc)
-}'	"$1/.footprint"
+}'	"$1/.footprint" 1>&2
 }
 
 ######################################################################
