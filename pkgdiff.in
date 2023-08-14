@@ -49,7 +49,7 @@ atexit() {
 # shellcheck disable=2317
 interrupted() {
 	echo >&2 ""
-	echo >&2 "=======> Aborted."
+	echo >&2 "=======> Interrupted."
 	exit 1
 }
 
