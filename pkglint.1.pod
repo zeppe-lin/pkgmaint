@@ -9,7 +9,7 @@ package definitions
 
 =head1 SYNOPSIS
 
-B<pkglint> [I<OPTION>...] [I<PKGSRCDIR>...]
+B<pkglint> [I<OPTION>]... [I<PKGSRCDIR>]...
 
 =head1 DESCRIPTION
 
