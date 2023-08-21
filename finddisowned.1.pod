@@ -32,7 +32,7 @@ conform your needs.
 Mandatory arguments to long options are mandatory for short options
 too.
 
-=over 20
+=over
 
 =item B<-c>, B<--config>=I<FILE>
 
@@ -40,7 +40,7 @@ Specify an alternate configuration file.
 
 =item B<-r>, B<--root>=I<DIR>
 
-Specify an alternate root directory.
+Specify an alternate root directory (default is C</>).
 
 =item B<-v>, B<--version>
 
