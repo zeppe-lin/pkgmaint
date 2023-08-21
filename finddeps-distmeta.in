@@ -1,5 +1,4 @@
 #!/usr/bin/env perl
-# This file is part of pkgmaint.
 # See COPYING and COPYRIGHT files for corresponding information.
 
 # flush stdout
@@ -14,70 +13,78 @@ use File::Basename;
 use Module::CoreList;
 use Getopt::Long qw(:config gnu_compat);
 use Term::ANSIColor qw(:constants);
+my $PROGRAM = basename $0;
 
-#TODO: parse JSON files.
-#use JSON; 
+#use JSON; # TODO: parse JSON files.
 use YAML::XS 'LoadFile';
 
-my $PROGRAM = basename $0;
+# Search for dependencies in the following YAML blocks.
 my @BLOCKS = qw(build_requires configure_requires requires);
 
+######################################################################
+# Finddeps-distmeta subroutines.                                     #
+######################################################################
+
+# Search for dependency in footprint files.
 sub found_in_packages {
-    my $dep = shift;
-    my $found = '';
-    my %incs = map { $_, 1 } @INC; # sort paths by unique
+	my $dep = shift;
+	my $found = '';
+	my %incs = map { $_, 1 } @INC; # sort paths by unique
 
-    for my $inc (keys %incs) {
-        my $path = $inc . '/' . join('/', split('::', $dep));
+	for my $inc (keys %incs) {
+		my $path = $inc . '/' . join('/', split('::', $dep));
 
-        my @pathsearch = qx(pkgman fsearch --full '$path.*' 2>/dev/null);
-        $found .= "@pathsearch";
-    }
-    print "$found";
-    return $found;
+		my @pathsearch = qx(
+			pkgman fsearch --full '$path.*' 2>/dev/null
+		);
+		$found .= "@pathsearch";
+	}
+	print "$found";
+	return $found;
 }
 
 sub finddeps_distmeta {
-    my $meta = LoadFile(shift || 'META.yml');
+	my $meta = LoadFile(shift || 'META.yml');
 
-    for my $require (@BLOCKS) {
-        next unless exists $meta->{ $require };
+	for my $require (@BLOCKS) {
+		next unless exists $meta->{ $require };
 
-        print BOLD, UNDERLINE, "Check $require...", RESET, "\n";
+		print BOLD, UNDERLINE, "Check $require...", RESET, "\n";
 
-        for my $dep (sort keys %{ $meta->{ $require } }) {
-            my $ver = $meta->{ $require }->{ $dep };
+		for my $dep (sort keys %{ $meta->{ $require } }) {
+			my $ver = $meta->{ $require }->{ $dep };
 
-            # check if dependency is in Perl's core or outside
-            if (Module::CoreList::is_core($dep, $ver)) {
-                print BRIGHT_GREEN, "$dep: $ver (core)\n", RESET;
-            } else {
-                # the dependency is perl itself and requires minimum
-                # version
-                if ($dep eq 'perl') {
-                    if (version->parse($ver) <= version->parse($])) {
-                        print "$dep: $ver (ok)\n";
-                    } else {
-                        print RED, "$dep: $ver (missing)\n", RESET;
-                    }
-                } else {
-                    # normal dependency, search it in the packages'
-                    # database...
-                    print BRIGHT_YELLOW,
-                        "$dep: $ver (not in core, searching in packages...)\n",
-                        RESET;
+			# check if dependency is in Perl's core or outside
+			if (Module::CoreList::is_core($dep, $ver)) {
+				print BRIGHT_GREEN, "$dep: $ver (core)\n", RESET;
+			} else {
+				# the dependency is perl itself and requires minimum
+				# version
+				if ($dep eq 'perl') {
+					if (version->parse($ver) <= version->parse($])) {
+						print "$dep: $ver (ok)\n";
+					} else {
+						print RED, "$dep: $ver (missing)\n", RESET;
+					}
+				} else {
+					# normal dependency, search it in the packages'
+					# database...
+					print BRIGHT_YELLOW, "$dep: $ver (not in core, searching in packages...)\n", RESET;
 
-                    print("  ", BOLD, RED, "MISSING!\n", RESET)
-                        if !found_in_packages($dep);
-                }
-            }
-        }
-        print "\n";
-    }
+					print("  ", BOLD, RED, "MISSING!\n", RESET) if !found_in_packages($dep);
+				}
+			}
+		}
+		print "\n";
+	}
 }
 
+######################################################################
+# Command-line helpers.                                              #
+######################################################################
+
 sub print_help {
-    print <<EOF;
+	print <<EOF;
 Usage: $PROGRAM [OPTION] [FILE]
 Parse perl-module's distmeta file and show dependencies.
 
@@ -87,25 +94,27 @@ EOF
 }
 
 sub print_version {
-    print "$PROGRAM (pkgmaint) \@VERSION@\n";
+	print "$PROGRAM (pkgmaint) \@VERSION@\n";
 }
 
 sub main {
-    GetOptions(
-        "v|version" => \my $opt_version,
-        "h|help"    => \my $opt_help,
-    ) or die "$PROGRAM: error in command-line arguments\n";
+	GetOptions(
+		"v|version" => \my $opt_version,
+		"h|help"    => \my $opt_help,
+	) or die "$PROGRAM: error in command-line arguments\n";
 
-    print_version() and exit if $opt_version;
-    print_help()    and exit if $opt_help;
+	print_version() and exit if $opt_version;
+	print_help()    and exit if $opt_help;
 
-    die "$PROGRAM: too many arguments\n" if scalar(@ARGV) > 1;
+	die "$PROGRAM: too many arguments\n" if scalar(@ARGV) > 1;
 
-    finddeps_distmeta(shift @ARGV);
+	finddeps_distmeta(shift @ARGV);
 }
+
+######################################################################
 
 main() if not caller();
 1;
 
-# vim:sw=4:ts=4:sts=4:et:cc=72:tw=70
+# vim: cc=72 tw=70
 # End of file.
