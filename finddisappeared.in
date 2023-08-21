@@ -1,61 +1,71 @@
 #!/usr/bin/env perl
-# This file is part of pkgmaint.
+
 use strict;
 use warnings;
 use Getopt::Long qw(:config gnu_compat);
 use File::Basename;
 my $PROGRAM = basename $0;
 
+######################################################################
+# Find disappeared files.                                            #
+######################################################################
+
 sub finddisappeared {
-    my $root = shift || '';
+	my $root = shift || '';
 
-    open my $fh, "< $root/var/lib/pkg/db"
-        or die "Couldn't open package database ($root): $!\n";
+	open my $fh, "< $root/var/lib/pkg/db"
+		or die "$PROGRAM: couldn't open package database ($root): $!\n";
 
-    local $/ = ""; # read files paragraph-wise
-    while (<$fh>) {
-        my ($name, $version, @footprint) = split /\n/;
+	local $/ = ""; # read files paragraph-wise
+	while (<$fh>) {
+		my ($name, $version, @footprint) = split /\n/;
 
-        my @missing = grep ! -e "$root/$_", @footprint;
-        next if not @missing;
+		my @missing = grep ! -e "$root/$_", @footprint;
+		next unless @missing;
 
-        print map "$name: /$_\n", @missing;
-    }
-    close($fh);
+		print map "$name: /$_\n", @missing;
+	}
+	close $fh;
 }
 
+######################################################################
+# Command-line helpers.                                              #
+######################################################################
+
 sub print_help {
-    print <<EOF;
+	print <<EOF;
 Usage: $PROGRAM [OPTION]
 Find files that are owned by package manager but somehow disappeared.
 
-  -r, --root=PATH   specify an alternative root location
-  -v, --version     print version and exit
-  -h, --help        print help and exit
+  -r, --root=DIR  specify an alternate root directory
+  -v, --version   print version and exit
+  -h, --help      print help and exit
 EOF
 }
 
 sub print_version {
-    print "$PROGRAM (pkgmaint) \@VERSION@\n";
+	print "$PROGRAM (pkgmaint) \@VERSION@\n";
 }
 
 sub main {
-    GetOptions(
-        "r|root=s"  => \my $opt_root,
-        "v|version" => \my $opt_version,
-        "h|help"    => \my $opt_help,
-    ) or die "$PROGRAM: error in command-line arguments\n";
+	GetOptions(
+		"r|root=s"  => \my $opt_root,
+		"v|version" => \my $opt_version,
+		"h|help"    => \my $opt_help,
+	) or die "$PROGRAM: error in command-line arguments\n";
 
-    print_help()    and exit if $opt_help;
-    print_version() and exit if $opt_version;
+	print_help()    and exit if $opt_help;
+	print_version() and exit if $opt_version;
 
-    die "$PROGRAM: invalid option @ARGV\n" if @ARGV;
+	die "$PROGRAM: invalid option @ARGV\n" if @ARGV;
 
-    finddisappeared $opt_root;
+	finddisappeared $opt_root;
 }
+
+######################################################################
 
 main() if not caller();
 1;
 
-# vim:sw=4:ts=4:sts=4:et:cc=72:tw=70
+# vim: cc=72 tw=70
 # End of file.
