@@ -21,7 +21,7 @@ and requires L<pkgman(1)>.
 
 =head1 OPTIONS
 
-=over 8
+=over
 
 =item B<-u>, B<--unique>
 
@@ -44,5 +44,5 @@ L<finddisowned(1)>
 
 =cut
 
-# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# vim: cc=72 tw=70
 # End of file.
