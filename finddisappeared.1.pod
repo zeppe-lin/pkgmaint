@@ -22,11 +22,11 @@ the actual file system.
 Mandatory arguments to long options are mandatory for short options
 too.
 
-=over 8
+=over
 
 =item B<-r>, B<--root>=I<PATH>
 
-Specify alternate root location (default is C</>).
+Specify an alternate root directory (default is C</>).
 
 =item B<-v>, B<--version>
 
@@ -49,5 +49,5 @@ L<findredundantdeps(1)>, L<finddisowned(1)>
 
 =cut
 
-# vim:cc=72:tw=70
+# vim: cc=72 tw=70
 # End of file.
