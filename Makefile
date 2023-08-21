@@ -1,5 +1,3 @@
-.POSIX:
-
 include config.mk
 
 BIN1 = $(subst .in,,$(wildcard *.in))
