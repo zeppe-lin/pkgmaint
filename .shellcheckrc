@@ -1,3 +1,0 @@
-# Don't warn about nonexistent configs while . (sourceing).
-# https://www.shellcheck.net/wiki/SC1091
-disable=SC1091
