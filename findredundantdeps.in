@@ -1,5 +1,5 @@
 #!/bin/sh
-# This file is part of pkgmaint.
+# findredundantdeps - find (un)necessary dependencies of the package
 # See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
