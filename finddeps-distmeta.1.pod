@@ -1,3 +1,6 @@
+# finddeps-distmeta(1) manual page
+# See COPYING and COPYRIGHT files for corresponding information.
+
 =pod
 
 =encoding UTF-8
@@ -52,25 +55,25 @@ Print help and exit.
 The typical usage of B<finddeps-distmeta> is to call it from the
 Perl's module directory:
 
-  cd /var/cache/pkgmk/sources/URI-5.17
-  finddeps-distmeta
+	cd /var/cache/pkgmk/sources/URI-5.17
+	finddeps-distmeta
 
 =item *
 
 Or to specify the location of F<META.yml> file manually:
 
-  finddeps-distmeta /var/cache/pkgmk/source/URI-5.17/META.yml
+	finddeps-distmeta /var/cache/pkgmk/source/URI-5.17/META.yml
 
 =item *
 
 Another convenient way is to call B<finddeps-distmeta> from the
 F<Pkgfile> when you're building the package:
 
-  build() {
-          cd URI-$version
-          finddeps-distmeta; exit 1
-          ...
-  }
+	build() {
+		cd URI-$version
+		finddeps-distmeta; exit 1
+		...
+	}
 
 =back
 
@@ -83,5 +86,5 @@ L<finddeps-linked(1)>, L<findredundantdeps(1)>
 
 =cut
 
-# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# vim: cc=72 tw=70
 # End of file.
