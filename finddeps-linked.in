@@ -1,5 +1,5 @@
 #!/bin/sh
-# This file is part of pkgmaint.
+# finddeps-linked - find linked dependencies for a package
 # See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
