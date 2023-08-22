@@ -1,4 +1,5 @@
 #!/bin/sh
+# pkglint - verifier for pkgsrc packages
 # See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
