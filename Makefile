@@ -7,6 +7,7 @@ all: ${BIN1} ${MAN1}
 
 %: %.in
 	sed "s/@VERSION@/${VERSION}/" $< > $@
+	chmod a+x $@
 
 %: %.pod
 	pod2man -r "${NAME} ${VERSION}" -c ' ' -n $(basename $@) \
