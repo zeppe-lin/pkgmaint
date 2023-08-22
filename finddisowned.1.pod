@@ -41,9 +41,13 @@ too.
 
 Specify an alternate configuration file.
 
+Default: F</etc/finddisowned.conf>.
+
 =item B<-r>, B<--root>=I<DIR>
 
-Specify an alternate root directory (default is C</>).
+Specify an alternate root directory.
+
+Default: C</>.
 
 =item B<-v>, B<--version>
 
