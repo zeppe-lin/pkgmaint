@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+# finddeps-distmeta - find perl-module's dependencies
 # See COPYING and COPYRIGHT files for corresponding information.
 
 # flush stdout
