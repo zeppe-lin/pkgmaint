@@ -1,5 +1,5 @@
 #!/bin/sh
-# This file is part of pkgmaint.
+# pkgdiff - compare software packages' footprints
 # See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
