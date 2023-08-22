@@ -1,3 +1,6 @@
+# finddisappeared(1) manual page
+# See COPYING and COPYRIGHT files for corresponding information.
+
 =pod
 
 =encoding UTF-8
@@ -22,9 +25,9 @@ the actual file system.
 Mandatory arguments to long options are mandatory for short options
 too.
 
-=over
+=over 8
 
-=item B<-r>, B<--root>=I<PATH>
+=item B<-r>, B<--root>=I<DIR>
 
 Specify an alternate root directory (default is C</>).
 
