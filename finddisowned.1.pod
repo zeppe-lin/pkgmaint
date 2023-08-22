@@ -1,3 +1,6 @@
+# finddisowned(1) manual page
+# See COPYING and COPYRIGHT files for corresponding information.
+
 =pod
 
 =encoding UTF-8
@@ -32,7 +35,7 @@ conform your needs.
 Mandatory arguments to long options are mandatory for short options
 too.
 
-=over
+=over 8
 
 =item B<-c>, B<--config>=I<FILE>
 
@@ -75,5 +78,5 @@ L<findredundantdeps(1)>, L<finddisappeared(1)>
 
 =cut
 
-# vim: sw=2 ts=2 sts=2 et cc=72 tw=70
+# vim: cc=72 tw=70
 # End of file.
