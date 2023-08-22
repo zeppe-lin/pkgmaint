@@ -1,5 +1,5 @@
 #!/bin/sh
-# This file is part of pkgmaint.
+# finddisowned - find files that are disowned by package manager
 # See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
