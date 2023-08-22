@@ -16,6 +16,7 @@ REQUIREMENTS
 - YAML::XS perl module and perl itself
 - GNU findutils
 - GNU diffutils
+- GNU grep
 - pkgmk
 - pkgutils
 - pkgman
