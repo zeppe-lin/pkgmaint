@@ -17,6 +17,7 @@ REQUIREMENTS
 - GNU findutils
 - GNU diffutils
 - GNU grep
+- GNU getopt(1)
 - pkgmk
 - pkgutils
 - pkgman
