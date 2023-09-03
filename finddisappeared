@@ -34,12 +34,15 @@ sub finddisappeared {
 
 sub print_help {
 	print <<EOF;
-Usage: $PROGRAM [OPTION]
+Usage: $PROGRAM [-r rootdir]
+       $PROGRAM [-v]
+       $PROGRAM [-h]
 Find files that are owned by package manager but somehow disappeared.
 
-  -r, --root=DIR  specify an alternate root directory
-  -v, --version   print version and exit
-  -h, --help      print help and exit
+Mandatory arguments to long options are mandatory for short options too.
+  -r, --root=rootdir  specify an alternate root directory
+  -v, --version       print version and exit
+  -h, --help          print help and exit
 EOF
 }
 

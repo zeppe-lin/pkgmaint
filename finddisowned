@@ -74,14 +74,16 @@ finddisowned() {
 
 print_help() {
 	cat <<EOF
-Usage: $ARGV0 [OPTION]...
+Usage: $ARGV0 [-c conffile] [-r rootdir]
+       $ARGV0 [-v]
+       $ARGV0 [-h]
 Find files that are disowned by package manager.
 
 Mandatory arguments to long options are mandatory for short options too.
-  -c, --config=FILE  specify an alternate configuration file
-  -r, --root=DIR     specify an alternate root directory
-  -v, --version      print version and exit
-  -h, --help         print help and exit
+  -c, --config=conffile  specify an alternate configuration file
+  -r, --root=rootdir     specify an alternate root directory
+  -v, --version          print version and exit
+  -h, --help             print help and exit
 EOF
 }
 

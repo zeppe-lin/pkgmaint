@@ -59,7 +59,9 @@ pkgdiff() {
 
 print_help() {
 	cat <<EOF
-Usage: $ARGV0 [OPTION] FILE1 FILE2
+Usage: $ARGV0 [-c] file1 file2
+       $ARGV0 [-v]
+       $ARGV0 [-h]
 Compare software packages' footprints.
 
   -c, --color    color output

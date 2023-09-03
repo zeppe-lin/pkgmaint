@@ -62,7 +62,9 @@ finddeps() {
 
 print_help() {
 	cat <<EOF
-Usage: $ARGV0 [OPTION] PKGNAME
+Usage: $ARGV0 pkgname
+       $ARGV0 [-v]
+       $ARGV0 [-h]
 Find linked dependencies for a package.
 
   -v, --version  print version and exit

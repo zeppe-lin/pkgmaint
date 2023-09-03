@@ -86,7 +86,9 @@ sub finddeps_distmeta {
 
 sub print_help {
 	print <<EOF;
-Usage: $PROGRAM [OPTION] [FILE]
+Usage: $PROGRAM [file]
+       $PROGRAM [-h]
+       $PROGRAM [-v]
 Parse perl-module's distmeta file and show dependencies.
 
   -v, --version   print version and exit
