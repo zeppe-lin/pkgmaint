@@ -1,23 +1,21 @@
 include config.mk
 
-BIN1 = $(subst .in,,$(wildcard *.in))
-MAN1 = $(subst .1.pod,.1,$(wildcard *.pod))
+MAN1 = $(wildcard *.1)
+BIN1 = $(MAN1:.1=)
 
-all: ${BIN1} ${MAN1}
-
-%: %.in
-	sed "s/@VERSION@/${VERSION}/" $< > $@
-	chmod a+x $@
-
-%: %.pod
-	pod2man -r "${NAME} ${VERSION}" -c ' ' -n $(basename $@) \
-		-s $(subst .,,$(suffix $@)) $< > $@
+all:
 
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
-	cp -f ${BIN1} ${DESTDIR}${PREFIX}/bin
-	cp -f ${MAN1} ${DESTDIR}${MANPREFIX}/man1
+	for BIN in ${BIN1}; do \
+		sed "s/@VERSION@/${VERSION}/" $$BIN > \
+			${DESTDIR}${PREFIX}/bin/$$BIN;\
+	done
+	for MAN in ${MAN1}; do \
+		sed "s/@VERSION@/${VERSION}/" $$MAN > \
+			${DESTDIR}${MANPREFIX}/man1/$$MAN;\
+	done
 	cd ${DESTDIR}${PREFIX}/bin     && chmod 0755 ${BIN1}
 	cd ${DESTDIR}${MANPREFIX}/man1 && chmod 0644 ${MAN1}
 
@@ -26,7 +24,6 @@ uninstall:
 	cd ${DESTDIR}${MANPREFIX}/man1 && rm -f ${MAN1}
 
 clean:
-	rm -f ${BIN1} ${MAN1}
 	rm -f ${DIST}.tar.gz
 
 dist: clean
