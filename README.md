@@ -9,7 +9,6 @@ REQUIREMENTS
 **Built time**:
 - POSIX sh(1p) and "mandatory utilities"
 - GNU make(1)
-- pod2man(1pm) to build man pages
 
 **Runtime**:
 - POSIX sh(1p) and "mandatory utilities"
