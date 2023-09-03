@@ -1,13 +1,3 @@
-# build files and artefacts
-*.1
-finddeps-distmeta
-finddeps-linked
-finddisappeared
-finddisowned
-findredundantdeps
-pkgdiff
-pkglint
-
 # vim undo and swap files
 .*.un~
 *.swp
