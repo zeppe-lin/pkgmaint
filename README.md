@@ -25,8 +25,8 @@ REQUIREMENTS
 
 INSTALL
 -------
-The shell commands `make && make install` should build and install
-this package.
+The shell command `make install` should install this package.
+See `config.mk` file for configuration parameters.
 
 
 LICENSE
@@ -37,5 +37,4 @@ Read the COPYING file for copying conditions.
 Read the COPYRIGHT file for copyright notices.
 
 **!!!EXCEPTIONS!!!**
-- `finddisappeared.in` was initially developed by Martin Opel by unknown
-  license.
+- `finddisappeared` was initially developed by Martin Opel by unknown license.
