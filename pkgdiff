@@ -64,7 +64,7 @@ Usage: $ARGV0 [-c] file1 file2
        $ARGV0 [-h]
 Compare software packages' footprints.
 
-  -c, --color    color output
+  -c, --color    colorize output
   -v, --version  print version and exit
   -h, --help     print help and exit
 EOF
