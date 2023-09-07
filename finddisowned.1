@@ -3,9 +3,11 @@
 .Dd September 3, 2023
 .Dt FINDDISOWNED 1
 .Os pkgmaint @VERSION@
+.\" ==================================================================
 .Sh NAME
 .Nm finddisowned
 .Nd find files that are disowned by package manager
+.\" ==================================================================
 .Sh SYNOPSIS
 .Nm finddisowned
 .Op Fl c Ar conffile
@@ -14,6 +16,7 @@
 .Op Fl v
 .Nm
 .Op Fl h
+.\" ==================================================================
 .Sh DESCRIPTION
 The
 .Nm
@@ -53,6 +56,7 @@ Print version and exit.
 .It Fl h , Fl -help
 Print help and exit.
 .El
+.\" ==================================================================
 .Sh FILES
 .Bl -tag -width Ds
 .It Pa /var/lib/pkg/db
@@ -62,6 +66,7 @@ Configuration file.
 Contains a list of directories, the contents of which will be compared
 with package database.
 .El
+.\" ==================================================================
 .Sh SEE ALSO
 .Xr finddeps-distmeta 1 ,
 .Xr finddeps-linked 1 ,
