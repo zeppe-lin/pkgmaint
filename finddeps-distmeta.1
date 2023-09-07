@@ -3,9 +3,11 @@
 .Dd September 3, 2023
 .Dt FINDDEPS-DISTMETA 1
 .Os pkgmaint @VERSION@
+.\" ==================================================================
 .Sh NAME
 .Nm finddeps-distmeta
 .Nd parse Perl-module's distmeta file and find dependencies
+.\" ==================================================================
 .Sh SYNOPSIS
 .Nm finddeps-distmeta
 .Op Ar file
@@ -13,6 +15,7 @@
 .Op Fl v
 .Nm
 .Op Fl h
+.\" ==================================================================
 .Sh DESCRIPTION
 The
 .Nm
@@ -36,6 +39,7 @@ Print version and exit.
 .It Fl h , Fl -help
 Print help and exit.
 .El
+.\" ==================================================================
 .Sh EXAMPLES
 The typical usage of
 .Nm
@@ -69,9 +73,11 @@ build() {
 So, you can check the output, fix
 .Dq Depends on:
 field and remove unnecessary call afterwards.
+.\" ==================================================================
 .Sh SEE ALSO
 .Xr finddeps-linked 1 ,
 .Xr findredundantdeps 1
+.\" ==================================================================
 .Sh BUGS
 Currently,
 .Nm
