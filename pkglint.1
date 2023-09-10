@@ -29,40 +29,40 @@ manual page, but also contains additional checks.
 .Pp
 The options are as follows:
 .Bl -tag -width Ds
-.It Fl d , Fl -dead-links
+.It Fl d , Fl \&-dead-links
 Check
-.Pa Pkgfile
+.Dq Pkgfile
 and
-.Pa README
+.Dq README
 files for dead links.
-.It Fl i , Fl -invalid
+.It Fl i , Fl \&-invalid
 Check
-.Pa .footprint
+.Dq .footprint
 file for invalid directories, like
 .Pa /usr/local ,
 .Pa /usr/share/locale ,
 .Pa /usr/share/doc ,
 .Pa /usr/share/info ,
 etc.
-.It Fl j , Fl -junk
+.It Fl j , Fl \&-junk
 Check
-.Pa .footprint
+.Dq .footprint
 file for junk files, like
-.Pa README ,
-.Pa TODO ,
-.Pa NEWS ,
+.Dq README ,
+.Dq TODO ,
+.Dq NEWS ,
 etc.
-.It Fl s , Fl -suid-sgid
+.It Fl s , Fl \&-suid-sgid
 Check
-.Pa .footprint
+.Dq .footprint
 file for SUID/SGID files and directories.
-.It Fl w , -world-writeable
+.It Fl w , \&-world-writeable
 Check
-.Pa .footprint
+.Dq .footprint
 file for world-writeable files and directories.
-.It Fl v , Fl -version
+.It Fl v , Fl \&-version
 Print version and exit.
-.It Fl h , Fl -help
+.It Fl h , Fl \&-help
 Print help and exit.
 .El
 .\" ==================================================================
