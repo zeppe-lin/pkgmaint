@@ -12,7 +12,7 @@ REQUIREMENTS
 
 **Runtime**:
 - POSIX sh(1p) and "mandatory utilities"
-- YAML::XS perl module and perl itself
+- YAML::XS(3) perl module and perl itself
 - GNU findutils
 - GNU diffutils
 - GNU grep
