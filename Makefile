@@ -8,10 +8,14 @@ all:
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
-	for B in ${BIN1}; do sed "s/@VERSION@/${VERSION}/" $$B > \
-		${DESTDIR}${PREFIX}/bin/$$B; done
-	for M in ${MAN1}; do sed "s/@VERSION@/${VERSION}/" $$M > \
-		${DESTDIR}${MANPREFIX}/man1/$$M; done
+	for B in ${BIN1}; do \
+		sed "s/@VERSION@/${VERSION}/" $$B \
+		> ${DESTDIR}${PREFIX}/bin/$$B; \
+	done
+	for M in ${MAN1}; do \
+		sed "s/^\.Os/.Os ${NAME} ${VERSION}/" $$M \
+		> ${DESTDIR}${MANPREFIX}/man1/$$M; \
+	done
 	cd ${DESTDIR}${PREFIX}/bin     && chmod 0755 ${BIN1}
 	cd ${DESTDIR}${MANPREFIX}/man1 && chmod 0644 ${MAN1}
 
