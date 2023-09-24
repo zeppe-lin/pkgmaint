@@ -32,6 +32,10 @@ sub finddisappeared {
 # Command-line helpers.                                              #
 ######################################################################
 
+sub print_version {
+	print "$PROGRAM (pkgmaint) \@VERSION@\n";
+}
+
 sub print_help {
 	print <<EOF;
 Usage: $PROGRAM [-r rootdir]
@@ -44,10 +48,6 @@ Mandatory arguments to long options are mandatory for short options too.
   -v, --version       print version and exit
   -h, --help          print help and exit
 EOF
-}
-
-sub print_version {
-	print "$PROGRAM (pkgmaint) \@VERSION@\n";
 }
 
 sub main {
