@@ -1,7 +1,8 @@
 OVERVIEW
 --------
 This directory contains pkgmaint, a collection of scripts for
-Zeppe-Lin, mainly oriented towards package management and maintaining.
+Zeppe-Lin, mainly oriented towards package management and
+maintaining.
 
 
 REQUIREMENTS
@@ -26,15 +27,17 @@ REQUIREMENTS
 INSTALL
 -------
 The shell command `make install` should install this package.
+
 See `config.mk` file for configuration parameters.
 
 
 LICENSE
 -------
-pkgmaint is licensed through the GNU General Public License v3 or
-later <https://gnu.org/licenses/gpl.html>.
+pkgmaint is licensed through the GNU General Public License v3
+or later <https://gnu.org/licenses/gpl.html>.
 Read the COPYING file for copying conditions.
 Read the COPYRIGHT file for copyright notices.
 
 **!!!EXCEPTIONS!!!**
-- `finddisappeared` was initially developed by Martin Opel by unknown license.
+- `finddisappeared` was initially developed by Martin Opel by
+  unknown license.
