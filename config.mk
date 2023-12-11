@@ -1,6 +1,6 @@
 # project metadata
 NAME      = pkgmaint
-VERSION   = 0.4
+VERSION   = 0.5
 DIST      = ${NAME}-${VERSION}
 
 # paths
