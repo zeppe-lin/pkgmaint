@@ -48,10 +48,10 @@ parse_options() {
 	eval set -- "$_OPTS"; unset _OPTS
 	while true; do
 		case $1 in
-		-u| --unique) SHOW_UNIQ_CMD=show_uniq     ;;
-		-v|--version) print_version      ; exit 0 ;;
-		-h|   --help) print_help         ; exit 0 ;;
-		          --) shift              ; break  ;;
+		-u| --unique) SHOW_UNIQ_CMD=show_uniq ;;
+		-v|--version) print_version  ; exit 0 ;;
+		-h|   --help) print_help     ; exit 0 ;;
+		          --) shift          ; break  ;;
 		esac
 		shift
 	done
