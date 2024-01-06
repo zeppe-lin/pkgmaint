@@ -1,7 +1,0 @@
-TODO pkgmaint
-
-	- [ ] finddeps-distmeta is pretty ugly
-	- [ ] finddeps-distmeta: add support for META.json (JSON) parsing
-	- [ ] add bash completion?
-
-End of file.
