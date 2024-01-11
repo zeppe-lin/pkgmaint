@@ -1,0 +1,143 @@
+# bash completion for pkgmaint utilities
+# See COPYING and COPYRIGHT files for corresponding information.
+
+_inst_pkgs=($(pkginfo -i | awk '{print $1}'))
+_avail_pkgs=($(pkgman printf "%n "))
+
+_finddeps-distmeta()
+{
+	local cur prev words cword split
+	_init_completion -s || return
+
+	case "$prev" in
+	--help|--version|-!(-*)[hv])
+		return
+		;;
+	esac
+
+	if [[ $cur == -* ]]; then
+		COMPREPLY=($(compgen -W '$(_parse_help "$1")' -- "$cur"))
+		[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
+	fi
+} && complete -F _finddeps-distmeta finddeps-distmeta
+
+_finddeps-linked()
+{
+	local cur prev words cword split
+	_init_completion -s || return
+
+	case "$prev" in
+	--help|--version|-!(-*)[hv])
+		return
+		;;
+	esac
+
+	if [[ $cur == -* ]]; then
+		COMPREPLY=($(compgen -W '$(_parse_help "$1")' -- "$cur"))
+		[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
+	else
+		COMPREPLY=($(compgen -W '"${_inst_pkgs[@]}"' -- $cur))
+	fi
+} && complete -F _finddeps-linked finddeps-linked
+
+_finddisappeared()
+{
+	local cur prev words cword split
+	_init_completion -s || return
+
+	case "$prev" in
+	--help|--version|-!(-*)[hv])
+		return
+		;;
+	--root|-r)
+		_filedir -d
+		return
+		;;
+	esac
+
+	if [[ $cur == -* ]]; then
+		COMPREPLY=($(compgen -W '$(_parse_help "$1")' -- "$cur"))
+		[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
+	fi
+} && complete -F _finddisappeared finddisappeared
+
+_finddisowned()
+{
+	local cur prev words cword split
+	_init_completion -s || return
+
+	case "$prev" in
+	--help|--version|-!(-*)[hv])
+		return
+		;;
+	--config|-c)
+		_filedir
+		return
+		;;
+	--root|-r)
+		_filedir -d
+		return
+		;;
+	esac
+
+	if [[ $cur == -* ]]; then
+		COMPREPLY=($(compgen -W '$(_parse_help "$1")' -- "$cur"))
+		[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
+	fi
+} && complete -F _finddisowned finddisowned
+
+_findredundantdeps()
+{
+	local cur prev words cword split
+	_init_completion -s || return
+
+	case "$prev" in
+	--help|--version|-!(-*)[hv])
+		return
+		;;
+	esac
+
+	if [[ $cur == -* ]]; then
+		COMPREPLY=($(compgen -W '$(_parse_help "$1")' -- "$cur"))
+		[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
+	else
+		COMPREPLY=($(compgen -W '"${_avail_pkgs[@]}"' -- $cur))
+	fi
+} && complete -F _findredundantdeps findredundantdeps
+
+_pkgdiff()
+{
+	local cur prev words cword split
+	_init_completion -s || return
+
+	case "$prev" in
+	--help|--version|-!(-*)[hv])
+		return
+		;;
+	esac
+
+	if [[ $cur == -* ]]; then
+		COMPREPLY=($(compgen -W '$(_parse_help "$1")' -- "$cur"))
+		[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
+	fi
+} && complete -F _pkgdiff pkgdiff
+
+_pkglint()
+{
+	local cur prev words cword split
+	_init_completion -s || return
+
+	case "$prev" in
+	--help|--version|-!(-*)[hv])
+		return
+		;;
+	esac
+
+	if [[ $cur == -* ]]; then
+		COMPREPLY=($(compgen -W '$(_parse_help "$1")' -- "$cur"))
+		[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
+	fi
+} && complete -F _pkglint pkglint
+
+# vim: ft=bash cc=72 tw=70
+# End of file.

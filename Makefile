@@ -20,6 +20,18 @@ uninstall:
 	cd ${DESTDIR}${PREFIX}/bin     && rm -f ${BIN1}
 	cd ${DESTDIR}${MANPREFIX}/man1 && rm -f ${MAN1}
 
+install_bashcomp:
+	mkdir -p ${DESTDIR}${BASHCOMPDIR}
+	for F in ${BIN1}; do \
+		ln -sf pkglint ${DESTDIR}${BASHCOMPDIR}/"$$F"; \
+	done
+	cp -f bash_completion ${DESTDIR}${BASHCOMPDIR}/pkglint
+
+uninstall_bashcomp:
+	for F in ${BIN1}; do \
+		rm -f ${DESTDIR}${BASHCOMPDIR}/"$$F"; \
+	done
+
 clean:
 	rm -f ${DIST}.tar.gz
 
