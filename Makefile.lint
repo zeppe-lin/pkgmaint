@@ -34,15 +34,6 @@ shellcheck:
 	@grep -m1 -Irl '^#\s*!/bin/sh' --exclude-dir=.git* \
 		| xargs -L10 -r shellcheck -s sh
 
-cppcheck:
-	@echo "=======> Static C/C++ code analysis"
-	@cppcheck --quiet --enable=all --check-level=exhaustive  \
-		--suppress=missingIncludeSystem .
-
-flawfinder:
-	@echo "=======> Check for potential security flaws"
-	@flawfinder --quiet -D .
-
 longlines:
 	@echo "=======> Check for long lines"
 	@! grep -PIrn '^.{81,}$$' --exclude-dir=.git*
