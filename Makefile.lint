@@ -27,8 +27,7 @@ deadlinks:
 
 mancheck:
 	@echo "=======> Check man pages for syntax errors"
-	@find . -not -path '*/.*' -type f -name '*.[1-9]' \
-		-exec mandoc -T lint {} +
+	@mandoc -T lint *.1
 
 podchecker:
 	@echo "=======> Check PODs for syntax errors"
