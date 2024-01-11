@@ -97,7 +97,7 @@ EOF
 }
 
 sub print_version {
-	print "$PROGRAM (pkgmaint) \@VERSION@\n";
+	print "$PROGRAM (pkgmaint) ".'@VERSION@'."\n";
 }
 
 sub main {
