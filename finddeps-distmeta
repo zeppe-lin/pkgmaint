@@ -14,7 +14,9 @@ use File::Basename;
 use Module::CoreList;
 use Getopt::Long qw(:config gnu_compat);
 use Term::ANSIColor qw(:constants);
+
 my $PROGRAM = basename $0;
+my $VERSION = '@VERSION@';
 
 #use JSON; # TODO: parse JSON files.
 use YAML::XS 'LoadFile';
@@ -97,7 +99,7 @@ EOF
 }
 
 sub print_version {
-	print "$PROGRAM (pkgmaint) ".'@VERSION@'."\n";
+	print "$PROGRAM (pkgmaint) $VERSION\n";
 }
 
 sub main {

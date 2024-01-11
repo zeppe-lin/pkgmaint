@@ -4,7 +4,9 @@ use strict;
 use warnings;
 use Getopt::Long qw(:config gnu_compat);
 use File::Basename;
+
 my $PROGRAM = basename $0;
+my $VERSION = '@VERSION@';
 
 ######################################################################
 # Find disappeared files.                                            #
@@ -33,7 +35,7 @@ sub finddisappeared {
 ######################################################################
 
 sub print_version {
-	print "$PROGRAM (pkgmaint) ".'@VERSION@'."\n";
+	print "$PROGRAM (pkgmaint) $VERSION\n";
 }
 
 sub print_help {
