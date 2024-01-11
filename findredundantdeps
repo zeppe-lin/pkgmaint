@@ -7,12 +7,12 @@
 ######################################################################
 
 findredundantdeps() {
-	DEPS=$(pkgman dep --all "$1") || exit 3
+	_DEPS=$(pkgman dep --all "$1") || exit 3
 
 	# Intentional.
 	# shellcheck disable=2086
 	pkgman dep --all --recursive --full "$1" |
-		grep -E "($(echo $DEPS | tr ' ' '|'))$"
+		grep -E "($(echo $_DEPS | tr ' ' '|'))$"
 }
 
 show_uniq() {
