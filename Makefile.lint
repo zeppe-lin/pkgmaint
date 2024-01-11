@@ -29,10 +29,6 @@ mancheck:
 	@echo "=======> Check man pages for syntax errors"
 	@mandoc -T lint *.1
 
-podchecker:
-	@echo "=======> Check PODs for syntax errors"
-	@find . -name '*.pod' -exec podchecker {} +
-
 shellcheck:
 	@echo "=======> Check shell scripts for syntax errors"
 	@grep -m1 -Irl '^#\s*!/bin/sh' --exclude-dir=.git* \
