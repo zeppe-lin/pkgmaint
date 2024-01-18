@@ -14,9 +14,10 @@ my $VERSION = '@VERSION@';
 
 sub finddisappeared {
 	my $root = shift || '';
+	my $pkgdb = "$root/var/lib/pkg/db";
 
-	open my $fh, "< $root/var/lib/pkg/db"
-		or die "$PROGRAM: couldn't open package database ($root): $!\n";
+	open my $fh, "<", $pkgdb
+		or die "$PROGRAM: couldn't open package database ($pkgdb): $!\n";
 
 	local $/ = ""; # read files paragraph-wise
 	while (<$fh>) {
