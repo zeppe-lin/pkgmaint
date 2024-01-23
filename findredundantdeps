@@ -84,9 +84,9 @@ parse_options() {
 	set -- $PKGNAME
 
 	case $# in
-	1) ;; # all is ok, one argument is required
-	0) fatal 'missing argument' y 1 ;;
-	*) fatal 'too many arguments' y 1 ;;
+	1) ;; # Fine, one argument is required.
+	0) fatal "missing argument" y 1 ;;
+	*) fatal "too many arguments" y 1 ;;
 	esac
 }
 
