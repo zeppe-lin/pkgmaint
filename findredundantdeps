@@ -37,7 +37,7 @@ findredundantdeps() {
 		grep -E "($(echo $_deps | tr ' ' '|'))$"
 }
 
-# Print only unique lines.
+# Print only unique lines of the list.
 show_uniq() {
 	tr ' ' '\n' | sort | uniq -u
 }
