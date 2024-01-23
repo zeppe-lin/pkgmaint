@@ -105,7 +105,7 @@ parse_options() {
 	set -- $PKGLIST
 
 	case $# in
-	2) ;; # fine, two arguments are required
+	2) ;; # Fine, two arguments are required.
 	0) fatal "missing arguments" y      ;;
 	1) fatal "required two arguments" y ;;
 	*) fatal "too many arguments" y     ;;
