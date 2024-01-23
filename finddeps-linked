@@ -3,6 +3,26 @@
 # See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
+# Notification helpers.                                              #
+######################################################################
+
+# Print error message to stderr and terminate the program.
+#   arg $1: the message (optional)
+#   arg $2: print help reference (y/n) (optional)
+#   arg $3: exit code instead of default "1" (optional)
+fatal() {
+	if [ -n "$1" ]; then
+		echo "$ARGV0: $1" 1>&2
+	fi
+
+	if [ -n "$2" ] && [ "$2" = y ]; then
+		echo "Try '$ARGV0 --help' for more information." 1>&2
+	fi
+
+	echo "${3:-1}"
+}
+
+######################################################################
 # Exit hooks.                                                        #
 ######################################################################
 
@@ -77,10 +97,7 @@ print_version() {
 }
 
 parse_options() {
-	if ! _opts=$(getopt -a -n "$ARGV0" -l "$LOPTS" -o "$SOPTS" -- "$@"); then
-		echo "Try '$ARGV0 --help' for more information." 1>&2
-		exit 1
-	fi
+	_opts=$(getopt -a -n "$ARGV0" -l "$LOPTS" -o "$SOPTS" -- "$@") || fatal '' y
 	eval set -- "$_opts"; unset _opts
 	while true; do
 		case $1 in
@@ -91,16 +108,25 @@ parse_options() {
 		shift
 	done
 
-	PKGNAME="${1?"missing argument"}"
+	PKGNAME=$*
+
+	# Intentional word splitting.
+	# shellcheck disable=SC2086
+	set -- $PKGNAME
+
+	case $# in
+	1) ;; # Fine, one argument is required.
+	0) fatal "missing argument" y ;;
+	*) fatal "too many arguments" y ;;
+	esac
+
+	if ! pkgman isinst "$PKGNAME" >/dev/null 2>&1; then
+		fatal "$PKGNAME is not installed" n
+	fi
 }
 
 main() {
 	parse_options "$@"
-
-	if ! pkgman isinst "$PKGNAME" >/dev/null 2>&1; then
-		echo "$ARGV0: $PKGNAME is not installed" 1>&2
-		exit 1
-	fi
 
 	finddeps "$PKGNAME"
 }
