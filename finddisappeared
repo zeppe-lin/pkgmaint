@@ -60,8 +60,8 @@ sub main {
 		"h|help"    => \my $opt_help,
 	) or die "$PROGRAM: error in command-line arguments\n";
 
-	print_help()    and exit if $opt_help;
 	print_version() and exit if $opt_version;
+	print_help()    and exit if $opt_help;
 
 	die "$PROGRAM: invalid option @ARGV\n" if @ARGV;
 
