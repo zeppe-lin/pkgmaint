@@ -48,21 +48,21 @@ finddisowned() {
 	sort -u "$ROOT/var/lib/pkg/db" > "$TMPFILE1"
 
 	info "Get search paths from configuration file"
-	#PATHS=$(xargs < "$(readlink -f "$CONF")")
-	while read -r _PATH; do
+	#_paths=$(xargs < "$(readlink -f "$CONF")")
+	while read -r _path; do
 		# skip comments and empty lines
-		case $_PATH in \#* | "" ) continue ;; esac
+		case $_path in \#* | "" ) continue ;; esac
 
-		PATHS="$PATHS $_PATH"
+		_paths="$_paths $_path"
 	done < "$(readlink -f "$CONF")"
 
 	info "Search files that are disowned by package manager"
 	(
 	cd "${ROOT:-/}" || exit 1
 
-	# Intentional word splitting for PATHS.
+	# Intentional word splitting for _paths.
 	# shellcheck disable=2086
-	find $PATHS \( -type d -printf '%p/\n' -o -print \) |
+	find $_paths \( -type d -printf '%p/\n' -o -print \) |
 		sort > "$TMPFILE2"
 	)
 	comm -23 "$TMPFILE2" "$TMPFILE1"
