@@ -58,12 +58,12 @@ finddisowned() {
 
 	info "Search files that are disowned by package manager"
 	(
-	cd "${ROOT:-/}" || exit 1
+		cd "${ROOT:-/}" || exit 1
 
-	# Intentional word splitting for _paths.
-	# shellcheck disable=2086
-	find $_paths \( -type d -printf '%p/\n' -o -print \) |
-		sort > "$TMPFILE2"
+		# Intentional word splitting for _paths.
+		# shellcheck disable=2086
+		find $_paths \( -type d -printf '%p/\n' -o -print \) |
+			sort > "$TMPFILE2"
 	)
 	comm -23 "$TMPFILE2" "$TMPFILE1"
 }
