@@ -96,6 +96,7 @@ parse_options() {
 		echo "Try '$ARGV0 --help' for more information." 1>&2
 		exit 1
 	fi
+
 	eval set -- "$_opts"; unset _opts
 	while true; do
 		case $1 in
@@ -115,12 +116,12 @@ main() {
 	parse_options "$@"
 
 	if [ ! -d "$ROOT" ]; then
-		error "root directory not found: $ROOT"
+		echo "$ARGV0: root directory '$ROOT' not found" 1>&2
 		exit 1
 	fi
 
 	if [ ! -f "$CONF" ]; then
-		error "configuration file not found: $CONF"
+		echo "$ARGV0: configuration file '$FILE' not found" 1>&2
 		exit 1
 	fi
 
