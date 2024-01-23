@@ -6,9 +6,20 @@
 # Notification helpers.                                              #
 ######################################################################
 
+# Print error message to stderr and terminate the program.
+#   arg $1: the message (optional)
+#   arg $2: print help reference (y/n) (optional)
+#   arg $3: exit code instead of default 1 (optional)
 fatal() {
-	echo "$ARGV0: $1" 1>&2
-	exit 1
+	if [ -n "$1" ]; then
+		echo "$ARGV0: $1" 1>&2
+	fi
+
+	if [ -n "$2" ] && [ "$2" = y ]; then
+		echo "Try '$ARGV0 --help' for more information." 1>&2
+	fi
+
+	exit "${3:-1}"
 }
 
 ######################################################################
@@ -75,10 +86,7 @@ print_version() {
 }
 
 parse_options() {
-	if ! _opts=$(getopt -a -n "$ARGV0" -l "$LOPTS" -o "$SOPTS" -- "$@"); then
-		echo "Try 'pkgdiff --help' for more information." 1>&2
-		exit 1
-	fi
+	_opts=$(getopt -a -n "$ARGV0" -l "$LOPTS" -o "$SOPTS" -- "$@") || fatal '' y
 	eval set -- "$_opts"; unset _opts
 	while true; do
 		case $1 in
@@ -97,10 +105,10 @@ parse_options() {
 	set -- $PKGLIST
 
 	case $# in
-	0) fatal "missing arguments"      ;;
-	1) fatal "required two arguments" ;;
-	2)                                ;;
-	*) fatal "too many arguments"     ;;
+	2) ;; # fine, two arguments are required
+	0) fatal "missing arguments" y      ;;
+	1) fatal "required two arguments" y ;;
+	*) fatal "too many arguments" y     ;;
 	esac
 }
 
