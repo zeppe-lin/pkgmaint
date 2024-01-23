@@ -64,7 +64,7 @@ print_version() {
 }
 
 parse_options() {
-	_opts=$(getopt -a -n "$ARGV0" -l "$LOPTS" -o "$SOPTS" -- "$@") || fatal '' y 1
+	_opts=$(getopt -a -n "$ARGV0" -l "$LOPTS" -o "$SOPTS" -- "$@") || fatal '' y
 	eval set -- "$_opts"; unset _opts
 	while true; do
 		case $1 in
@@ -85,8 +85,8 @@ parse_options() {
 
 	case $# in
 	1) ;; # Fine, one argument is required.
-	0) fatal "missing argument" y 1 ;;
-	*) fatal "too many arguments" y 1 ;;
+	0) fatal "missing argument" y   ;;
+	*) fatal "too many arguments" y ;;
 	esac
 }
 
@@ -94,7 +94,7 @@ main() {
 	parse_options "$@"
 
 	if ! pkgman isinst "$PKGNAME" >/dev/null 2>&1; then
-		fatal "package '$PKGNAME' is not installed" n 1
+		fatal "package '$PKGNAME' is not installed" n
 	fi
 
 	findredundantdeps "$PKGNAME" | $SHOW_UNIQ_CMD
