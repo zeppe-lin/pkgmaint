@@ -26,6 +26,8 @@ fatal() {
 # Findredundantdeps.                                                 #
 ######################################################################
 
+# Print package dependencies recursively.
+#   arg $1: package name
 findredundantdeps() {
 	_deps=$(pkgman dep --all "$1")
 
@@ -35,6 +37,7 @@ findredundantdeps() {
 		grep -E "($(echo $_deps | tr ' ' '|'))$"
 }
 
+# Print only unique lines.
 show_uniq() {
 	tr ' ' '\n' | sort | uniq -u
 }
