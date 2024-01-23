@@ -106,15 +106,18 @@ sub print_version {
 }
 
 sub main {
+	my $help_ref = "Try '$PROGRAM --help' for more information.";
+
 	GetOptions(
 		"v|version" => \my $opt_version,
 		"h|help"    => \my $opt_help,
-	) or die "Try '$PROGRAM --help' for more information.\n";
+	) or die "$help_ref\n";
 
 	print_version() and exit if $opt_version;
 	print_help()    and exit if $opt_help;
 
-	die "$PROGRAM: too many arguments\n" if scalar(@ARGV) > 1;
+	die "$PROGRAM: too many arguments\n$help_ref\n"
+		if scalar(@ARGV) > 1;
 
 	finddeps_distmeta(shift @ARGV);
 }
