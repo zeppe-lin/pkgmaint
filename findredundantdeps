@@ -3,6 +3,26 @@
 # See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
+# Notification helpers.                                              #
+######################################################################
+
+# Print error message to stderr and terminate the program.
+#   arg $1: the message (optional)
+#   arg $2: print help reference (y/n) (optional)
+#   arg $3: exit code instead of default 1 (optional)
+fatal() {
+	if [ -n "$1" ]; then
+		echo "$ARGV0: $1" 1>&2
+	fi
+
+	if [ -n "$2" ] && [ "$2" = y ]; then
+		echo "Try '$ARGV0 --help' for more information." 1>&2
+	fi
+
+	exit "${3:-1}"
+}
+
+######################################################################
 # Findredundantdeps.                                                 #
 ######################################################################
 
@@ -41,10 +61,7 @@ print_version() {
 }
 
 parse_options() {
-	if ! _opts=$(getopt -a -n "$ARGV0" -l "$LOPTS" -o "$SOPTS" -- "$@"); then
-		echo "Try '$ARGV0 --help' for more information." 1>&2
-		exit 1
-	fi
+	_opts=$(getopt -a -n "$ARGV0" -l "$LOPTS" -o "$SOPTS" -- "$@") || fatal '' y 1
 	eval set -- "$_opts"; unset _opts
 	while true; do
 		case $1 in
@@ -65,14 +82,8 @@ parse_options() {
 
 	case $# in
 	1) ;; # all is ok, one argument is required
-	0) echo "$ARGV0: missing argument" 1>&2
-	   echo "Try '$ARGV0 --help' for more information." 1>&2
-	   exit 1
-	   ;;
-	*) echo "$ARGV0: too many arguments" 1>&2
-	   echo "Try '$ARGV0 --help' for more information." 1>&2
-	   exit 1
-	   ;;
+	0) fatal 'missing argument' y 1 ;;
+	*) fatal 'too many arguments' y 1 ;;
 	esac
 }
 
