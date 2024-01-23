@@ -76,7 +76,7 @@ print_version() {
 
 parse_options() {
 	if ! _opts=$(getopt -a -n "$ARGV0" -l "$LOPTS" -o "$SOPTS" -- "$@"); then
-		echo "Try 'pkgdiff --help' for more information."
+		echo "Try 'pkgdiff --help' for more information." 1>&2
 		exit 1
 	fi
 	eval set -- "$_opts"; unset _opts
