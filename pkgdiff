@@ -75,11 +75,11 @@ print_version() {
 }
 
 parse_options() {
-	if ! _OPTS=$(getopt -a -n "$ARGV0" -l "$LOPTS" -o "$SOPTS" -- "$@"); then
+	if ! _opts=$(getopt -a -n "$ARGV0" -l "$LOPTS" -o "$SOPTS" -- "$@"); then
 		echo "Try 'pkgdiff --help' for more information."
 		exit 1
 	fi
-	eval set -- "$_OPTS"; unset _OPTS
+	eval set -- "$_opts"; unset _opts
 	while true; do
 		case $1 in
 		-c|  --color) COLOR="--color=always" ;;
