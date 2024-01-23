@@ -54,16 +54,18 @@ EOF
 }
 
 sub main {
+	my $help_ref = "Try '$PROGRAM --help' for more information.";
+
 	GetOptions(
 		"r|root=s"  => \my $opt_root,
 		"v|version" => \my $opt_version,
 		"h|help"    => \my $opt_help,
-	) or die "Try '$PROGRAM --help' for more information.\n";
+	) or die "$help_ref\n";
 
 	print_version() and exit if $opt_version;
 	print_help()    and exit if $opt_help;
 
-	die "$PROGRAM: invalid option @ARGV\n" if @ARGV;
+	die "$PROGRAM: invalid option @ARGV\n$help_ref\n" if @ARGV;
 
 	finddisappeared $opt_root;
 }
