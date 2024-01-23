@@ -77,11 +77,11 @@ print_version() {
 }
 
 parse_options() {
-	if ! _OPTS=$(getopt -a -n "$ARGV0" -l "$LOPTS" -o "$SOPTS" -- "$@"); then
+	if ! _opts=$(getopt -a -n "$ARGV0" -l "$LOPTS" -o "$SOPTS" -- "$@"); then
 		echo "Try '$ARGV0 --help' for more information." 1>&2
 		exit 1
 	fi
-	eval set -- "$_OPTS"; unset _OPTS
+	eval set -- "$_opts"; unset _opts
 	while true; do
 		case $1 in
 		-v|--version) print_version ; exit 0 ;;
