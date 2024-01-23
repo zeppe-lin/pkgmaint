@@ -27,7 +27,7 @@ fatal() {
 ######################################################################
 
 findredundantdeps() {
-	_deps=$(pkgman dep --all "$1") || exit 3
+	_deps=$(pkgman dep --all "$1")
 
 	# Intentional.
 	# shellcheck disable=2086
@@ -89,6 +89,10 @@ parse_options() {
 
 main() {
 	parse_options "$@"
+
+	if ! pkgman isinst "$PKGNAME" >/dev/null 2>&1; then
+		fatal "package '$PKGNAME' is not installed" n 1
+	fi
 
 	findredundantdeps "$PKGNAME" | $SHOW_UNIQ_CMD
 }
