@@ -52,13 +52,16 @@ list_pkgfiles() {
 	pkginfo -l "$1" | sed 's/^/\//g'
 }
 
+# Find shared libraries (deps) required by executable files and libraries.
+#   arg <stdin>: paths to executable files and libraries separated by
+#                newline
 grep_lddlibs() {
 	xargs -r -L10 -P "${JOBS:-1}" ldd 2>/dev/null |
 	awk '!/(linux-gate)|( dynamic)|(not found)/{printf "%s\n", $3}'
 }
 
 # Find executable files and shared libraries.
-#   arg $1: paths separated by newline
+#   arg <stdin>: paths separated by newline
 grep_execfiles() {
 	xargs -r -L10 -P "${JOBS:-1}"                      \
 	file --no-buffer --separator '>'                   \
