@@ -67,11 +67,11 @@ finddeps() {
 			printf "%s\n", $3
 		}' >> "$TMPFILE1"
 
-	# resolve symbolic links and save only unique ones
+	# resolve symlinks and save only unique paths
 	xargs -a "$TMPFILE1" -I{} -r -P "${JOBS:-1}" readlink -f "{}" |
 		sort | uniq > "$TMPFILE2"
 
-	# search for owner
+	# search each path for owner
 	xargs -a "$TMPFILE2" -I{} -r -P "${JOBS:-1}" pkginfo -o "{}"  |
 		awk '!/^(Package|pkginfo: no owner)/{print $1}'       |
 		sort | uniq
