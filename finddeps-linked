@@ -46,6 +46,8 @@ atexit() {
 # Finddeps.                                                          #
 ######################################################################
 
+# List files owned by the specified package.
+#   arg $1: package name
 list_pkgfiles() {
 	pkginfo -l "$1" | sed 's/^/\//g'
 }
