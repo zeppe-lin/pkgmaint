@@ -46,7 +46,7 @@ atexit() {
 # Finddeps.                                                          #
 ######################################################################
 
-grep_pkgfiles() {
+list_pkgfiles() {
 	pkginfo -l "$1" | sed 's/^/\//g'
 }
 
@@ -74,7 +74,7 @@ finddeps() {
 	TMPFILE2=$(mktemp) || exit 126
 
 	# linked dependencies
-	grep_pkgfiles "$1" | grep_execfiles | grep_lddlibs > "$TMPFILE1"
+	list_pkgfiles "$1" | grep_execfiles | grep_lddlibs > "$TMPFILE1"
 
 	# resolve symlinks and save only unique paths
 	xargs -a "$TMPFILE1" -I{} -r -P "${JOBS:-1}" readlink -f "{}" |
