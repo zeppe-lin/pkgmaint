@@ -57,6 +57,8 @@ grep_lddlibs() {
 	awk '!/(linux-gate)|( dynamic)|(not found)/{printf "%s\n", $3}'
 }
 
+# Find executable files and shared libraries.
+#   arg $1: paths separated by newline
 grep_execfiles() {
 	xargs -r -L10 -P "${JOBS:-1}"                      \
 	file --no-buffer --separator '>'                   \
