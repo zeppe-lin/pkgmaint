@@ -46,6 +46,29 @@ atexit() {
 # Finddeps.                                                          #
 ######################################################################
 
+grep_pkgfiles() {
+	pkginfo -l "$1" | sed 's/^/\//g'
+}
+
+grep_lddlibs() {
+	xargs -r -L10 -P "${JOBS:-1}" ldd 2>/dev/null |
+	awk '!/(linux-gate)|( dynamic)|(not found)/{
+		printf "%s\n", $3
+	}'
+}
+
+grep_execfiles() {
+	xargs -r -L10 -P "${JOBS:-1}"                      \
+	file --no-buffer --separator '>'                   \
+		-e apptype -e ascii -e encoding -e tokens  \
+		-e cdf -e compress -e tar -e text          |
+	awk '
+		BEGIN { FS = ">[ ]+" }
+		$0 ~ /ELF.*executable.*/    { print $1 }
+		$0 ~ /ELF.*shared object.*/ { print $1 }
+	'
+}
+
 finddeps() {
 	# https://tldp.org/LDP/abs/html/exitcodes.html
 	# 126 - Command invoked cannot execute.
@@ -53,19 +76,7 @@ finddeps() {
 	TMPFILE2=$(mktemp) || exit 126
 
 	# linked dependencies
-	pkginfo -l "$1" | sed 's/^/\//g' |
-		xargs -r -L10 -P "${JOBS:-1}"                      \
-		file --no-buffer --separator '>'                   \
-			-e apptype -e ascii -e encoding -e tokens  \
-			-e cdf -e compress -e tar -e text          |
-		awk '
-			BEGIN { FS = ">[ ]+" }
-			$0 ~ /ELF.*executable.*/    { print $1 }
-			$0 ~ /ELF.*shared object.*/ { print $1 }'  |
-		xargs -r -L10 -P "${JOBS:-1}" ldd 2>/dev/null      |
-		awk '!/(linux-gate)|( dynamic)|(not found)/{
-			printf "%s\n", $3
-		}' >> "$TMPFILE1"
+	grep_pkgfiles "$1" | grep_execfiles | grep_lddlibs > "$TMPFILE1"
 
 	# resolve symlinks and save only unique paths
 	xargs -a "$TMPFILE1" -I{} -r -P "${JOBS:-1}" readlink -f "{}" |
