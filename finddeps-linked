@@ -53,9 +53,15 @@ finddeps() {
 	TMPFILE2=$(mktemp) || exit 126
 
 	# linked dependencies
-	# XXX FIXME awk not working?!
-	pkginfo -l "$1" | awk '/(bin|sbin|lib|lib32)/{print $1}'      |
-		xargs -I {} -P "${JOBS:-1}" ldd -- "/{}" 2>/dev/null  |
+	pkginfo -l "$1" | sed 's/^/\//g' | xargs -r -L10 -P "${JOBS:-1}" \
+		file --no-buffer --separator '>' \
+			-e apptype -e ascii -e encoding -e tokens \
+			-e cdf -e compress -e tar -e text |
+		awk '
+			BEGIN { FS = ">[ ]+" }
+			$0 ~ /ELF.*executable.*/    { print $1 }
+			$0 ~ /ELF.*shared object.*/ { print $1 }
+		' | xargs -r -L10 -P "${JOBS:-1}" ldd 2>/dev/null |
 		awk '!/(linux-gate)|( dynamic)|(not found)/{
 			printf "%s\n", $3
 		}' >> "$TMPFILE1"
