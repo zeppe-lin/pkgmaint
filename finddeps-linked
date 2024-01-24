@@ -52,9 +52,7 @@ grep_pkgfiles() {
 
 grep_lddlibs() {
 	xargs -r -L10 -P "${JOBS:-1}" ldd 2>/dev/null |
-	awk '!/(linux-gate)|( dynamic)|(not found)/{
-		printf "%s\n", $3
-	}'
+	awk '!/(linux-gate)|( dynamic)|(not found)/{printf "%s\n", $3}'
 }
 
 grep_execfiles() {
