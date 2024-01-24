@@ -53,22 +53,25 @@ finddeps() {
 	TMPFILE2=$(mktemp) || exit 126
 
 	# linked dependencies
-	pkginfo -l "$1" | sed 's/^/\//g' | xargs -r -L10 -P "${JOBS:-1}" \
-		file --no-buffer --separator '>' \
-			-e apptype -e ascii -e encoding -e tokens \
-			-e cdf -e compress -e tar -e text |
+	pkginfo -l "$1" | sed 's/^/\//g' |
+		xargs -r -L10 -P "${JOBS:-1}"                      \
+		file --no-buffer --separator '>'                   \
+			-e apptype -e ascii -e encoding -e tokens  \
+			-e cdf -e compress -e tar -e text          |
 		awk '
 			BEGIN { FS = ">[ ]+" }
 			$0 ~ /ELF.*executable.*/    { print $1 }
-			$0 ~ /ELF.*shared object.*/ { print $1 }
-		' | xargs -r -L10 -P "${JOBS:-1}" ldd 2>/dev/null |
+			$0 ~ /ELF.*shared object.*/ { print $1 }'  |
+		xargs -r -L10 -P "${JOBS:-1}" ldd 2>/dev/null      |
 		awk '!/(linux-gate)|( dynamic)|(not found)/{
 			printf "%s\n", $3
 		}' >> "$TMPFILE1"
 
+	# resolve symbolic links and save only unique ones
 	xargs -a "$TMPFILE1" -I{} -r -P "${JOBS:-1}" readlink -f "{}" |
 		sort | uniq > "$TMPFILE2"
 
+	# search for owner
 	xargs -a "$TMPFILE2" -I{} -r -P "${JOBS:-1}" pkginfo -o "{}"  |
 		awk '!/^(Package|pkginfo: no owner)/{print $1}'       |
 		sort | uniq
