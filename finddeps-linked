@@ -46,12 +46,6 @@ atexit() {
 # Finddeps.                                                          #
 ######################################################################
 
-# List files owned by the specified package.
-#   arg $1: package name
-list_pkgfiles() {
-	pkginfo -l "$1" | sed 's/^/\//g'
-}
-
 # Find shared libraries (deps) required by executable files and libraries.
 #   arg <stdin>: paths to executable files and libraries separated by
 #                newline
@@ -74,6 +68,14 @@ grep_execfiles() {
 	'
 }
 
+# List files owned by the specified package.
+#   arg $1: package name
+list_pkgfiles() {
+	pkginfo -l "$1" | sed 's/^/\//g'
+}
+
+# Find linked dependencies for a package.
+#   arg $1: package name
 finddeps() {
 	# https://tldp.org/LDP/abs/html/exitcodes.html
 	# 126 - Command invoked cannot execute.
