@@ -115,7 +115,7 @@ parse_options() {
 main() {
 	parse_options "$@"
 
-	if [ ! -d "$ROOT" ]; then
+	if [ -n "$ROOT" ] && [ ! -d "$ROOT" ]; then
 		echo "$ARGV0: root directory '$ROOT' not found" 1>&2
 		exit 1
 	fi
