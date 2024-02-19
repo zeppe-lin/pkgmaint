@@ -2,8 +2,7 @@
 # finddeps-distmeta - find perl-module's dependencies
 # See COPYING and COPYRIGHT files for corresponding information.
 
-# XXX FIXME
-# The code is ugly as f*ck.
+# XXX FIXME: The finddeps-distmeta subroutines are ugly as f*ck.
 
 # flush stdout
 $|++;
