@@ -23,7 +23,6 @@ _finddeps-distmeta()
 _finddeps-linked()
 {
 	local cur prev words cword split
-
 	_init_completion -s || return
 
 	case "$prev" in
@@ -91,7 +90,6 @@ _finddisowned()
 _findredundantdeps()
 {
 	local cur prev words cword split
-
 	_init_completion -s || return
 
 	case "$prev" in
