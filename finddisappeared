@@ -41,9 +41,7 @@ sub print_version {
 
 sub print_help {
 	print <<EOF;
-Usage: $PROGRAM [-r rootdir]
-       $PROGRAM [-v]
-       $PROGRAM [-h]
+Usage: $PROGRAM [-hv] [-r rootdir]
 Find files that are owned by package manager but somehow disappeared.
 
 Mandatory arguments to long options are mandatory for short options too.
