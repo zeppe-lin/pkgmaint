@@ -1,9 +1,6 @@
 # bash completion for pkgmaint utilities
 # See COPYING and COPYRIGHT files for corresponding information.
 
-_inst_pkgs=($(pkginfo -i | awk '{print $1}'))
-_avail_pkgs=($(pkgman printf "%n "))
-
 _finddeps-distmeta()
 {
 	local cur prev words cword split
@@ -26,6 +23,8 @@ _finddeps-distmeta()
 _finddeps-linked()
 {
 	local cur prev words cword split
+	local pkgs
+
 	_init_completion -s || return
 
 	case "$prev" in
@@ -38,7 +37,9 @@ _finddeps-linked()
 		COMPREPLY=($(compgen -W '$(_parse_help "$1")' -- "$cur"))
 		[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
 	else
-		COMPREPLY=($(compgen -W '"${_inst_pkgs[@]}"' -- $cur))
+		# all installed packages
+		pkgs=($(pkginfo -i | cut -d ' ' -f 1))
+		COMPREPLY=($(compgen -W '"${pkgs[@]}"' -- $cur))
 	fi
 } && complete -F _finddeps-linked finddeps-linked
 
@@ -91,6 +92,8 @@ _finddisowned()
 _findredundantdeps()
 {
 	local cur prev words cword split
+	local pkgs
+
 	_init_completion -s || return
 
 	case "$prev" in
@@ -103,7 +106,10 @@ _findredundantdeps()
 		COMPREPLY=($(compgen -W '$(_parse_help "$1")' -- "$cur"))
 		[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
 	else
-		COMPREPLY=($(compgen -W '"${_avail_pkgs[@]}"' -- $cur))
+		# all available pkgsrc packages
+		pkgs=($(pkgman printf "%n "))
+
+		COMPREPLY=($(compgen -W '"${pkgs[@]}"' -- $cur))
 	fi
 } && complete -F _findredundantdeps findredundantdeps
 
