@@ -204,9 +204,7 @@ dead_links() {
 
 print_help() {
 	cat <<EOF
-Usage: $ARGV0 [-dijsw] [pkgsrcdir ...]
-       $ARGV0 [-v]
-       $ARGV0 [-h]
+Usage: $ARGV0 [-dhijsvw] [pkgsrcdir ...]
 Detect common mistakes and stylistic issues in pkgsrc package definitions.
 
   -d, --dead-links       check for dead links
