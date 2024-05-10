@@ -10,21 +10,21 @@ REQUIREMENTS
 
 Built time
 ----------
-- POSIX sh(1p) and "mandatory utilities"
-- GNU make(1)
+* POSIX sh(1p) and "mandatory utilities"
+* GNU make(1)
 
 Runtime
 -------
-- POSIX sh(1p) and "mandatory utilities"
-- YAML::XS(3) perl module and perl itself
-- GNU findutils
-- GNU diffutils
-- GNU grep
-- GNU getopt(1)
-- pkgmk
-- pkgutils
-- pkgman
-- curl
+* POSIX sh(1p) and "mandatory utilities"
+* YAML::XS(3) perl module and perl itself
+* GNU findutils
+* GNU diffutils
+* GNU grep
+* GNU getopt(1)
+* pkgmk
+* pkgutils
+* pkgman
+* curl
 
 
 INSTALL
@@ -47,4 +47,4 @@ Read the COPYRIGHT file for copyright notices.
 
 Exceptions
 ----------
-- `finddisappeared` was initially developed by Martin Opel by unknown license.
+* `finddisappeared` was initially developed by Martin Opel by unknown license.
