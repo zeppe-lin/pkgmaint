@@ -70,9 +70,7 @@ pkgdiff() {
 
 print_help() {
 	cat <<EOF
-Usage: $ARGV0 [-c] file1 file2
-       $ARGV0 [-v]
-       $ARGV0 [-h]
+Usage: $ARGV0 [-chv] file1 file2
 Compare software packages' footprints.
 
   -c, --color    colorize output
