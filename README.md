@@ -30,9 +30,8 @@ Runtime
 INSTALL
 =======
 
-The shell command `make install` should install this package.
-The shell command `make install_bashcomp` should install bash completion
-scripts.
+The shell command `make install` should install this package.  The command
+`make install_bashcomp` should install bash completion scripts.
 
 See `config.mk` file for configuration parameters.
 
