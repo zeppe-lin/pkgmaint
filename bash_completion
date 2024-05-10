@@ -35,7 +35,7 @@ _finddeps-linked()
 		COMPREPLY=($(compgen -W '$(_parse_help "$1")' -- "$cur"))
 		[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
 	else
-		# all installed packages
+		# complete with all installed packages
 		COMPREPLY=($(compgen \
 			-W '$(pkginfo -i | cut -d\  -f1)' -- $cur))
 	fi
@@ -102,7 +102,7 @@ _findredundantdeps()
 		COMPREPLY=($(compgen -W '$(_parse_help "$1")' -- "$cur"))
 		[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
 	else
-		# all available pkgsrc packages
+		# complete with all available pkgsrc packages
 		COMPREPLY=($(compgen -W '$(pkgman printf "%n ")' -- $cur))
 	fi
 } && complete -F _findredundantdeps findredundantdeps
