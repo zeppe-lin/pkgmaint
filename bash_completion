@@ -23,7 +23,6 @@ _finddeps-distmeta()
 _finddeps-linked()
 {
 	local cur prev words cword split
-	local pkgs
 
 	_init_completion -s || return
 
@@ -38,8 +37,8 @@ _finddeps-linked()
 		[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
 	else
 		# all installed packages
-		pkgs=($(pkginfo -i | cut -d ' ' -f 1))
-		COMPREPLY=($(compgen -W '"${pkgs[@]}"' -- $cur))
+		COMPREPLY=($(compgen \
+			-W '$(pkginfo -i | cut -d\  -f1)' -- $cur))
 	fi
 } && complete -F _finddeps-linked finddeps-linked
 
@@ -92,7 +91,6 @@ _finddisowned()
 _findredundantdeps()
 {
 	local cur prev words cword split
-	local pkgs
 
 	_init_completion -s || return
 
@@ -107,9 +105,7 @@ _findredundantdeps()
 		[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
 	else
 		# all available pkgsrc packages
-		pkgs=($(pkgman printf "%n "))
-
-		COMPREPLY=($(compgen -W '"${pkgs[@]}"' -- $cur))
+		COMPREPLY=($(compgen -W '$(pkgman printf "%n ")' -- $cur))
 	fi
 } && complete -F _findredundantdeps findredundantdeps
 
