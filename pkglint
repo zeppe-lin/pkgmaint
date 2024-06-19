@@ -10,14 +10,20 @@
 # Notification helpers.                                              #
 ######################################################################
 
+# Print information message to stdout.
+#   arg $1: the message
 info() {
 	echo "=======> $1"
 }
 
+# Print warning message to stderr.
+#   arg $1: the message
 warning() {
 	info "WARNING: $1" 1>&2
 }
 
+# Print error message to stderr.
+#   arg $1: the message
 error() {
 	info "ERROR: $1" 1>&2
 }
