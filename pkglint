@@ -33,6 +33,7 @@ error() {
 ######################################################################
 
 # Check for SUID/SGID files and directories.
+#   arg $1: the package source directory
 footprint_sugid() {
 	awk '
 BEGIN {
@@ -59,6 +60,7 @@ END {
 }
 
 # Check for world-writeable files and directories.
+#   arg $1: the package source directory
 footprint_wowrite() {
 	awk '
 BEGIN {
@@ -79,6 +81,7 @@ END {
 }
 
 # Check for invalid directories.
+#   arg $1: the package source directory
 footprint_invalid() {
 	awk '
 BEGIN {
@@ -115,6 +118,7 @@ END {
 }
 
 # Check for junk files.
+#   arg $1: the package source directory
 footprint_junk() {
 	awk '
 BEGIN {
@@ -162,6 +166,7 @@ END {
 ######################################################################
 
 # Grep all URLs from Pkgfile and README files.
+#   arg $1: the package source directory
 grep_urls() {
 	if [ -r "$1/README" ]; then
 		grep -PHio "https?://[^\"\\'> ]+" "$1/README"
@@ -187,6 +192,7 @@ grep_urls() {
 }
 
 # Check for dead links.
+#   arg $1: the package source directory
 dead_links() {
 	__RC1=0
 	for __LINE in $(grep_urls "$1"); do
