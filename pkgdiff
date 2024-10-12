@@ -26,8 +26,7 @@ fatal() {
 # Exit hooks.                                                        #
 ######################################################################
 
-# Don't warn about unreachable commands in these functions,
-# see trap(1p).
+# Don't warn about unreachable commands in these functions, see trap(1p).
 
 # shellcheck disable=2317
 atexit() {
@@ -122,8 +121,8 @@ main() {
 
 ######################################################################
 
-# -e: Exit if command return status greater than 0
-# -f: Disable globbing *?[]
+# -e: Exit if command return status greater than 0.
+# -f: Disable globbing *?[].
 set -ef
 
 # Set exit hooks.

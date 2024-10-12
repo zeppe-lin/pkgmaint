@@ -26,8 +26,7 @@ fatal() {
 # Exit hooks.                                                        #
 ######################################################################
 
-# Don't warn about unreachable commands in these functions, see
-# trap(1p).
+# Don't warn about unreachable commands in these functions, see trap(1p).
 
 # shellcheck disable=2317
 interrupted() {
@@ -82,19 +81,19 @@ finddeps() {
 	TMPFILE1=$(mktemp) || exit 126
 	TMPFILE2=$(mktemp) || exit 126
 
-	# linked dependencies
+	# Linked dependencies.
 	list_pkgfiles "$1" | grep_execfiles | grep_lddlibs > "$TMPFILE1"
 
-	# resolve symlinks and save only unique paths
+	# Resolve symlinks and save only unique paths.
 	xargs -a "$TMPFILE1" -I{} -r -P "${JOBS:-1}" readlink -f "{}" |
 		sort | uniq > "$TMPFILE2"
 
-	# search each path for owner
+	# Search each path for owner.
 	xargs -a "$TMPFILE2" -I{} -r -P "${JOBS:-1}" pkginfo -o "{}"  |
 		awk '!/^(Package|pkginfo: no owner)/{print $1}'       |
 		sort | uniq
 
-	# additional deps that can't be found by ldd(8)
+	# Additional deps that can't be found by ldd(8).
 	pkginfo -l "$1" | while read -r line; do
 		case $line in
 		   usr/share/gir-1.0/*.gir) echo "gobject-introspection" ;;
@@ -158,8 +157,8 @@ main() {
 
 ######################################################################
 
-# -e: Exit if command return status greater than 0
-# -f: Disable globbing *?[]
+# -e: Exit if command return status greater than 0.
+# -f: Disable globbing *?[].
 set -ef
 
 # Set exit hooks.

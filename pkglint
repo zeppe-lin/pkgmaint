@@ -284,8 +284,8 @@ main() {
 
 ######################################################################
 
-# -e: Exit if command return status greater than 0
-# -f: Disable globbing *?[]
+# -e: Exit if command return status greater than 0.
+# -f: Disable globbing *?[].
 set -ef
 
 # Globals.

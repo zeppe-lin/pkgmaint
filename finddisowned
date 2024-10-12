@@ -22,8 +22,7 @@ error() {
 # Exit hooks.                                                        #
 ######################################################################
 
-# Don't warn about unreachable commands in these functions, see
-# trap(1p).
+# Don't warn about unreachable commands in these functions, see trap(1p).
 
 # shellcheck disable=2317
 interrupted() {
@@ -54,7 +53,7 @@ finddisowned() {
 	info "Get search paths from configuration file"
 	#_paths=$(xargs < "$(readlink -f "$CONF")")
 	while read -r _path; do
-		# skip comments and empty lines
+		# Skip comments and empty lines.
 		case $_path in \#* | "" ) continue ;; esac
 
 		_paths="$_paths $_path"
@@ -132,8 +131,8 @@ main() {
 
 ######################################################################
 
-# -e: Exit if command return status greater than 0
-# -f: Disable globbing *?[]
+# -e: Exit if command return status greater than 0.
+# -f: Disable globbing *?[].
 set -ef
 
 # Set exit hooks.
