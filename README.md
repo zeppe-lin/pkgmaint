@@ -1,8 +1,8 @@
 OVERVIEW
 ========
 
-This directory contains pkgmaint, a collection of scripts for Zeppe-Lin, mainly
-oriented towards package management and maintaining.
+This directory contains pkgmaint, a collection of scripts for Zeppe-Lin,
+mainly oriented towards package management and maintaining.
 
 
 REQUIREMENTS
@@ -48,4 +48,5 @@ Read the COPYRIGHT file for copyright notices.
 
 Exceptions
 ----------
-  * `finddisappeared` was initially developed by Martin Opel by unknown license.
+  * `finddisappeared` was initially developed by Martin Opel by unknown
+    license.
