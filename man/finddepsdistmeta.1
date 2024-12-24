@@ -1,15 +1,15 @@
 .\" finddeps-distmeta(1) manual page
 .\" See COPYING and COPYRIGHT files for corresponding information.
 .Dd September 3, 2023
-.Dt FINDDEPS-DISTMETA 1
+.Dt FINDDEPSDISTMETA 1
 .Os
 .\" ==================================================================
 .Sh NAME
-.Nm finddeps-distmeta
+.Nm finddepsdistmeta
 .Nd parse Perl-module's distmeta file and find dependencies
 .\" ==================================================================
 .Sh SYNOPSIS
-.Nm finddeps-distmeta
+.Nm finddepsdistmeta
 .Op Fl hv
 .Op Ar file
 .\" ==================================================================
@@ -43,14 +43,14 @@ The typical usage of
 is to call it from the Perl's module directory:
 .Bd -literal -offset indent
 cd /var/cache/pkgmk/sources/URI-5.17
-finddeps-distmeta
+finddepsdistmeta
 .Ed
 .Pp
 Or to specify the location of
 .Pa META.yml
 file manually:
 .Bd -literal -offset indent
-finddeps-distmeta /var/cache/pkgmk/source/URI-5.17/META.yml
+finddepsdistmeta /var/cache/pkgmk/source/URI-5.17/META.yml
 .Ed
 .Pp
 Another convenient way is to call
@@ -62,7 +62,7 @@ when you're building the package:
 build() {
         cd URI-$version
 
-        finddeps-distmeta
+        finddepsdistmeta
         ...
 }
 .Ed
@@ -72,7 +72,7 @@ So, you can check the output, fix
 field and remove unnecessary call afterwards.
 .\" ==================================================================
 .Sh SEE ALSO
-.Xr finddeps-linked 1 ,
+.Xr finddepslinked 1 ,
 .Xr findredundantdeps 1
 .\" ==================================================================
 .Sh BUGS

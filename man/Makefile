@@ -2,7 +2,7 @@
 
 include ../config.mk
 
-MAN1 = finddeps-distmeta.1 finddeps-linked.1 finddisappeared.1 \
+MAN1 = finddepsdistmeta.1 finddepslinked.1 finddisappeared.1 \
        finddisowned.1 findredundantdeps.1 pkgdiff.1 pkglint.1
 
 all:
