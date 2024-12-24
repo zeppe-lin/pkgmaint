@@ -2,10 +2,15 @@
 
 include ../config.mk
 
-BIN1 = finddeps-distmeta finddeps-linked finddisappeared \
+BIN1 = finddepsdistmeta finddepslinked finddisappeared \
        finddisowned findredundantdeps pkgdiff pkglint
 
 all: $(BIN1)
+
+lint:
+	shellcheck -s sh finddepslinked.in finddisowned.in \
+		findredundantdeps.in pkgdiff.in pkglint.in
+	perl -c finddisappeared.in finddepsdistmeta.in
 
 $(BIN1):
 	sed "s/@VERSION@/$(VERSION)/" $@.in > $@
@@ -22,4 +27,4 @@ uninstall:
 clean:
 	rm -f $(BIN1)
 
-.PHONY: all install uninstall clean
+.PHONY: all lint install uninstall clean

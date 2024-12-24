@@ -1,5 +1,5 @@
 #!/bin/sh
-# finddeps-linked - find linked dependencies for a package
+# finddepslinked - find linked dependencies for a package
 # See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################

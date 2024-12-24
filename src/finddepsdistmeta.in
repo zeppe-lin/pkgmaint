@@ -1,8 +1,8 @@
 #!/usr/bin/env perl
-# finddeps-distmeta - find perl-module's dependencies
+# finddepsdistmeta - find perl-module's dependencies
 # See COPYING and COPYRIGHT files for corresponding information.
 
-# XXX FIXME: The finddeps-distmeta subroutines are ugly as f*ck.
+# XXX FIXME: The finddepsdistmeta subroutines are ugly as f*ck.
 
 # flush stdout
 $|++;
@@ -27,7 +27,7 @@ use YAML::XS 'LoadFile';
 my @BLOCKS = qw(build_requires configure_requires requires);
 
 ######################################################################
-# Finddeps-distmeta subroutines.                                     #
+# finddepsdistmeta subroutines.                                      #
 ######################################################################
 
 # Search for dependency in footprint files.

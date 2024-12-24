@@ -1,6 +1,6 @@
 # build artefacts
-finddeps-distmeta
-finddeps-linked
+finddepsdistmeta
+finddepslinked
 finddisappeared
 finddisowned
 findredundantdeps
