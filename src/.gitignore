@@ -1,0 +1,8 @@
+# build artefacts
+finddeps-distmeta
+finddeps-linked
+finddisappeared
+finddisowned
+findredundantdeps
+pkgdiff
+pkglint
