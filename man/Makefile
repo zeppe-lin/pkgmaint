@@ -7,6 +7,9 @@ MAN1 = finddeps-distmeta.1 finddeps-linked.1 finddisappeared.1 \
 
 all:
 
+lint:
+	mandoc -Tlint $(MAN1)
+
 install:
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
 	cp -f $(MAN1) $(DESTDIR)$(MANPREFIX)/man1
@@ -17,4 +20,4 @@ uninstall:
 
 clean:
 
-.PHONY: all install uninstall clean
+.PHONY: all lint install uninstall clean

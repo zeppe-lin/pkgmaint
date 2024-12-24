@@ -4,6 +4,8 @@ include ../config.mk
 
 all:
 
+lint:
+
 install:
 	mkdir -p $(DESTDIR)$(SYSCONFDIR)
 	cp -f finddisowned.conf.sample \
@@ -14,4 +16,4 @@ uninstall:
 
 clean:
 
-.PHONY: all install uninstall clean
+.PHONY: all lint install uninstall clean
