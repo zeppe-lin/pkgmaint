@@ -10,8 +10,8 @@ lint:
 install:
 	mkdir -p $(DESTDIR)$(BASHCOMPDIR)
 	cp -f bash_completion $(DESTDIR)$(BASHCOMPDIR)/pkglint
-	ln -sf pkglint $(DESTDIR)$(BASHCOMPDIR)/finddeps-distmeta
-	ln -sf pkglint $(DESTDIR)$(BASHCOMPDIR)/finddeps-linked
+	ln -sf pkglint $(DESTDIR)$(BASHCOMPDIR)/finddepsdistmeta
+	ln -sf pkglint $(DESTDIR)$(BASHCOMPDIR)/finddepslinked
 	ln -sf pkglint $(DESTDIR)$(BASHCOMPDIR)/finddisappeared
 	ln -sf pkglint $(DESTDIR)$(BASHCOMPDIR)/finddisowned
 	ln -sf pkglint $(DESTDIR)$(BASHCOMPDIR)/findredundantdeps
@@ -19,7 +19,7 @@ install:
 
 uninstall:
 	cd $(DESTDIR)$(BASHCOMPDIR) && \
-	rm -f pkglint finddeps-distmeta finddeps-linked \
+	rm -f pkglint finddepsdistmeta finddepslinked \
 		finddisappeared finddisowned findredundantdeps pkgdiff
 
 clean:
