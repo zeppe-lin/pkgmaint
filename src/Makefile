@@ -10,7 +10,8 @@ all: $(BIN1)
 lint:
 	shellcheck -s sh finddepslinked.in finddisowned.in \
 		findredundantdeps.in pkgdiff.in pkglint.in
-	perl -c finddisappeared.in finddepsdistmeta.in
+	perl -c finddisappeared.in
+	perl -c finddepsdistmeta.in
 
 $(BIN1):
 	sed "s/@VERSION@/$(VERSION)/" $@.in > $@
