@@ -4,6 +4,9 @@ TODO pkgmaint
 
 No milestone
 ------------
+  - [ ] completion/bash_completion:
+        fix shellcheck warnings, and add checking to CI.
+
   - [ ] finddepsdistmeta tasks:
         https://github.com/zeppe-lin/pkgmaint/issues/1
 
