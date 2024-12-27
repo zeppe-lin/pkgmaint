@@ -44,5 +44,5 @@ Read the COPYRIGHT file for copyright notices.
 
 Exceptions
 ----------
-  * `finddisappeared` was initially developed by Martin Opel by
+  * finddisappeared was initially developed by Martin Opel by
     unknown license.
