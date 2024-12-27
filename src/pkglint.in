@@ -165,11 +165,14 @@ END {
 # Other checks.                                                      #
 ######################################################################
 
-# Grep all URLs from Pkgfile and README files.
+# Grep all URLs from Pkgfile and README{,.md} files.
 #   arg $1: the package source directory
 grep_urls() {
 	if [ -r "$1/README" ]; then
 		grep -PHio "https?://[^\"\\'> ]+" "$1/README"
+	fi
+	if [ -r "$1/README.md" ]; then
+		grep -PHio "https?://[^\"\\'> ]+" "$1/README.md"
 	fi
 	if [ -r "$1/Pkgfile" ]; then
 		grep -PHio "URL:\s*\K(https?://[^\"\\'> ]+)" "$1/Pkgfile"
@@ -199,6 +202,7 @@ dead_links() {
 		unset -v __URL __HTTPCODE
 		__URL=${__LINE##"$1/Pkgfile:"}
 		__URL=${__URL##"$1/README:"}
+		__URL=${__URL##"$1/README.md:"}
 		# Intentional word splitting.
 		# shellcheck disable=SC2086
 		__HTTPCODE=$(curl $CURL_CMD $CURL_OPTS "$__URL")
