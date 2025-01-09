@@ -1,7 +1,7 @@
 # bash completion for pkgmaint utilities
 # See COPYING and COPYRIGHT files for corresponding information.
 
-_finddeps-distmeta()
+_finddepsdistmeta()
 {
 	local cur prev words cword split
 	_init_completion -s || return
@@ -18,9 +18,9 @@ _finddeps-distmeta()
 	else
 		_filedir
 	fi
-} && complete -F _finddeps-distmeta finddeps-distmeta
+} && complete -F _finddepsdistmeta finddepsdistmeta
 
-_finddeps-linked()
+_finddepslinked()
 {
 	local cur prev words cword split
 	_init_completion -s || return
@@ -39,7 +39,7 @@ _finddeps-linked()
 		COMPREPLY=($(compgen \
 			-W '$(pkginfo -i | cut -d\  -f1)' -- $cur))
 	fi
-} && complete -F _finddeps-linked finddeps-linked
+} && complete -F _finddepslinked finddepslinked
 
 _finddisappeared()
 {
