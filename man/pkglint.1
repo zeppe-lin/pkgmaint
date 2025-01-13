@@ -71,6 +71,24 @@ Print help and exit.
 .Sh EXIT STATUS
 .Ex -std
 .\" ==================================================================
+.Sh EXAMPLES
+Lint package source located in the current/working directory:
+.Bd -literal -offset indent
+$ pwd
+/usr/src/pkgsrc-core/acl
+$ pkglint -dijsw
+.Ed
+.Pp
+Lint specific package source:
+.Bd -literal -offset indent
+$ pkglint -dijsw /usr/src/pkgsrc-core/acl
+.Ed
+.Pp
+Lint all pkgsrc-core collection recursively:
+.Bd -literal -offset indent
+$ pkglint -dijsw -R /usr/src/pkgsrc-core
+.Ed
+.\" ==================================================================
 .Sh SEE ALSO
 .Xr finddepslinked 1 ,
 .Xr findredundantdeps 1
