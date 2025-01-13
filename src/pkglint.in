@@ -245,6 +245,7 @@ parse_options() {
 	eval set -- "$_opts"; unset _opts
 	while true; do
 		case $1 in
+		-R|      --recursive) RECURSIVE="yes"                  ;;
 		-d|     --dead-links) CHECK="$CHECK dead_links"        ;;
 		-i|        --invalid) CHECK="$CHECK footprint_invalid" ;;
 		-j|           --junk) CHECK="$CHECK footprint_junk"    ;;
@@ -261,6 +262,17 @@ parse_options() {
 
 main() {
 	parse_options "$@"
+
+	if [ "$RECURSIVE" = yes ]; then
+		__TARGET="${PKGSRCDIRS:-$PWD}"
+		PKGSRCDIRS=
+		for __FILE in $(find $__TARGET -name Pkgfile | sort); do
+			__DIR="$(dirname $__FILE)"
+			if [ -f "$__DIR/Pkgfile" ]; then
+				PKGSRCDIRS="$PKGSRCDIRS $__DIR"
+			fi
+		done
+	fi
 
 	__RC0=0
 	for __PKGSRCDIR in $PKGSRCDIRS; do
@@ -295,12 +307,13 @@ set -ef
 # Globals.
 export LC_ALL=POSIX
 readonly ARGV0="${0##*/}"
-LOPTS="dead-links,invalid,junk,suid-sgid,world-writeable,version,help"
-SOPTS="dfijswvh"
+LOPTS="recursive,dead-links,invalid,junk,suid-sgid,world-writeable,version,help"
+SOPTS="Rdfijswvh"
 CURL_CMD="-L -I -f --retry 3 --retry-delay 3 -o /dev/null -sw %{http_code}"
 CURL_OPTS=
 CHECK=
 PKGSRCDIRS=
+RECURSIVE="no"
 
 ######################################################################
 
