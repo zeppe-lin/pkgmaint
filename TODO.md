@@ -4,7 +4,7 @@ TODO pkgmaint
 
 No milestone
 ------------
-  - [ ] add "-R/--recursive" option to pkglint(1) and get rid of
+  - [x] add "-R/--recursive" option to pkglint(1) and get rid of
         Makefiles in `pkgsrc-*` repos.
 
   - [ ] completion/bash_completion:
