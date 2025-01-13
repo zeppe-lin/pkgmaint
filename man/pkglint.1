@@ -11,7 +11,11 @@
 .Sh SYNOPSIS
 .Nm pkglint
 .Op Fl dhijsvw
-.Op Ar pkgsrcdir ...
+.Op Ar pkgsrc ...
+.Nm
+.Op Fl dhijsvw
+.Fl R
+.Op Ar pkgsrc-collection ...
 .\" ==================================================================
 .Sh DESCRIPTION
 The
@@ -56,6 +60,8 @@ file for SUID/SGID files and directories.
 Check
 .Dq .footprint
 file for world-writeable files and directories.
+.It Fl R , Fl \-recursive
+Search for and check pkgsrc directories recursively.
 .It Fl v , Fl \&-version
 Print version and exit.
 .It Fl h , Fl \&-help
