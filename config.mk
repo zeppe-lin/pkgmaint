@@ -1,6 +1,6 @@
 # project metadata
 NAME        = pkgmaint
-VERSION     = 0.5.1
+VERSION     = 1.0
 
 # paths
 SYSCONFDIR  = /etc
