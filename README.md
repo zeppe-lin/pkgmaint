@@ -1,7 +1,7 @@
 OVERVIEW
 ========
 
-This directory contains pkgmaint, a collection of scripts for
+This repository contains pkgmaint, a collection of scripts for
 Zeppe-Lin, mainly oriented towards package management and maintaining.
 
 
