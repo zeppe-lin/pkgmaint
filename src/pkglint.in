@@ -266,8 +266,8 @@ main() {
 	if [ "$RECURSIVE" = yes ]; then
 		__TARGET="${PKGSRCDIRS:-$PWD}"
 		PKGSRCDIRS=
-		for __FILE in $(find $__TARGET -name Pkgfile | sort); do
-			__DIR="$(dirname $__FILE)"
+		for __FILE in $(find "$__TARGET" -name Pkgfile | sort); do
+			__DIR=$(dirname "$__FILE")
 			if [ -f "$__DIR/Pkgfile" ]; then
 				PKGSRCDIRS="$PKGSRCDIRS $__DIR"
 			fi
