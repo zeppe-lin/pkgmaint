@@ -34,6 +34,22 @@ The shell command `make install` should install this package.
 See `config.mk` file for configuration parameters.
 
 
+DOCUMENTATION
+=============
+
+Online documentation
+--------------------
+
+Manual pages:
+- [finddepsdistmeta.1](https://zeppe-lin.github.io/finddepsdistmeta.1.html)
+- [finddepslinked.1](https://zeppe-lin.github.io/finddepslinked.1.html)
+- [finddisappeared.1](https://zeppe-lin.github.io/finddisappeared.1.html)
+- [finddisowned.1](https://zeppe-lin.github.io/finddisowned.1.html)
+- [findredundantdeps.1](https://zeppe-lin.github.io/findredundantdeps.1.html)
+- [pkgdiff.1](https://zeppe-lin.github.io/pkgdiff.1.html)
+- [pkglint.1](https://zeppe-lin.github.io/pkglint.1.html)
+
+
 LICENSE
 =======
 
