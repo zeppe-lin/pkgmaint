@@ -2,95 +2,84 @@
 # finddepsdistmeta - find perl-module's dependencies
 # See COPYING and COPYRIGHT files for corresponding information.
 
-# XXX FIXME: The finddepsdistmeta subroutines are ugly as f*ck.
-
-# flush stdout
-$|++;
-
 use strict;
 use warnings;
-#use diagnostics;
 use version;
-use Data::Dumper;
 use File::Basename;
 use Module::CoreList;
 use Getopt::Long qw(:config gnu_compat);
 use Term::ANSIColor qw(:constants);
+use YAML::XS qw(LoadFile);
+# XXX use JSON; TODO: parse JSON files too.
+
+$|++; # Flush stdout immediately.
 
 my $PROGRAM = basename $0;
 my $VERSION = '@VERSION@';
 
-#use JSON; # TODO: parse JSON files.
-use YAML::XS 'LoadFile';
-
-# Search for dependencies in the following YAML blocks.
-my @BLOCKS = qw(build_requires configure_requires requires);
+# Search for dependencies in the following YAML blocks:
+my @DEPENDENCY_BLOCKS = qw(build_requires configure_requires requires);
 
 ######################################################################
 # finddepsdistmeta subroutines.                                      #
 ######################################################################
 
-# Search for dependency in footprint files.
-sub found_in_packages {
-	my $dep = shift;
-	my $found = '';
-	my %incs = map { $_, 1 } @INC; # sort paths by unique
+# Searches for a Perl module in installed packages.
+sub find_module_in_packages {
+    my $module_name = shift;
+    my $package_list = '';
+    my %include_paths = map { $_, 1 } @INC; # Ensure unique paths.
 
-	for my $inc (keys %incs) {
-		my $path = $inc . '/' . join('/', split('::', $dep));
-
-		my @pathsearch = qx(
-			pkgman fsearch --full '$path.*' 2>/dev/null
-		);
-		$found .= "@pathsearch";
-	}
-	return $found;
+    for my $include_path (keys %include_paths) {
+        my $module_path = $include_path . '/' . join('/', split('::', $module_name));
+        my @found_packages = qx(pkgman fsearch --full '$module_path.*' 2>/dev/null);
+        $package_list .= "@found_packages";
+    }
+    return $package_list;
 }
 
+# Processes a single dependency, checking core, perl version, and
+# packages.
 sub process_dependency {
-	my ($dep, $ver) = @_;
+    my ($module_name, $required_version) = @_;
 
-	# check if dependency is in Perl's core or outside
-	return print(BRIGHT_GREEN, "$dep: $ver (core)\n", RESET)
-		if Module::CoreList::is_core($dep, $ver);
+    # Check if the module is part of Perl's core.
+    return print(BRIGHT_GREEN, "$module_name: $required_version (core)\n", RESET)
+        if Module::CoreList::is_core($module_name, $required_version);
 
-	# check if dependency is perl itself and requires minimum
-	# version
-	if ($dep eq 'perl') {
-		my $perl_version = version->parse($]);
-		my $dep_version  = version->parse($ver);
+    # Check if the dependency is Perl itself and compare versions.
+    if ($module_name eq 'perl') {
+        my $current_perl_version = version->parse($]);
+        my $required_perl_version = version->parse($required_version);
+        print $required_perl_version <= $current_perl_version
+            ? "$module_name: $required_version (ok)\n"
+            : (RED, "$module_name: $required_version (missing)\n", RESET);
+        return;
+    }
 
-		print $dep_version <= $perl_version
-			? ("$dep: $ver (ok)\n")
-			: (RED, "$dep: $ver (missing)\n", RESET);
-
-		return;
-	}
-
-	# search for dependency in the packages' database
-	print BRIGHT_YELLOW, "$dep: $ver (not in core, searching in packages...)\n", RESET;
-	my $found = found_in_packages($dep);
-	if (!$found) {
-		print "  ", BOLD, RED, "MISSING!\n", RESET;
-	} else {
-		print $found;
-	}
+    # Search for the module in installed packages.
+    print BRIGHT_YELLOW, "$module_name: $required_version (not in core, searching in packages...)\n", RESET;
+    my $found_packages = find_module_in_packages($module_name);
+    print $found_packages
+        ? $found_packages
+        : ("  ", BOLD, RED, "MISSING!\n", RESET);
 }
 
-sub finddeps_distmeta {
-	my $meta = LoadFile(shift || 'META.yml');
+# Finds and processes dependencies from a distribution metadata file.
+sub find_dependencies_from_metadata {
+    my $metadata_file = shift || 'META.yml';
+    my $metadata = LoadFile($metadata_file);
 
-	for my $require (@BLOCKS) {
-		next unless exists $meta->{ $require };
+    for my $block_name (@DEPENDENCY_BLOCKS) {
+        next unless exists $metadata->{$block_name};
+        print BOLD, UNDERLINE, "Check $block_name...", RESET, "\n";
 
-		print BOLD, UNDERLINE, "Check $require...", RESET, "\n";
-
-		for my $dep (sort keys %{ $meta->{ $require } }) {
-			my $ver = $meta->{ $require }->{ $dep };
-			process_dependency($dep, $ver);
-		}
-		print "\n";
-	}
+        for my $module_name (sort keys %{ $metadata->{$block_name} }) {
+            my $required_version = $metadata->{$block_name}{$module_name};
+            process_dependency($module_name, $required_version);
+        }
+        print "\n";
+    }
 }
 
 ######################################################################
@@ -98,7 +87,7 @@ sub finddeps_distmeta {
 ######################################################################
 
 sub print_help {
-	print <<EOF;
+    print <<EOF;
 Usage: $PROGRAM [-hv] [file]
 Parse perl-module's distmeta file and show dependencies.
 
@@ -108,30 +97,30 @@ EOF
 }
 
 sub print_version {
-	print "$PROGRAM (pkgmaint) $VERSION\n";
+    print "$PROGRAM (pkgmaint) $VERSION\n";
 }
 
 sub main {
-	my $help_ref = "Try '$PROGRAM --help' for more information.";
+    my $usage_message = "Try '$PROGRAM --help' for more information.";
 
-	GetOptions(
-		"v|version" => \my $opt_version,
-		"h|help"    => \my $opt_help,
-	) or die "$help_ref\n";
+    GetOptions(
+        "v|version" => \my $opt_version,
+        "h|help"    => \my $opt_help,
+    ) or die "$usage_message\n";
 
-	print_version() and exit if $opt_version;
-	print_help()    and exit if $opt_help;
+    print_version() and exit if $opt_version;
+    print_help()    and exit if $opt_help;
 
-	die "$PROGRAM: too many arguments\n$help_ref\n"
-		if scalar(@ARGV) > 1;
+    die "$PROGRAM: too many arguments\n$usage_message\n" if @ARGV > 1;
 
-	finddeps_distmeta(shift @ARGV);
+    find_dependencies_from_metadata(@ARGV);
 }
 
 ######################################################################
 
-main() if not caller();
+main() unless caller();
+
 1;
 
-# vim: cc=72 tw=70
+# vim: sw=4 ts=4 sts=4 et cc=72 tw=70
 # End of file.
