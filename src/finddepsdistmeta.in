@@ -24,7 +24,7 @@ my @DEPENDENCY_BLOCKS = qw(build_requires configure_requires requires);
 # finddepsdistmeta subroutines.                                      #
 ######################################################################
 
-# Searches for a Perl module in installed packages.
+# Searches for a Perl module in available packages.
 sub find_module_in_packages {
     my $module_name = shift;
     my $package_list = '';
@@ -57,7 +57,7 @@ sub process_dependency {
         return;
     }
 
-    # Search for the module in installed packages.
+    # Search for the module in available packages.
     print BRIGHT_YELLOW, "$module_name: $required_version (not in core, searching in packages...)\n", RESET;
     my $found_packages = find_module_in_packages($module_name);
     print $found_packages
