@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-# finddepsdistmeta - find perl-module's dependencies
+# finddepsdistmeta - find Perl module dependencies from distribution metadata
 # See COPYING and COPYRIGHT files for corresponding information.
 
 use strict;
