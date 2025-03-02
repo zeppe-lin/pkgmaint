@@ -1,6 +1,6 @@
 .\" finddisappeared(1) manual page
 .\" See COPYING and COPYRIGHT files for corresponding information.
-.Dd September 3, 2023
+.Dd March 2, 2025
 .Dt FINDDISAPPEARED 1
 .Os
 .\" ==================================================================
@@ -14,11 +14,12 @@
 .Op Fl r Ar rootdir
 .\" ==================================================================
 .Sh DESCRIPTION
-The
 .Nm
-utility lists the files that are owned by package manager (listed in
-the package database), but missing (somehow disappeared) on the actual
-file system.
+lists the files that are owned by package manager
+.Po
+listed in the package database
+.Pc ,
+but missing (somehow disappeared) on the actual file system.
 .Pp
 The options are as follows:
 .Bl -tag -width Ds
@@ -37,7 +38,5 @@ Print help and exit.
 .Xr finddisowned 1 ,
 .Xr findredundantdeps 1
 .\" ==================================================================
-.Sh AUTHORS
-.An Martil Opel Aq Mt mo@obbl.net
 .\" vim: cc=72 tw=70
 .\" End of file.
