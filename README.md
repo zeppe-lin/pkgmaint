@@ -57,8 +57,3 @@ pkgmaint is licensed through the GNU General Public License v3 or
 later <https://gnu.org/licenses/gpl.html>.
 Read the COPYING file for copying conditions.
 Read the COPYRIGHT file for copyright notices.
-
-Exceptions
-----------
-  * finddisappeared was initially developed by Martin Opel by
-    unknown license.
