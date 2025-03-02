@@ -1,34 +1,37 @@
 #!/usr/bin/env perl
+# finddisappeared - find files that are owned by package manager but disappeared
+# See COPYING and COPYRIGHT files for corresponding information.
 
 use strict;
 use warnings;
-use Getopt::Long qw(:config gnu_compat);
 use File::Basename;
+use Getopt::Long qw(:config gnu_compat);
 
+# Program name and version.
 my $PROGRAM = basename $0;
 my $VERSION = '@VERSION@';
 
 ######################################################################
-# Find disappeared files.                                            #
+# Finddisappeared subroutines.                                       #
 ######################################################################
 
-sub finddisappeared {
-	my $root = shift || '';
-	my $pkgdb = "$root/var/lib/pkg/db";
+# Find files that are listed in the package database but are
+# disappeared from the filesystem.
+sub find_disappeared_files {
+    my $root = shift || '';
+    my $db = "$root/var/lib/pkg/db";
 
-	open my $fh, "<", $pkgdb
-		or die "$PROGRAM: couldn't open package database ($pkgdb): $!\n";
+    open my $fh, '<', $db
+        or die "$PROGRAM: error: could not open package database ($db): $!\n";
 
-	local $/ = ""; # read files paragraph-wise
-	while (<$fh>) {
-		my ($name, $version, @footprint) = split /\n/;
-
-		my @missing = grep ! -e "$root/$_", @footprint;
-		next unless @missing;
-
-		print map "$name: /$_\n", @missing;
-	}
-	close $fh;
+    local $/ = ''; # Read files paragraph wise.
+    while (<$fh>) {
+        my ($name, undef, @files) = split /\n/;
+        for my $file (@files) {
+            print "$name: /$file\n" unless -e "$root/$file";
+        }
+    }
+    close $fh;
 }
 
 ######################################################################
@@ -36,11 +39,11 @@ sub finddisappeared {
 ######################################################################
 
 sub print_version {
-	print "$PROGRAM (pkgmaint) $VERSION\n";
+    print "$PROGRAM (pkgmaint) $VERSION\n";
 }
 
 sub print_help {
-	print <<EOF;
+    print <<EOF;
 Usage: $PROGRAM [-hv] [-r rootdir]
 Find files that are owned by package manager but somehow disappeared.
 
@@ -52,26 +55,28 @@ EOF
 }
 
 sub main {
-	my $help_ref = "Try '$PROGRAM --help' for more information.";
+    my $usage_message = "Try '$PROGRAM --help' for more information.";
 
-	GetOptions(
-		"r|root=s"  => \my $opt_root,
-		"v|version" => \my $opt_version,
-		"h|help"    => \my $opt_help,
-	) or die "$help_ref\n";
+    GetOptions(
+        "r|root=s"  => \my $opt_root,
+        "v|version" => \my $opt_version,
+        "h|help"    => \my $opt_help,
+    ) or die "$usage_message\n";
 
-	print_version() and exit if $opt_version;
-	print_help()    and exit if $opt_help;
+    print_version() and exit if $opt_version;
+    print_help()    and exit if $opt_help;
 
-	die "$PROGRAM: invalid option -- '@ARGV'\n$help_ref\n" if @ARGV;
+    die "$PROGRAM: invalid option -- '@ARGV'\n$usage_message\n" if @ARGV;
 
-	finddisappeared $opt_root;
+    find_disappeared_files $opt_root;
 }
 
 ######################################################################
 
+# Run main if not loaded as module.
 main() if not caller();
+
 1;
 
-# vim: cc=72 tw=70
+# vim: sw=4 ts=4 sts=4 et cc=72 tw=70
 # End of file.
