@@ -1,12 +1,12 @@
 .\" finddepsdistmeta(1) manual page
 .\" See COPYING and COPYRIGHT files for corresponding information.
-.Dd September 3, 2023
+.Dd March 02, 2025
 .Dt FINDDEPSDISTMETA 1
 .Os
 .\" ==================================================================
 .Sh NAME
 .Nm finddepsdistmeta
-.Nd parse Perl-module's distmeta file and find dependencies
+.Nd find Perl module dependencies from distribution metadata
 .\" ==================================================================
 .Sh SYNOPSIS
 .Nm finddepsdistmeta
@@ -18,15 +18,19 @@ The
 .Nm
 utility parses so-called
 .Dq distmeta
-(CPAN distribution metadata) of Perl-module and find dependencies.
-It shows dependencies that are in the core Perl distribution and
-searches missing modules in the existing installed
-.Dq p5-*
-packages.
+(CPAN distribution metadata) or Perl distribution metadata file
+.Po
+typically
+.Pa META.yml
+.Pc
+and displays its dependencies, checking if they are part of Perl's
+core, if they meet the required Perl version, or if they are available
+as pkgsrc packages.
 .Pp
 .Nm
-operates on packages' sources repository to search dependencies in the
-packages' footprints, and therefore requires
+searches dependencies in the packages'
+.Pa .footprint
+files, and therefore requires
 .Xr pkgman 1 .
 .Pp
 The options are as follows:
@@ -35,6 +39,11 @@ The options are as follows:
 Print version and exit.
 .It Fl h , Fl \&-help
 Print help and exit.
+.It Ar file
+The path to the distribution metadata file.
+If omitted,
+.Pa META.yml
+in the current directory is used.
 .El
 .\" ==================================================================
 .Sh FILES
