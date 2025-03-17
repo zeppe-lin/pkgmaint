@@ -228,6 +228,7 @@ Detect common mistakes and stylistic issues in pkgsrc package definitions.
   -j, --junk             check for junk files
   -s, --suid-sgid        check for SUID/SGID files and directories
   -w, --world-writeable  check for world-writeable files and directories
+  -R, --recursive        search for and check pkgsrc directories recursively
   -v, --version          print version and exit
   -h, --help             print help and exit
 EOF
