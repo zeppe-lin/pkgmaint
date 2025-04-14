@@ -1,0 +1,58 @@
+FINDDISOWNED.CONF(5)
+
+# NAME
+
+finddisowned.conf - configuration file for finddisowned
+
+# SYNOPSIS
+
+*/etc/finddisowned.conf*
+
+# DESCRIPTION
+
+_finddisowned.conf_ defines directories to be scanned for files
+untracked by the package manager.  Directories are specified one per
+line.
+
+Lines starting with '*#*' are treated as comments and ignored.  Empty
+lines are skipped.
+
+# EXAMPLES
+
+Example configuration:
+
+```
+#
+# /etc/finddisowned.conf: finddisowned(1) configuration
+#
+# See finddisowned(1) for more information.
+#
+
+# Directories to scan.
+bin
+etc
+lib
+lib32
+opt
+sbin
+usr/bin
+usr/etc
+usr/include
+usr/lib
+usr/lib32
+usr/sbin
+usr/share
+
+# End of file.
+```
+
+# FILES
+
+_/etc/finddisowned.conf_
+	Default configuration file location.
+
+# SEE ALSO
+
+*finddisowned*(1)
+
+; vim: ft=scdoc cc=72 tw=70

@@ -1,0 +1,57 @@
+FINDDISOWNED(1)
+
+# NAME
+
+finddisowned - find files disowned by the package manager
+
+# SYNOPSIS
+
+*finddisowned* [*-hv*] [*-c* _conffile_] [*-r* _rootdir_]
+
+# DESCRIPTION
+
+*finddisowned* lists files on your system that are not owned by the
+package manager.  It does this by comparing the package database
+against the contents of directories specified in the
+_finddisowned.conf_ file.
+
+The options are as follows:
+
+*-c* _conffile_, *--config*=_conffile_
+	Specify an alternate configuration file.  Default is
+	_/etc/finddisowned.conf_.
+
+*-r* _rootdir_, *--root*=_rootdir_
+	Specify an alternate root directory.  Default is '*/*'.
+
+*-v*, *--version*
+	Print version and exit.
+
+*-h*, *--help*
+	Print help and exit.
+
+# FILES
+
+_/var/lib/pkg/db_
+	System package database.
+
+_/etc/finddisowned.conf_
+	Configuration file containing a list of directories to check.
+
+# EXAMPLES
+
+To find disowned files under a custom root:
+```
+finddisowned -r /custom/root
+```
+
+To use a custom configuration file:
+```
+finddisowned -c /path/to/config
+```
+
+# SEE ALSO
+
+*finddisowned.conf*(5)
+
+; vim: ft=scdoc cc=72 tw=70

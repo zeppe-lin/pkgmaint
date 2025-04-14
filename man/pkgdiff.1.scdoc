@@ -1,0 +1,36 @@
+PKGDIFF(1)
+
+# NAME
+
+pkgdiff - compare software packages' footprints
+
+# SYNOPSIS
+
+*pkgdiff* [*-chv*] _file1_ _file2_
+
+# DESCRIPTION
+
+*pkgdiff* searches which files are new and which are removed between
+two software packages.  *pkgdiff* operates on binary packages and
+requires *pkginfo*(1) and *diff*(1).
+
+The options are as follows:
+
+*-c*, *--color*
+	Colorize *diff*(1) output.
+
+*-v*, *--version*
+	Print version and exit.
+
+*-h*, *--help*
+	Print help and exit.
+
+# EXIT STATUS
+
+*0* on success, and *>0* if an error occurs.
+
+# SEE ALSO
+
+*pkginfo*(1)
+
+; vim: ft=scdoc cc=72 tw=70

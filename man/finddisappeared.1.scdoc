@@ -1,0 +1,36 @@
+FINDDISAPPEARED(1)
+
+# NAME
+
+finddisappeared - find files that are owned by package manager but disappeared
+
+# SYNOPSIS
+
+*finddisappeared* [*-hv*] [*-r* _rootdir_]
+
+# DESCRIPTION
+
+*finddisappeared* lists the files that are owned by package manager
+(listed in the package database), but missing (somehow disappeared) on
+the actual file system.
+
+The options are as follows:
+
+*-r* _rootdir_, *--root*=_rootdir_
+	Specify an alternate root directory instead of the default
+	'*/*'.
+
+*-v*, *--version*
+	Print version and exit.
+
+*-h*, *--help*
+	Print help and exit.
+
+# SEE ALSO
+
+*finddepsdistmeta*(1),
+*finddepslinked*(1),
+*finddisowned*(1),
+*findredundantdeps*(1)
+
+; vim: ft=scdoc cc=72 tw=70

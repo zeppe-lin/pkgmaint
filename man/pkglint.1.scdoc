@@ -1,0 +1,76 @@
+PKGLINT(1)
+
+# NAME
+
+pkglint - detect common mistakes and stylistic issues in pkgsrc package definitions
+
+# SYNOPSIS
+
+*pkglint* [*-dhijsvw*] [_pkgsrc_ ...]++
+*pkglint* [*-dhijsvw*] *-R* [_pkgsrc-collection_ ...]
+
+# DESCRIPTION
+
+*pkglint* runs a series of checks on one or more pkgsrc directories to
+detect common mistakes and stylistic issues in package source.
+*pkglint* follows the requirements of *Pkgfile*(5) manual page, but
+also contains additional checks.
+
+The options are as follows:
+
+*-d*, *--dead-links*
+	Check _Pkgfile_ and _README{,.md}_ files for dead links.
+
+*-i*, *--invalid*
+	Check _.footprint_ file for "unwanted" directories, like
+	_/usr/local_, _/usr/share/locale_, _/usr/share/doc_,
+	_/usr/share/info_, etc.
+
+*-j*, *--junk*
+	Check _.footprint_ file for junk files, like _README_, _TODO_,
+	_NEWS_, etc.
+
+*-s*, *--suid-sgid*
+	Check _.footprint_ file for SUID/SGID files and directories.
+
+*-w*, *--world-writeable*
+	Check _.footprint_ file for world-writeable files and
+	directories.
+
+*-R*, *--recursive*
+	Search for and check pkgsrc directories recursively.
+
+*-v*, *--version*
+	Print version and exit.
+
+*-h*, *--help*
+	Print help and exit.
+
+# EXIT STATUS
+
+*0* on success, and *>0* if an error occurs.
+
+# EXAMPLES
+
+Lint package source located in the current/working directory:
+```
+$ cd /usr/src/pkgsrc-core/acl
+$ pkglint -dijsw
+```
+
+Lint specific package source:
+```
+$ pkglint -dijsw /usr/src/pkgsrc-core/acl
+```
+
+Lint all pkgsrc-core collection recursively:
+```
+$ pkglint -dijsw -R /usr/src/pkgsrc-core
+```
+
+# SEE ALSO
+
+*finddepslinked*(1),
+*findredundantdeps*(1)
+
+; vim: ft=scdoc cc=72 tw=70
