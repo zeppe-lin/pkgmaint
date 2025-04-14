@@ -11,6 +11,7 @@ REQUIREMENTS
 Built time
 ----------
   * POSIX sh(1p), make(1p) and "mandatory utilities"
+  * scdoc(1) to build manual pages
 
 Runtime
 -------
