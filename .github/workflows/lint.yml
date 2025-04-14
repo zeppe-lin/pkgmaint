@@ -17,12 +17,11 @@ jobs:
       run: sudo apt-get install -y shellcheck libyaml-libyaml-perl
 
     - name: Lint src files for errors
-      run: cd src && make lint
-
-#   - name: Lint man pages for errors (requires mandoc)
-#     run: cd man && make lint
-
-#   - name: Lint completion scripts for errors
-#     run: cd completion && make lint
+      run: |
+        cd src && shellcheck -s sh \
+        finddepslinked.in finddisowned.in findredundantdeps.in \
+        pkgdiff.in pkglint.in \
+        && perl -c finddisappeared.in \
+        && perl -c finddepsdistmeta.in
 
 # End of file.
