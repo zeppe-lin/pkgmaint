@@ -7,12 +7,6 @@ BIN1 = finddepsdistmeta finddepslinked finddisappeared \
 
 all: $(BIN1)
 
-lint:
-	shellcheck -s sh finddepslinked.in finddisowned.in \
-		findredundantdeps.in pkgdiff.in pkglint.in
-	perl -c finddisappeared.in
-	perl -c finddepsdistmeta.in
-
 $(BIN1):
 	sed "s/@VERSION@/$(VERSION)/" $@.in > $@
 	chmod 0755 $@
@@ -28,4 +22,4 @@ uninstall:
 clean:
 	rm -f $(BIN1)
 
-.PHONY: all lint install uninstall clean
+.PHONY: all install uninstall clean
