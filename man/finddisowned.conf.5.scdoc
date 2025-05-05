@@ -25,7 +25,7 @@ Example configuration:
 #
 # /etc/finddisowned.conf: finddisowned(1) configuration
 #
-# See finddisowned(1) for more information.
+# See finddisowned.conf(5) for more information.
 #
 
 # Directories to scan.
