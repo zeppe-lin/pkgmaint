@@ -10,7 +10,9 @@ use Module::CoreList;
 use Getopt::Long qw(:config gnu_compat);
 use Term::ANSIColor qw(:constants);
 use YAML::XS qw(LoadFile);
-# XXX use JSON; TODO: parse JSON files too.
+
+# FIXME XXX TODO: parse JSON files too.
+#use JSON;
 
 $|++; # Flush stdout immediately.
 
