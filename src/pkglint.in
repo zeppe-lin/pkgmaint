@@ -95,6 +95,7 @@ BEGIN {
 		|| $3 ~ /^usr\/local\//                 \
 		|| $3 ~ /^usr\/share\/locale\//         \
 		|| $3 ~ /^usr\/locale\//                \
+		|| $3 ~ /^usr\/share\/metainfo\//       \
 		|| $3 ~ /^usr\/share\/doc\//            \
 		|| $3 ~ /^usr\/share\/gtk-doc\//        \
 		|| $3 ~ /^usr\/doc\//                   \
