@@ -7,14 +7,14 @@ pkglint - detect common mistakes and stylistic issues in pkgsrc package definiti
 # SYNOPSIS
 
 *pkglint* [*-dhijsvw*] [_pkgsrc_ ...]++
-*pkglint* [*-dhijsvw*] *-R* [_pkgsrc-collection_ ...]
+*pkglint* [*-dhijsvw*] *-R* [_pkgsrcdir_ ...]
 
 # DESCRIPTION
 
 *pkglint* runs a series of checks on one or more pkgsrc directories to
 detect common mistakes and stylistic issues in package source.
-*pkglint* follows the requirements of *Pkgfile*(5) manual page, but
-also contains additional checks.
+*pkglint* follows the requirements of *packaging*(7) manual page,
+but also contains additional checks.
 
 The options are as follows:
 
@@ -44,11 +44,14 @@ The options are as follows:
 	Print version and exit.
 
 *-h*, *--help*
-	Print help and exit.
+	Print usage and exit.
 
 # EXIT STATUS
 
-*0* on success, and *>0* if an error occurs.
+*0*
+	Success.
+*>0*
+	An error occurred.
 
 # EXAMPLES
 

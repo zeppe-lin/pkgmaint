@@ -6,7 +6,7 @@ findredundantdeps - find (un)necessary dependencies of a package source
 
 # SYNOPSIS
 
-*findredundantdeps* [*-huv*] _pkgname_
+*findredundantdeps* [*-huv*] _package-name_
 
 # DESCRIPTION
 
@@ -24,7 +24,7 @@ The options are as follows:
 	Print version and exit.
 
 *-h*, *--help*
-	Print help and exit.
+	Print usage and exit.
 
 # SEE ALSO
 

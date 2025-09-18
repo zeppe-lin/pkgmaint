@@ -6,7 +6,7 @@ finddisowned - find files disowned by the package manager
 
 # SYNOPSIS
 
-*finddisowned* [*-hv*] [*-c* _conffile_] [*-r* _rootdir_]
+*finddisowned* [*-hv*] [*-c* _config-file_] [*-r* _root-dir_]
 
 # DESCRIPTION
 
@@ -17,26 +17,33 @@ _finddisowned.conf_ file.
 
 The options are as follows:
 
-*-c* _conffile_, *--config*=_conffile_
-	Specify an alternate configuration file.  Default is
-	_/etc/finddisowned.conf_.
+*-c* _config-file_, *--config*=_config-file_
+	Use an alternate configuration file.
 
-*-r* _rootdir_, *--root*=_rootdir_
-	Specify an alternate root directory.  Default is '*/*'.
+	Default: _/etc/finddisowned.conf_.
+
+*-r* _root-dir_, *--root*=_root-dir_
+	Use an alternate root directory.
+
+	Default: '*/*'.
 
 *-v*, *--version*
 	Print version and exit.
 
 *-h*, *--help*
-	Print help and exit.
+	Print usage and exit.
 
 # FILES
 
-_/var/lib/pkg/db_
-	System package database.
-
 _/etc/finddisowned.conf_
-	Configuration file containing a list of directories to check.
+	Default configuration file.
+
+	See *finddisowned.conf*(5).
+
+_/var/lib/pkg/db_
+	Package database.
+
+	See '*PACKAGE DATABASE*' in *packages*(7).
 
 # EXAMPLES
 
