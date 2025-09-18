@@ -72,9 +72,9 @@ print_help() {
 Usage: $ARGV0 [-chv] file1 file2
 Compare software packages' footprints.
 
-  -c, --color    colorize output
-  -v, --version  print version and exit
-  -h, --help     print help and exit
+  -c, --color    Colorize output
+  -v, --version  Print version and exit
+  -h, --help     Print this help and exit
 EOF
 }
 

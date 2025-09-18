@@ -224,14 +224,15 @@ print_help() {
 Usage: $ARGV0 [-dhijsvw] [pkgsrcdir ...]
 Detect common mistakes and stylistic issues in pkgsrc package definitions.
 
-  -d, --dead-links       check for dead links
-  -i, --invalid          check for invalid directories
-  -j, --junk             check for junk files
-  -s, --suid-sgid        check for SUID/SGID files and directories
-  -w, --world-writeable  check for world-writeable files and directories
-  -R, --recursive        search for and check pkgsrc directories recursively
-  -v, --version          print version and exit
-  -h, --help             print help and exit
+  -d, --dead-links       Check for dead links
+  -i, --invalid          Check for invalid directories
+  -j, --junk             Check for junk files
+  -s, --suid-sgid        Check for SUID/SGID files and directories
+  -w, --world-writeable  Check for world-writeable files and directories
+  -R, --recursive        Search for and check package source directories
+                         recursively
+  -v, --version          Print version and exit
+  -h, --help             Print this help and exit
 EOF
 }
 

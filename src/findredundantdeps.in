@@ -50,12 +50,12 @@ show_uniq() {
 
 print_help() {
 	cat <<EOF
-Usage: $ARGV0 [-huv] pkgname
+Usage: $ARGV0 [-huv] package-name
 Find (un)necessary dependencies of the package.
 
-  -u, --unique   print only unique (required) dependencies
-  -v, --version  print version and exit
-  -h, --help     print help and exit
+  -u, --unique   Print only unique (required) dependencies
+  -v, --version  Print version and exit
+  -h, --help     Print this help and exit
 EOF
 }
 

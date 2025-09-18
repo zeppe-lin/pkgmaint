@@ -111,8 +111,8 @@ print_help() {
 Usage: $ARGV0 [-hv] pkgname
 Find linked dependencies for a package.
 
-  -v, --version  print version and exit
-  -h, --help     print help and exit
+  -v, --version  Print version and exit
+  -h, --help     Print this help and exit
 EOF
 }
 
