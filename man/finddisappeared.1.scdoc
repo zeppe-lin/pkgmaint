@@ -6,7 +6,7 @@ finddisappeared - find files that are owned by package manager but disappeared
 
 # SYNOPSIS
 
-*finddisappeared* [*-hv*] [*-r* _rootdir_]
+*finddisappeared* [*-hv*] [*-r* _root-dir_]
 
 # DESCRIPTION
 
@@ -16,15 +16,24 @@ the actual file system.
 
 The options are as follows:
 
-*-r* _rootdir_, *--root*=_rootdir_
-	Specify an alternate root directory instead of the default
-	'*/*'.
+*-r* _root-dir_, *--root*=_root-dir_
+	Use an alternate root directory.
+	The package database is read from _root-dir_.
+
+	Default: '*/*'.
 
 *-v*, *--version*
 	Print version and exit.
 
 *-h*, *--help*
 	Print usage and exit.
+
+# EXIT STATUS
+
+*0*
+	Command executed successfully.
+*>0*
+	An error occurred.
 
 # SEE ALSO
 
