@@ -221,7 +221,8 @@ dead_links() {
 
 print_help() {
 	cat <<EOF
-Usage: $ARGV0 [-dhijsvw] [pkgsrcdir ...]
+Usage: $ARGV0 [-dhijsvw] [pkgsrc ...]
+       $ARGV0 [-dhijsvw] -R [pkgsrcdir ...]
 Detect common mistakes and stylistic issues in pkgsrc package definitions.
 
   -d, --dead-links       Check for dead links
@@ -230,7 +231,7 @@ Detect common mistakes and stylistic issues in pkgsrc package definitions.
   -s, --suid-sgid        Check for SUID/SGID files and directories
   -w, --world-writeable  Check for world-writeable files and directories
   -R, --recursive        Search for and check package source directories
-                         recursively
+                          recursively
   -v, --version          Print version and exit
   -h, --help             Print this help and exit
 EOF
