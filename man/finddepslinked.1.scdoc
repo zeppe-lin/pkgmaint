@@ -6,13 +6,14 @@ finddepslinked - find linked dependencies for a package
 
 # SYNOPSIS
 
-*finddepslinked* [*-hv*] _pkgname_
+*finddepslinked* [*-hv*] _package-name_
 
 # DESCRIPTION
 
 *finddepslinked* lists the dependencies of the installed package's
-dynamic executables and libraries.   It operates on installed packages
-and requires *ldd*(1), *pkginfo*(1) and *pkgman*(1).
+dynamic executables and libraries.
+It operates on installed packages and requires *ldd*(1), *pkginfo*(1)
+and *pkgman*(1).
 
 The options are as follows:
 
@@ -21,6 +22,13 @@ The options are as follows:
 
 *-h*, *--help*
 	Print usage and exit.
+
+# EXIT STATUS
+
+*0*
+	Command executed successfully.
+*>0*
+	An error occurred.
 
 # SEE ALSO
 
