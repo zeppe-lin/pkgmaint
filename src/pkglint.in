@@ -312,7 +312,7 @@ set -ef
 export LC_ALL=POSIX
 readonly ARGV0="${0##*/}"
 LOPTS="recursive,dead-links,invalid,junk,suid-sgid,world-writeable,version,help"
-SOPTS="Rdfijswvh"
+SOPTS="Rdijswvh"
 CURL_CMD="-L -I -f --retry 3 --retry-delay 3 -o /dev/null -sw %{http_code}"
 CURL_OPTS=
 CHECK=
