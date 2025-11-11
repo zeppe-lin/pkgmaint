@@ -5,26 +5,29 @@
 use strict;
 use warnings;
 use File::Basename;
-use Getopt::Long qw(:config gnu_compat);
+use Getopt::Long qw(:config gnu_compat no_auto_abbrev no_ignore_case);
 
 # Program name and version.
 my $PROGRAM = basename $0;
 my $VERSION = '@VERSION@';
 
+# Default path to the package database.
+my $DB_PATH = '/var/lib/pkg/db';
+
 ######################################################################
-# Finddisappeared subroutines.                                       #
+# Core functionality                                                 #
 ######################################################################
 
 # Find files that are listed in the package database but are
 # disappeared from the filesystem.
 sub find_disappeared_files {
     my $root = shift || '';
-    my $db = "$root/var/lib/pkg/db";
+    my $db = $root . $DB_PATH;
 
     open my $fh, '<', $db
-        or die "$PROGRAM: error: could not open package database ($db): $!\n";
+        or die "Could not open package database ($db): $!\n";
 
-    local $/ = ''; # Read files paragraph wise.
+    local $/ = ''; # paragraph mode
     while (<$fh>) {
         my ($name, undef, @files) = split /\n/;
         for my $file (@files) {
@@ -35,7 +38,7 @@ sub find_disappeared_files {
 }
 
 ######################################################################
-# Command-line helpers.                                              #
+# CLI helpers                                                        #
 ######################################################################
 
 sub print_version {
@@ -54,21 +57,21 @@ Mandatory arguments to long options are mandatory for short options too.
 EOF
 }
 
+######################################################################
+# Entry point                                                        #
+######################################################################
+
 sub main {
-    my $usage_message = "Try '$PROGRAM --help' for more information.";
+    GetOptions(\my %opt, 'root|r=s', 'version|v', 'help|h')
+        or die "Try '$PROGRAM --help' for more information.\n";
 
-    GetOptions(
-        "r|root=s"  => \my $opt_root,
-        "v|version" => \my $opt_version,
-        "h|help"    => \my $opt_help,
-    ) or die "$usage_message\n";
+    print_version() and exit if $opt{version};
+    print_help()    and exit if $opt{help};
 
-    print_version() and exit if $opt_version;
-    print_help()    and exit if $opt_help;
+    die "Unknown option: @ARGV\nTry '$PROGRAM --help' for more information.\n"
+        if @ARGV;
 
-    die "$PROGRAM: invalid option -- '@ARGV'\n$usage_message\n" if @ARGV;
-
-    find_disappeared_files $opt_root;
+    find_disappeared_files $opt{root};
 }
 
 ######################################################################
