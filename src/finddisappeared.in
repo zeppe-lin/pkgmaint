@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 # finddisappeared - find files that are owned by package manager but disappeared
-# See COPYING and COPYRIGHT files for corresponding information.
+# See COPYING for license terms and COPYRIGHT for notices.
 
 use strict;
 use warnings;

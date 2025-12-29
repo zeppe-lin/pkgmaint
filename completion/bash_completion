@@ -1,5 +1,5 @@
 # bash completion for pkgmaint utilities
-# See COPYING and COPYRIGHT files for corresponding information.
+# See COPYING for license terms and COPYRIGHT for notices.
 
 _finddepsdistmeta()
 {

@@ -1,6 +1,6 @@
 #!/bin/sh
 # finddisowned - find files that are disowned by package manager
-# See COPYING and COPYRIGHT files for corresponding information.
+# See COPYING for license terms and COPYRIGHT for notices.
 
 ######################################################################
 # Section: Error codes                                               #

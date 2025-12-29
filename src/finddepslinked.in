@@ -1,6 +1,6 @@
 #!/bin/sh
 # finddepslinked - find linked dependencies for a package
-# See COPYING and COPYRIGHT files for corresponding information.
+# See COPYING for license terms and COPYRIGHT for notices.
 
 ######################################################################
 # Notification helpers.                                              #

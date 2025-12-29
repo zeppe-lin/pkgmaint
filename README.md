@@ -46,7 +46,7 @@ See `/man` directory for manual pages.
 LICENSE
 =======
 
-`pkgmaint` is licensed through the GNU General Public License v3 or
-later <https://gnu.org/licenses/gpl.html>.
-Read the COPYING file for copying conditions.
-Read the COPYRIGHT file for copyright notices.
+`pkgmaint` is licensed through the
+[GNU General Public License v3 or later](https://gnu.org/licenses/gpl.html).
+
+See `COPYING` for license terms and `COPYRIGHT` for notices.

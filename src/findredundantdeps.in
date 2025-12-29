@@ -1,6 +1,6 @@
 #!/bin/sh
 # findredundantdeps - find (un)necessary dependencies of the package
-# See COPYING and COPYRIGHT files for corresponding information.
+# See COPYING for license terms and COPYRIGHT for notices.
 
 ######################################################################
 # Notification helpers.                                              #

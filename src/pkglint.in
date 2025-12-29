@@ -1,6 +1,6 @@
 #!/bin/sh
 # pkglint - verifier for pkgsrc packages
-# See COPYING and COPYRIGHT files for corresponding information.
+# See COPYING for license terms and COPYRIGHT for notices.
 
 # Intentional: we're using indirect call for functions.
 # https://www.shellcheck.net/wiki/SC2317
