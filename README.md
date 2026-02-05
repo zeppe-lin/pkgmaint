@@ -2,21 +2,23 @@ OVERVIEW
 ========
 
 This repository contains `pkgmaint`, a collection of scripts for
-Zeppe-Lin, mainly oriented towards package management and maintaining.
+Zeppe‑Lin, primarily focused on package management and maintenance
+tasks.
 
+---
 
 REQUIREMENTS
 ============
 
-Built time
+Build-time
 ----------
-  * POSIX `sh(1p)`, `make(1p)` and "mandatory utilities"
-  * `scdoc(1)` to build manual pages
+  * POSIX `sh(1p)`, `make(1p)`, and "mandatory utilities"
+  * `scdoc(1)` to generate manual pages
 
 Runtime
 -------
   * POSIX `sh(1p)` and "mandatory utilities"
-  * `YAML::XS(3)` perl module and perl itself
+  * Perl with `YAML::XS(3pm)` module
   * GNU `findutils`
   * GNU `diffutils`
   * GNU `grep`
@@ -26,27 +28,35 @@ Runtime
   * `pkgman`
   * `curl`
 
+---
 
-INSTALL
-=======
+INSTALLATION
+============
 
-To install this package, run:
+To install:
 
-    make install
+```sh
+# as root
+make install
+```
 
-See `config.mk` file for configuration parameters.
+Configuration parameters, including installation paths, are defined in
+`config.mk`.
 
+---
 
 DOCUMENTATION
 =============
 
-See `/man` directory for manual pages.
+Manual pages are provided in the `/man` directory and installed under
+the system manual hierarchy.
 
+---
 
 LICENSE
 =======
 
-`pkgmaint` is licensed through the
+`pkgmaint` is licensed under the
 [GNU General Public License v3 or later](https://gnu.org/licenses/gpl.html).
 
 See `COPYING` for license terms and `COPYRIGHT` for notices.
